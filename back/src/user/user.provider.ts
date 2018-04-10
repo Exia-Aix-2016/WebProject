@@ -1,6 +1,6 @@
 import { Connection, Repository } from 'typeorm';
 import { User } from './user.entity';
-import { DbConnectionToken,  UserRepositoryToken} from "../constants";
+import { DbConnectionToken, UserRepositoryToken } from '../constants';
 
 export const userProviders = [
   {
