@@ -1,0 +1,16 @@
+import { Component, Inject } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
+import { UserRepositoryToken } from '../constants';
+
+@Component()
+export class UserService {
+  constructor(
+    @Inject(UserRepositoryToken)
+    private readonly userRepository: Repository<User>,
+  ) {}
+
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find({ relations: ['group'] });
+  }
+}

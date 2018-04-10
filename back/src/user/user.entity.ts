@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Group } from './group.entity';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn() id: number;
 
   @Column({ length: 45 })
   name: string;
@@ -17,6 +17,6 @@ export class User {
   @Column({ length: 45 })
   password: string;
 
-  @Column({ length: 45 })
-  group: string;
+  @ManyToOne(type => Group, group => group.users)
+  group: Group;
 }

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 @Module({
-  components: [ ],
-  exports:  [ ]
+  components: [],
+  exports: [],
 })
 export class SocialModule {}

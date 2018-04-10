@@ -1,1 +1,1 @@
-export const DbConnectionToken = "DbConnectionToken";
+export const DbConnectionToken = 'DbConnectionToken';
