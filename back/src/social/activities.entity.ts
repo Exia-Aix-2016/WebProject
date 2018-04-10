@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm';
 import { Occurence } from './occurence.entity';
 import { Picture } from './pictures.entity';
 
@@ -23,8 +23,8 @@ export class Activity {
   @Column() signaled: boolean;
 
   //FOREIGN KEY
-  @OneToMany(type => Occurence, Occurency => Occurency.Activity)
-  Occurency: Occurence[];
+  @ManyToMany(type => Occurence, Occurency => Occurency.Activity)
+  Occurency: Occurence;
 
   @OneToMany(type => Picture, Picture => Picture.Activity)
   pictures: Picture[];
