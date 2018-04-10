@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { DatabaseModule } from '../database/database.module';
+import { UserModule } from '../user/user.module';
+import { ShopModule } from '../shop/shop.module';
+import { ActivityModule } from '../activity/activity.module';
+import { SocialModule } from '../social/social.module';
 
 @Module({
-  imports: [ DatabaseModule ],
+  imports: [ UserModule, ActivityModule, ShopModule, SocialModule ],
   controllers: [ AppController ],
   components: [],
 })
