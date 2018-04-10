@@ -4,23 +4,22 @@ import { Picture } from './pictures.entity';
 
 @Entity()
 export class Activity {
-
   //PRIMARY KEY
   @PrimaryGeneratedColumn() id: Number;
 
-  @Column() name: string;
+  @Column({ type: 'varchar', length: 200 }) name: string;
 
-  @Column() description: string;
+  @Column({ type: 'text', length: 2048}) description: string;
 
-  @Column() poster_url: string;
+  @Column({ type: 'varchar', length: 1048}) poster_url: string;
 
-  @Column() date: Date;
+  @Column({ type: 'date' }) date: Date;
 
-  @Column() price: Number;
+  @Column({ type: 'double' }) price: Number;
 
-  @Column() planned: boolean;
+  @Column({ type: 'boolean' }) planned: boolean;
 
-  @Column() signaled: boolean;
+  @Column({ type: 'boolean' }) signaled: boolean;
 
   //FOREIGN KEY
   @ManyToMany(type => Occurence, Occurency => Occurency.Activity)

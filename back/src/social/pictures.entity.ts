@@ -4,11 +4,9 @@ import { Activity } from './activities.entity';
 @Entity()
 export class Picture{
 
-    @PrimaryGeneratedColumn()
-    id: Number;
+    @PrimaryGeneratedColumn({ type: 'int'}) id: Number;
 
-    @Column()
-    url: string;
+    @Column({ type: 'varchar', length: 1024}) url: string;
 
     @ManyToOne(type => Activity, Activity => Activity.pictures)
     Activity: Activity;

@@ -4,9 +4,8 @@ import { Activity } from './activities.entity';
 @Entity()
 export class Occurence{
 
-    @PrimaryColumn()
-    name: string;
+    @PrimaryColumn({type: 'varchar' }) name: string;
 
-    @OneToMany(type => Activity, Activity => Activity.Occurency)
+    @OneToMany(type => Activity, Activity => Activity.Occurency) 
     Activity: Activity[];
 }
