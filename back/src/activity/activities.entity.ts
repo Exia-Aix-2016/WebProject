@@ -5,7 +5,7 @@ import { Participation } from './participations.entity';
 @Entity()
 export class Activity {
   //PRIMARY KEY
-  @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn({ type: 'int' }) id: number;
 
   @Column({ type: 'varchar', length: 200 })
   name: string;
