@@ -6,6 +6,6 @@ export class Occurence{
 
     @PrimaryColumn({type: 'varchar' }) name: string;
 
-    @OneToMany(type => Activity, Activity => Activity.Occurency) 
+    @ManyToOne(type => Activity, Activity => Activity.Occurency) 
     Activity: Activity[];
 }
