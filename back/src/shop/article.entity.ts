@@ -1,11 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  RelationId,
+} from 'typeorm';
 import { Category } from './category.entity';
 import { CartArticle } from './cart-article.entity';
 
 @Entity()
 export class Article {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn() id: number;
 
   @Column({ length: 45 })
   name: string;
@@ -13,16 +19,17 @@ export class Article {
   @Column({ length: 250 })
   description: string;
 
-  @Column()
-  price: number;
+  @Column() price: number;
 
   @Column({ length: 100 })
   picture_url: string;
 
   @ManyToOne(type => Category, category => category.articles)
-  categoryName: Category;
+  category: Category;
+
+  @RelationId((article: Article) => article.category)
+  categoryName: string;
 
   @OneToMany(type => CartArticle, cartArticle => cartArticle.articleId)
   cartArticles: CartArticle[];
-    
 }
