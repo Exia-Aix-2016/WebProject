@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Activity } from './activities.entity';
+
 
 @Entity()
 export class Picture{
@@ -10,6 +10,6 @@ export class Picture{
 
     @Column({ type: 'boolean', default: null}) signaled: boolean;
 
-    @ManyToOne(type => Activity, Activity => Activity.pictures)
-    Activity: Activity;
+    //@ManyToOne(type => Activity, Activity => Activity.pictures)
+   //Activity: Activity;
 }
