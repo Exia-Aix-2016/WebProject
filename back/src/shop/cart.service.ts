@@ -19,7 +19,8 @@ export class CartService {
     ) {}
 
     async create(createCartDto: CreateCartDto): Promise<ICart>{
-        return await this.cartRepository.create(createCartDto);
+        const cart: Cart = this.cartRepository.create(createCartDto);
+        return await this.cartRepository.save(cart);
     }
 
     async setArticleQuantity(cart: ICart|number, article: IArticle, number, quantity: number): Promise<void>{
@@ -33,7 +34,7 @@ export class CartService {
         return await this.cartRepository.findOneById(id);
     }
 
-    async getByUser(user: IUser|number): Promise<IUser[]>{
+    async getByUser(user: IUser|number): Promise<Cart[]>{
         const id: number = typeof user === 'number' ? user: user.id;
         return await this.cartRepository.find({id});
     }
