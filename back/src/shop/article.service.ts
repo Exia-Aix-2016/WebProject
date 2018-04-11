@@ -12,7 +12,7 @@ export class ArticleService {
     private readonly articleRepository: Repository<Article>,
 
     @Inject(CartArticleRepositoryToken)
-    private readonly cartArticleRepository: Repository<Article>,
+    private readonly cartArticleRepository: Repository<CartArticle>,
   ) {}
 
   async findAll(): Promise<Article[]> {
