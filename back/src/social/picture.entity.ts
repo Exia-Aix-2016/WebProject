@@ -6,14 +6,15 @@ import { Comment } from './comment.entity';
 export class Picture {
   @PrimaryGeneratedColumn() id: number;
 
-  @Column({ length: 100 }) url: string;
+  @Column({ length: 100 })
+  url: string;
 
   @Column() signaled: boolean;
 
   @Column() idActivity: number;
 
-  @ManyToMany(type => Like, Like => Like.picture)
-  like: Like[];
+  @ManyToMany(type => Like, like => like.picture)
+  likes: Like[];
 
   @ManyToOne(type => Comment, Comment => Comment.picture)
   comment: Comment[];

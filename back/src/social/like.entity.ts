@@ -1,10 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Picture } from './picture.entity';
 
 export class Like {
   
-  @Column() idUser: number;
+    @PrimaryColumn() idUser: number;
 
-  @ManyToOne(type => Picture, Picture => Picture.like)
-  picture: Picture[];
+    @ManyToOne(type => Picture, picture => picture.likes)
+    picture: Picture[];
 }
