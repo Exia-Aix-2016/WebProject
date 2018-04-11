@@ -2,7 +2,7 @@ import { Connection, Repository } from 'typeorm';
 import { CartArticle } from './cart-article.entity';
 import { DbConnectionToken, CartArticleRepositoryToken } from '../constants';
 
-export const CartArticleProviders = [
+export const cartArticleProviders = [
   {
     provide: CartArticleRepositoryToken,
     useFactory: (connection: Connection) =>
