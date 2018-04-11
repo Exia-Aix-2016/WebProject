@@ -1,10 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import {} from './pictures.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany } from 'typeorm';
+import { Picture } from './pictures.entity';
 
 
 export class Like{
 
 
-    
+
+    @ManyToMany(type => Picture, Picture => Picture.like)
+    picture: Picture[];
+
 
 }

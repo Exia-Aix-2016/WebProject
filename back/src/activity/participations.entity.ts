@@ -9,6 +9,6 @@ export class Participation{
     //@ManyToMany(type => User, User => User.Activity)
     //User: User[];
 
-    @ManyToMany(type => Activity, Activity => Activity.Participation)
-    Activity: Activity[];
+    @ManyToMany(type => Activity, Activity => Activity.participation)
+    activity: Activity[];
 }
