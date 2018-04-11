@@ -4,6 +4,7 @@ import { Like } from './like.entity';
 import { Comment } from './comment.entity';
 import { CommentRepositoryToken, LikeRepositoryToken, PictureRepositoryToken, } from '../constants';
 import { Picture } from './picture.entity';
+import { IUser } from '../../../common/interface';
 
 
 @Component()
@@ -27,7 +28,34 @@ export class SocialService {
     return likes.length;
   }
 
-  async like(pictureId: number | Picture, userId: number | Iuser)
+  async like(pictureOpt: number | Picture, userOpt: number | IUser, liked: boolean): Promise<void>{
+    const pictureId: number = typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
+    const userId: number = typeof userOpt === 'number' ? userOpt : userOpt.id;
+
+    //get picture
+    const picture: Picture = await this.pictureRepository.findOneById(pictureId, {relations: ['likes']});
+
+
+    //Did user has already liked a picture ?
+
+    let alreadyLiked: boolean = picture.likes.find(l => l.userId == userId) ? true : false;
+ 
+    if(alreadyLiked && !liked){//Already liked
+
+     const like: Like = await this.likeRepository.findOne({ userId, pictureId });
+     await this.likeRepository.delete(like);
+
+    } else if(!alreadyLiked && liked){
+
+      await this.likeRepository.create({userId, pictureId});
+
+    }
+    
+
+
+
+
+  }
 
 
 }
