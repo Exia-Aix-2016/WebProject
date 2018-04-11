@@ -18,6 +18,4 @@ export class Picture {
 
   @ManyToOne(type => Comment, Comment => Comment.picture)
   comment: Comment[];
-
-  @RelationId()
 }
