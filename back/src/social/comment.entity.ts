@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Picture } from './pictures.entity';
+import { Picture } from './picture.entity';
 
 export class Comment {
     @PrimaryGeneratedColumn() id: number;

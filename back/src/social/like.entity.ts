@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Picture } from './pictures.entity';
+import { Picture } from './picture.entity';
 
 export class Like {
   
