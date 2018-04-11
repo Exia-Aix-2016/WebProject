@@ -91,13 +91,17 @@ export class SocialService {
       await this.pictureRepository.deleteById(selector.picture.id);
     }
   }
-  
+
   async getComments(pictureOpt: number | Picture): Promise<Comment[]>{
     const pictureId: number = typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
 
     const picture = await this.pictureRepository.findOneById(pictureId);
 
     return await this.commentRepository.find({pictureId});
+  }
+  async getPicture(pictureId: number): Promise<Picture>{
+
+    return await this.pictureRepository.findOneById(pictureId);
   }
 }
 
