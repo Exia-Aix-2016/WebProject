@@ -1,6 +1,6 @@
 import { Connection, Repository } from 'typeorm';
 import { Category } from './category.entity';
-import { DbConnectionToken,  CategoryRepositoryToken} from "../constants";
+import { DbConnectionToken, CategoryRepositoryToken } from '../constants';
 
 export const CategoryProviders = [
   {

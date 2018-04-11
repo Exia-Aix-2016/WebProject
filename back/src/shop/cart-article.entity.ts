@@ -3,13 +3,12 @@ import { Cart } from './cart.entity';
 import { Article } from './article.entity';
 
 @Entity()
-export class CartArticle{
-    @ManyToOne(type => Cart, cart => cart.cartArticles)
-    cartId: Cart; 
+export class CartArticle {
+  @ManyToOne(type => Cart, cart => cart.cartArticles)
+  cartId: Cart;
 
-    @ManyToOne(type => Article, article => article.cartArticles)
-    articleId: Article;
+  @ManyToOne(type => Article, article => article.cartArticles)
+  article: Article;
 
-    @Column()
-    quantity: number;
+  @Column() quantity: number;
 }
