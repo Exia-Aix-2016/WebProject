@@ -21,8 +21,8 @@ export class SocialService {
     private readonly pictureRepository: Repository<Picture>,
   ) {}
 
-  
-  async likes(pictureId: number | Picture): Promise<number> {//Get number of likes on a picture.
+  async likes(pictureId: number | Picture): Promise<number> {
+    //Get number of likes on a picture.
     const id: number = typeof pictureId === 'number' ? pictureId : pictureId.id;
 
     const picture: Picture = await this.pictureRepository.findOneById(id);
@@ -31,47 +31,75 @@ export class SocialService {
     return likes.length;
   }
 
-  async like(pictureOpt: number | Picture, userOpt: number | IUser, liked: boolean): Promise<void>{
+  async like(pictureOpt: number | Picture, userOpt: number | IUser, liked: boolean): Promise<void> {
     const pictureId: number = typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
     const userId: number = typeof userOpt === 'number' ? userOpt : userOpt.id;
 
     //get picture
-    const picture: Picture = await this.pictureRepository.findOneById(pictureId, {relations: ['likes']});
-
+    const picture: Picture = await this.pictureRepository.findOneById(
+      pictureId,
+      { relations: ['likes'] },
+    );
 
     //Did user has already liked a picture ?
 
-    let alreadyLiked: boolean = picture.likes.find(l => l.userId == userId) ? true : false;
- 
-    if(alreadyLiked && !liked){//Already liked
+    let alreadyLiked: boolean = picture.likes.find(l => l.userId == userId)
+      ? true
+      : false;
 
-     const like: Like = await this.likeRepository.findOne({ userId, pictureId });
-     await this.likeRepository.delete(like);
+    if (alreadyLiked && !liked) {
+      //Already liked
 
-    } else if(!alreadyLiked && liked){
-
-      const like: Like = this.likeRepository.create({userId, pictureId});
+      const like: Like = await this.likeRepository.findOne({
+        userId,
+        pictureId,
+      });
+      await this.likeRepository.delete(like);
+    } else if (!alreadyLiked && liked) {
+      const like: Like = this.likeRepository.create({ userId, pictureId });
       await this.likeRepository.save(like);
-
     }
   }
 
-  async signal(selector: SocialSelectorDto, signaled: boolean): Promise<void>{
-
-    if(isUndefined(selector.comment) && isUndefined(selector.picture))
-    {
-      throw new Error("selector empty");
+  async signal(selector: SocialSelectorDto, signaled: boolean): Promise<void> {
+    if (isUndefined(selector.comment) && isUndefined(selector.picture)) {
+      throw new Error('selector empty');
     }
 
-    if(selector.comment){
-      await this.commentRepository.updateById(selector.comment.id, {signaled});
-
+    if (selector.comment) {
+      await this.commentRepository.updateById(selector.comment.id, {
+        signaled,
+      });
     }
-    if(selector.picture){
-      await this.pictureRepository.updateById(selector.picture.id, {signaled});
+    if (selector.picture) {
+      await this.pictureRepository.updateById(selector.picture.id, {
+        signaled,
+      });
     }
   }
-  
+
+  async delete(selector: SocialSelectorDto): Promise<void> {
+    if (isUndefined(selector.comment) && isUndefined(selector.picture)) {
+      throw new Error('selector empty');
+    }
+
+    if (selector.comment) {
+      await this.commentRepository.deleteById(selector.comment.id);
+
+    }
+    if (selector.picture) {
+      await this.pictureRepository.deleteById(selector.picture.id);
+    }
+  }
+  async getComments(pictureOpt: number | Picture): Promise<Comment[]>{
+    const pictureId: number = typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
+
+    const picture = await this.pictureRepository.findOneById(pictureId);
+
+    return await this.commentRepository.find({pictureId});
+
+
+  }
 }
 
 
