@@ -4,8 +4,7 @@ import { Picture } from './pictures.entity';
 
 export class Like{
 
-
-
+    //@ManyToMany for USER
     @ManyToMany(type => Picture, Picture => Picture.like)
     picture: Picture[];
 

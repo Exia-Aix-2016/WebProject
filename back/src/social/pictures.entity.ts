@@ -3,17 +3,15 @@ import { Like } from './likes.entity';
 
 
 @Entity()
-export class Picture{
+export class Picture {
+  @PrimaryGeneratedColumn({ type: 'int' }) id: number;
 
-    @PrimaryGeneratedColumn({ type: 'int'}) id: Number;
+  @Column({ type: 'varchar', length: 100 }) url: string;
 
-    @Column({ type: 'varchar', length: 100}) url: string;
+  @Column({ type: 'boolean', default: null }) signaled: boolean;
 
-    @Column({ type: 'boolean', default: null}) signaled: boolean;
+  @ManyToMany(type => Like, Like => Like.picture) like: Like[];
 
-    @ManyToMany(type => Like, Like => Like.picture)
-    like: Like[];
-
-    //@ManyToOne(type => Activity, Activity => Activity.pictures)
-   //Activity: Activity;
+  //@ManyToOne(type => Activity, Activity => Activity.pictures)
+  //Activity: Activity;
 }

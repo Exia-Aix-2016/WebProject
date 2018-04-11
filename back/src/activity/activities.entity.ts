@@ -5,7 +5,7 @@ import { Participation } from './participations.entity';
 @Entity()
 export class Activity {
   //PRIMARY KEY
-  @PrimaryGeneratedColumn() id: Number;
+  @PrimaryGeneratedColumn() id: number;
 
   @Column({ type: 'varchar', length: 200 })
   name: string;
@@ -20,7 +20,7 @@ export class Activity {
   date: Date;
 
   @Column({ type: 'double' })
-  price: Number;
+  price: number;
 
   @Column({ type: 'boolean' })
   planned: boolean;
