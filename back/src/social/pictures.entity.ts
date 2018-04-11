@@ -1,17 +1,24 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  ManyToMany,
+} from 'typeorm';
 import { Like } from './likes.entity';
-import { Comment } from './comments.entity'
-
+import { Comment } from './comments.entity';
 
 @Entity()
 export class Picture {
-  @PrimaryGeneratedColumn({ type: 'int' }) id: number;
+  @PrimaryGeneratedColumn() id: number;
 
-  @Column({ type: 'varchar', length: 100 }) url: string;
+  @Column({ length: 100 })
+  url: string;
 
-  @Column({ type: 'boolean' }) signaled: boolean;
+  @Column() signaled: boolean;
 
-  @ManyToMany(type => Like, Like => Like.picture) like: Like[];
+  @ManyToMany(type => Like, Like => Like.picture)
+  like: Like[];
 
   @ManyToOne(type => Comment, Comment => Comment.picture)
   comment: Comment[];
