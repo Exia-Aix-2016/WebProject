@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany } from 'typeorm';
 import { Like } from './likes.entity';
+import { Comment } from './comments.entity'
 
 
 @Entity()
@@ -8,10 +9,14 @@ export class Picture {
 
   @Column({ type: 'varchar', length: 100 }) url: string;
 
-  @Column({ type: 'boolean', default: null }) signaled: boolean;
+  @Column({ type: 'boolean' }) signaled: boolean;
 
   @ManyToMany(type => Like, Like => Like.picture) like: Like[];
 
+  @ManyToOne(type => Comment, Comment => Comment.picture)
+  comment: Comment[];
+
+  //TODO
   //@ManyToOne(type => Activity, Activity => Activity.pictures)
   //Activity: Activity;
 }
