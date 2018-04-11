@@ -1,9 +1,9 @@
 import { Component, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Article } from './article.entity';
-import { ArticleRepositoryToken } from '../constants';
+import { ArticleRepositoryToken, CartArticleRepositoryToken } from '../constants';
 import { CartArticle } from './cart-article.entity';
-import { CartArticleRepositoryToken } from '../constants';
+import { EditArticleDto, CreateArticleDto } from '../../../common/dto';
 
 @Component()
 export class ArticleService {
@@ -15,16 +15,15 @@ export class ArticleService {
     private readonly cartArticleRepository: Repository<CartArticle>,
   ) {}
 
-  async findAll(): Promise<Article[]> {
+  async edit(editArticleDto: EditArticleDto ): Promise<void>{
+    return await this.articleRepository.updateById(editArticleDto.id, editArticleDto);
+  }
+
+  async create(createArticleDto: CreateArticleDto): Promise<Article>{
+    return await this.articleRepository.create(createArticleDto);
+  }
+
+  async getAll(): Promise<Article[]> {
     return await this.articleRepository.find();
-  }
-
-  async findById(articleId: number): Promise<Article>{
-    return await this.articleRepository.findOneById({articleId});
-  }
-
-  async deleteById(articleId: number): Promise<void>{
-    await this.cartArticleRepository.deleteById({articleId});
-    return await this.articleRepository.deleteById({articleId}); 
   }
 }

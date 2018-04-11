@@ -30,6 +30,6 @@ export class Article {
   @RelationId((article: Article) => article.category)
   categoryName: string;
 
-  @OneToMany(type => CartArticle, cartArticle => cartArticle.articleId)
+  @OneToMany(type => CartArticle, cartArticle => cartArticle.article)
   cartArticles: CartArticle[];
 }

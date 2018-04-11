@@ -5,6 +5,7 @@ import {
   JoinTable,
   ManyToMany,
   OneToMany,
+  RelationId,
 } from 'typeorm';
 import { Article } from './article.entity';
 import { CartArticle } from './cart-article.entity';
@@ -17,6 +18,8 @@ export class Cart {
 
   @Column() delivered: boolean;
 
-  @OneToMany(type => CartArticle, cartArticle => cartArticle.cartId)
+  @OneToMany(type => CartArticle, cartArticle => cartArticle.cart)
   cartArticles: CartArticle[];
+
+  @Column() userId: number;
 }
