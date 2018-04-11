@@ -1,10 +1,13 @@
-import { Component, Inject } from '@nestjs/common';
+import { Component, Inject, HttpException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Like } from './like.entity';
 import { Comment } from './comment.entity';
 import { CommentRepositoryToken, LikeRepositoryToken, PictureRepositoryToken, } from '../constants';
 import { Picture } from './picture.entity';
 import { IUser } from '../../../common/interface';
+import { SocialSelectorDto } from '../../../common/dto'
+import { isUndefined } from 'util';
+import { IsDefined } from 'class-validator';
 
 
 @Component()
@@ -47,17 +50,28 @@ export class SocialService {
 
     } else if(!alreadyLiked && liked){
 
-      await this.likeRepository.create({userId, pictureId});
+      const like: Like = this.likeRepository.create({userId, pictureId});
+      await this.likeRepository.save(like);
 
     }
-    
-
-
-
-
   }
 
+  async signal(selector: SocialSelectorDto, signaled: boolean): Promise<void>{
 
+    if(isUndefined(selector.comment) && isUndefined(selector.picture))
+    {
+      throw new Error("selector empty");
+    }
+
+    if(selector.comment){
+      await this.commentRepository.updateById(selector.comment.id, {signaled});
+
+    }
+    if(selector.picture){
+      await this.pictureRepository.updateById(selector.picture.id, {signaled});
+    }
+  }
+  
 }
 
 
