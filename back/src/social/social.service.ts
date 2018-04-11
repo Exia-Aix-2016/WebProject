@@ -18,6 +18,10 @@ export class SocialService {
     private readonly pictureRepository: Repository<Picture>,
 
   ) {}
+
+  likes(picture: number | Picture): number{
+    
+  }
   
 }
 
