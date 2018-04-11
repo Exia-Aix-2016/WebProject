@@ -22,7 +22,7 @@ export class Article {
   @Column() price: number;
 
   @Column({ length: 100 })
-  picture_url: string;
+  pictureUrl: string;
 
   @ManyToOne(type => Category, category => category.articles)
   category: Category;
@@ -32,4 +32,6 @@ export class Article {
 
   @OneToMany(type => CartArticle, cartArticle => cartArticle.article)
   cartArticles: CartArticle[];
+
+  @Column() selling: boolean;
 }

@@ -5,5 +5,6 @@ export interface IArticle{
     readonly price: number;
     readonly pictureUrl: string;
     readonly categoryName: string;
-    readonly solded: number;
+    readonly selling: boolean;
+    readonly solded?: number;
 }

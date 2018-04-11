@@ -4,6 +4,7 @@ import { Article } from './article.entity';
 import { ArticleRepositoryToken, CartArticleRepositoryToken } from '../constants';
 import { CartArticle } from './cart-article.entity';
 import { EditArticleDto, CreateArticleDto } from '../../../common/dto';
+import { IArticle } from '../../../common/interface'; 
 
 @Component()
 export class ArticleService {
@@ -19,7 +20,7 @@ export class ArticleService {
     return await this.articleRepository.updateById(editArticleDto.id, editArticleDto);
   }
 
-  async create(createArticleDto: CreateArticleDto): Promise<Article>{
+  async create(createArticleDto: CreateArticleDto): Promise<IArticle>{
     return await this.articleRepository.create(createArticleDto);
   }
 
