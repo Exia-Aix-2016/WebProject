@@ -10,7 +10,7 @@ export class Picture {
 
   @Column() signaled: boolean;
 
-  @Column() idActivity: number;//FOREIGN KEY from activity
+  @Column() idActivity: number;
 
   @ManyToMany(type => Like, Like => Like.picture)
   like: Like[];
