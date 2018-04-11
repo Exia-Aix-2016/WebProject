@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  RelationId,
+} from 'typeorm';
 import { Group } from './group.entity';
 
 @Entity()
@@ -19,4 +25,7 @@ export class User {
 
   @ManyToOne(type => Group, group => group.users)
   group: Group;
+
+  @RelationId((user: User) => user.group)
+  groupName: string;
 }

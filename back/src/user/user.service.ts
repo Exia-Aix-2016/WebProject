@@ -11,6 +11,6 @@ export class UserService {
   ) {}
 
   async findAll(): Promise<User[]> {
-    return await this.userRepository.find({ relations: ['group'] });
+    return await this.userRepository.find();
   }
 }
