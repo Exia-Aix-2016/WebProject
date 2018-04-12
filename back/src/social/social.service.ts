@@ -31,9 +31,8 @@ export class SocialService {
     return likes.length;
   }
 
-  async like(pictureOpt: number | Picture, userOpt: number | IUser, liked: boolean): Promise<void> {
+  async like(pictureOpt: number | Picture, userId: number, liked: boolean): Promise<void> {
     const pictureId: number = typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
-    const userId: number = typeof userOpt === 'number' ? userOpt : userOpt.id;
 
     //get picture
     const picture: Picture = await this.pictureRepository.findOneById(
