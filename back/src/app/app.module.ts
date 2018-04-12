@@ -4,7 +4,7 @@ import { ShopModule } from '../shop/shop.module';
 import { ActivityModule } from '../activity/activity.module';
 import { SocialModule } from '../social/social.module';
 import { AppController } from './app.controller';
-import { UserController } from './user.controller';
+import { UserController } from './user/user.controller';
 
 @Module({
   imports: [UserModule, ActivityModule, ShopModule, SocialModule],
