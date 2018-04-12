@@ -1,10 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, PrimaryColumn, OneToMany, RelationId } from 'typeorm';
 import { Picture } from './picture.entity';
 
 export class Like {
   
-  @Column() idUser: number;
+    @PrimaryColumn() userId: number;
 
-  @ManyToOne(type => Picture, Picture => Picture.like)
-  picture: Picture[];
+    @ManyToOne(type => Picture, picture => picture.likes, {primary: true})
+    picture: Picture;
+
+    @RelationId((like: Like) => like.picture)
+    pictureId: number;
 }

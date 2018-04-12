@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, RelationId } from 'typeorm';
 import { Picture } from './picture.entity';
 
 export class Comment {
@@ -13,5 +13,8 @@ export class Comment {
     @OneToMany(type => Picture, Picture => Picture.comment)
     picture: Picture;
   
+//@RelationId((like: Like) => like.picture)
+  @RelationId((comment: Comment) => comment.picture)
+  pictureId: number;
  
 }

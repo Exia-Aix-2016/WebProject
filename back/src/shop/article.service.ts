@@ -21,7 +21,8 @@ export class ArticleService {
   }
 
   async create(createArticleDto: CreateArticleDto): Promise<IArticle>{
-    return await this.articleRepository.create(createArticleDto);
+    const article: Article = this.articleRepository.create(createArticleDto);
+    return await this.articleRepository.save(article);
   }
 
   async getAll(): Promise<Article[]> {
