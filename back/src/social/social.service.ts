@@ -11,6 +11,7 @@ import { Picture } from './picture.entity';
 import { SocialSelectorDto } from '../../../common/dto';
 import { isUndefined } from 'util';
 import { IsDefined } from 'class-validator';
+import { IPicture, IComment } from '../../../common/interface';
 
 @Component()
 export class SocialService {
@@ -40,13 +41,13 @@ export class SocialService {
     liked: boolean,
   ): Promise<void> {
     /*Allow to like dislike a picture*/
-    const pictureId: number =
-      typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
+    const pictureId: number = (typeof pictureOpt === 'number') ? pictureOpt : pictureOpt.id;
+
 
     /*get picture*/
     const picture: Picture = await this.pictureRepository.findOneById(
       pictureId,
-      { relations: ['Like'] },
+      { relations: ['likes'] },
     );
 
     /*Did user has already liked a picture ?*/
@@ -55,24 +56,25 @@ export class SocialService {
       ? true
       : false;
 
+
     if (alreadyLiked && !liked) {
       /*Already liked*/
-
       const like: Like = await this.likeRepository.findOne({
         userId,
         pictureId,
       });
       await this.likeRepository.delete(like);
+
+
     } else if (!alreadyLiked && liked) {
-      const like: Like = this.likeRepository.create({ userId, pictureId });
+
+      console.log('like');
+      const like: Like = this.likeRepository.create({ picture, userId });
       await this.likeRepository.save(like);
     }
   }
 
-  async signal(
-    selector: SocialSelectorDto,
-    signaled: boolean = true,
-  ): Promise<void> {
+  async signal(selector: SocialSelectorDto, signaled: boolean = true): Promise<void> {
     /*Signaled picture or comment*/
     if (isUndefined(selector.comment) && isUndefined(selector.picture)) {
       throw new Error('selector empty');
@@ -104,29 +106,24 @@ export class SocialService {
     }
   }
 
-  async getComments(pictureOpt: number | Picture): Promise<Comment[]> {
+  async getComments(pictureOpt: number | Picture): Promise<IComment[]> {
     /*Get all comments on the picture*/
     const pictureId: number =
       typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
 
     return await this.commentRepository.find({ pictureId });
   }
-  async getPicture(pictureId: number): Promise<Picture> {
+  async getPicture(pictureId: number): Promise<IPicture> {
     /*Get Picture by it ID*/
 
     return await this.pictureRepository.findOneById(pictureId);
   }
 
-  async getPictures(activityId: number): Promise<Picture[]> {
+  async getPictures(activityId: number): Promise<IPicture[]> {
     /*Get Pictures by activityId*/
 
     const pictures: Picture[] = await this.pictureRepository.find();
     /*In pictures we will search all picture with activityId then we create new array with the matches Pictures.*/
-    const picturesActivity: Picture[] = await pictures.map(picture => {
-      if (picture.activityId === activityId) {
-        return picture;
-      }
-    });
-    return picturesActivity;
+    return  await pictures.filter(picture => picture.activityId == activityId);
   }
 }
