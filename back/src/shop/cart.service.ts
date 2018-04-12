@@ -34,8 +34,8 @@ export class CartService {
         return await this.cartRepository.findOneById(id);
     }
 
-    async getByUser(id: number): Promise<Cart[]>{
-        return await this.cartRepository.find({id});
+    async getByUser(userId: number): Promise<Cart[]>{
+        return await this.cartRepository.find({userId});
     }
 
     async setState(cartStateDto: CartStateDto): Promise<void>{
