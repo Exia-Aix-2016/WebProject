@@ -5,10 +5,11 @@ import { ActivityModule } from '../activity/activity.module';
 import { SocialModule } from '../social/social.module';
 import { AppController } from './app.controller';
 import { UserController } from './user/user.controller';
+import { GroupController } from './group/group.controller';
 
 @Module({
   imports: [UserModule, ActivityModule, ShopModule, SocialModule],
-  controllers: [AppController, UserController],
+  controllers: [AppController, UserController, GroupController],
   components: [],
 })
 export class AppModule {}

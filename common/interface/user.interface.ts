@@ -5,3 +5,7 @@ export interface IUser {
     readonly email: string;
     readonly groupName: string;
 }
+
+export interface IGroup {
+    readonly name: string;
+}

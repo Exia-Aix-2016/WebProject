@@ -12,3 +12,7 @@ export interface EditUserDto {
     password?: string;
     groupName?: string;
 }
+
+export interface GroupDto {
+    name: string;
+}
