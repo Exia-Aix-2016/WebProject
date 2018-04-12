@@ -19,7 +19,7 @@ export class Activity {
   description: string;
 
   @Column({ length: 100 })
-  poster_url: string;
+  posterUrl: string;
 
   @Column('datetime') date: Date;
 

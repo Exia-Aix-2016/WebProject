@@ -7,6 +7,7 @@ export class Participation {
 
   @ManyToOne(type => Activity, activity => activity.participations, {
     primary: true,
+    onDelete: 'CASCADE',
   })
   activity: Activity;
 }
