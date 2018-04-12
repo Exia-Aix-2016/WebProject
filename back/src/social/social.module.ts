@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SocialService } from './social.service';
-import { pictureProviders, likeProviders } from './picture.provider';
-import { commentProviders } from './comment.provider';
+import { pictureProviders, likeProviders, commentProviders } from './picture.provider';
 import { DatabaseModule } from 'database/database.module';
 
 @Module({
