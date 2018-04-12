@@ -10,40 +10,47 @@ import { ICart, IArticle } from '../../../common/interface';
 
 @Component()
 export class CartService {
-    constructor(
-        @Inject(CartRepositoryToken)
-        private readonly cartRepository: Repository<Cart>,
+  constructor(
+    @Inject(CartRepositoryToken)
+    private readonly cartRepository: Repository<Cart>,
+    @Inject(CartArticleRepositoryToken)
+    private readonly cartArticleRepository: Repository<CartArticle>,
+  ) {}
 
-        @Inject(CartArticleRepositoryToken)
-        private readonly cartArticleRepository: Repository<CartArticle>,
-    ) {}
+  async create(createCartDto: CreateCartDto): Promise<ICart> {
+    const cart: Cart = this.cartRepository.create(createCartDto);
+    return await this.cartRepository.save(cart);
+  }
 
-    async create(createCartDto: CreateCartDto): Promise<ICart>{
-        const cart: Cart = this.cartRepository.create(createCartDto);
-        return await this.cartRepository.save(cart);
-    }
+  async setArticleQuantity(
+    cart: ICart | number,
+    article: IArticle,
+    number,
+    quantity: number,
+  ): Promise<void> {
+    const cartId: number = typeof cart === 'number' ? cart : cart.id;
+    const articleId: number =
+      typeof article === 'number' ? article : article.id;
+    const myArticle: CartArticle = await this.cartArticleRepository.findOne({
+      cartId,
+      articleId,
+    });
+    return await this.cartArticleRepository.update(myArticle, { quantity });
+  }
 
-    async setArticleQuantity(cart: ICart|number, article: IArticle, number, quantity: number): Promise<void>{
-        const cartId: number = typeof cart === 'number' ? cart : cart.id;
-        const articleId: number = typeof article === 'number' ? article : article.id;
-        const myArticle: CartArticle = await this.cartArticleRepository.findOne({cartId, articleId});
-        return await this.cartArticleRepository.update(myArticle, {quantity});
-    }
+  async get(id: number): Promise<ICart> {
+    return await this.cartRepository.findOneById(id);
+  }
 
-    async get(id: number): Promise<ICart>{
-        return await this.cartRepository.findOneById(id);
-    }
+  async getByUser(userId: number): Promise<Cart[]> {
+    return await this.cartRepository.find({ userId });
+  }
 
-    async getByUser(userId: number): Promise<Cart[]>{
-        return await this.cartRepository.find({userId});
-    }
+  async setState(cartStateDto: CartStateDto): Promise<void> {
+    return await this.cartRepository.updateById(cartStateDto.id, cartStateDto);
+  }
 
-    async setState(cartStateDto: CartStateDto): Promise<void>{
-        return await this.cartRepository.updateById(cartStateDto.id, cartStateDto);
-    }
-
-    async getUndelivered(): Promise<ICart[]>{
-        return await this.cartRepository.find({delivered: false})
-    }
-
+  async getUndelivered(): Promise<ICart[]> {
+    return await this.cartRepository.find({ delivered: false });
+  }
 }

@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, RelationId } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  RelationId,
+} from 'typeorm';
 import { Like } from './like.entity';
 import { Comment } from './comment.entity';
 
@@ -13,9 +20,9 @@ export class Picture {
 
   @Column() activityId: number;
 
-  @ManyToMany(type => Like, like => like.picture)
+  @OneToMany(type => Like, like => like.picture)
   likes: Like[];
 
-  @ManyToOne(type => Comment, Comment => Comment.picture)
+  @OneToMany(type => Comment, comment => comment.picture)
   comment: Comment[];
 }

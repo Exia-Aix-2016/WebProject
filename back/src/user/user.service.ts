@@ -13,9 +13,9 @@ export class UserService {
   ) {}
 
   async getAll(userId?: number[]): Promise<IUser[]> {
-    if(userId){
-      return await this.userRepository.findByIds(userId);  
-    }else{
+    if (userId) {
+      return await this.userRepository.findByIds(userId);
+    } else {
       return await this.userRepository.find();
     }
   }

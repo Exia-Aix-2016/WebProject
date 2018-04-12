@@ -7,7 +7,12 @@ import { categoryProviders } from './category.provider';
 
 @Module({
   imports: [DatabaseModule],
-  components: [...articleProviders, ...cartArticleProviders, ...cartProviders, ...categoryProviders],
+  components: [
+    ...articleProviders,
+    ...cartArticleProviders,
+    ...cartProviders,
+    ...categoryProviders,
+  ],
   exports: [ShopModule],
 })
 export class ShopModule {}

@@ -8,6 +8,6 @@ export class UserController {
 
   @Get()
   root(): any {
-    return this.userService.findAll();
+    return this.userService.getAll();
   }
 }

@@ -1,7 +1,13 @@
 import { Connection, Repository } from 'typeorm';
 import { Picture } from './picture.entity';
-import { DbConnectionToken, PictureRepositoryToken, CommentRepositoryToken, LikeRepositoryToken } from '../constants';
 import { Like } from './like.entity';
+import { Comment } from './comment.entity';
+import {
+  DbConnectionToken,
+  PictureRepositoryToken,
+  CommentRepositoryToken,
+  LikeRepositoryToken,
+} from '../constants';
 
 export const pictureProviders = [
   {
@@ -25,4 +31,4 @@ export const likeProviders = [
     useFactory: (connection: Connection) => connection.getRepository(Like),
     inject: [DbConnectionToken],
   },
-] ;
+];

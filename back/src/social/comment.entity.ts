@@ -1,20 +1,26 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, RelationId } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  RelationId,
+} from 'typeorm';
 import { Picture } from './picture.entity';
 
+@Entity()
 export class Comment {
-    @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn() id: number;
 
-    @Column({ length: 500 }) content: string;
+  @Column({ length: 500 })
+  content: string;
 
-    @Column() signaled: boolean;
+  @Column() signaled: boolean;
 
-    @Column() idUser: number;
+  @Column() idUser: number;
 
-    @OneToMany(type => Picture, Picture => Picture.comment)
-    picture: Picture;
-  
-//@RelationId((like: Like) => like.picture)
+  @OneToMany(type => Picture, Picture => Picture.comment)
+  picture: Picture;
+
   @RelationId((comment: Comment) => comment.picture)
   pictureId: number;
- 
 }
