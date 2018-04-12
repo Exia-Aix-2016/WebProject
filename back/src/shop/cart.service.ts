@@ -6,7 +6,7 @@ import { CartRepositoryToken, CartArticleRepositoryToken } from '../constants';
 import { CreateCartDto, CartStateDto } from '../../../common/dto';
 import { Article } from './article.entity';
 import { CartArticle } from './cart-article.entity';
-import { ICart, IArticle, IUser } from '../../../common/interface';
+import { ICart, IArticle } from '../../../common/interface';
 
 @Component()
 export class CartService {
@@ -34,8 +34,7 @@ export class CartService {
         return await this.cartRepository.findOneById(id);
     }
 
-    async getByUser(user: IUser|number): Promise<Cart[]>{
-        const id: number = typeof user === 'number' ? user: user.id;
+    async getByUser(id: number): Promise<Cart[]>{
         return await this.cartRepository.find({id});
     }
 
