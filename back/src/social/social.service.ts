@@ -4,7 +4,6 @@ import { Like } from './like.entity';
 import { Comment } from './comment.entity';
 import { CommentRepositoryToken, LikeRepositoryToken, PictureRepositoryToken, } from '../constants';
 import { Picture } from './picture.entity';
-import { IUser } from '../../../common/interface';
 import { SocialSelectorDto } from '../../../common/dto'
 import { isUndefined } from 'util';
 import { IsDefined } from 'class-validator';
