@@ -11,7 +11,7 @@ export class Picture {
 
   @Column() signaled: boolean;
 
-  @Column() idActivity: number;
+  @Column() activityId: number;
 
   @ManyToMany(type => Like, like => like.picture)
   likes: Like[];

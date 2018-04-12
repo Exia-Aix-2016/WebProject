@@ -21,7 +21,7 @@ export class SocialService {
     private readonly pictureRepository: Repository<Picture>,
   ) {}
 
-  async likes(pictureId: number | Picture): Promise<number> {
+  async likes(pictureId: number | Picture): Promise<number> {//Count the number of likes on the picture...
     //Get number of likes on a picture.
     const id: number = typeof pictureId === 'number' ? pictureId : pictureId.id;
 
@@ -31,7 +31,7 @@ export class SocialService {
     return likes.length;
   }
 
-  async like(pictureOpt: number | Picture, userId: number, liked: boolean): Promise<void> {
+  async like(pictureOpt: number | Picture, userId: number, liked: boolean): Promise<void> {//Allow to like dislike a picture
     const pictureId: number = typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
 
     //get picture
@@ -60,7 +60,7 @@ export class SocialService {
     }
   }
 
-  async signal(selector: SocialSelectorDto, signaled: boolean): Promise<void> {
+  async signal(selector: SocialSelectorDto, signaled: boolean): Promise<void> {//Signaled picture or comment
     if (isUndefined(selector.comment) && isUndefined(selector.picture)) {
       throw new Error('selector empty');
     }
@@ -77,7 +77,7 @@ export class SocialService {
     }
   }
 
-  async delete(selector: SocialSelectorDto): Promise<void> {
+  async delete(selector: SocialSelectorDto): Promise<void> {//Delete comment or picture
     if (isUndefined(selector.comment) && isUndefined(selector.picture)) {
       throw new Error('selector empty');
     }
@@ -91,16 +91,27 @@ export class SocialService {
     }
   }
 
-  async getComments(pictureOpt: number | Picture): Promise<Comment[]>{
+  async getComments(pictureOpt: number | Picture): Promise<Comment[]>{//Get all comments on the picture
     const pictureId: number = typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
-
-    const picture = await this.pictureRepository.findOneById(pictureId);
 
     return await this.commentRepository.find({pictureId});
   }
-  async getPicture(pictureId: number): Promise<Picture>{
+  async getPicture(pictureId: number): Promise<Picture>{//Get Picture by it ID
 
     return await this.pictureRepository.findOneById(pictureId);
+  }
+
+  
+  async getPictures(activityId: number): Promise<Picture[]>{//Get Pictures by activityId
+
+    const pictures: Picture[] = await this.pictureRepository.find();
+    //In pictures we will search all picture with activityId then we create new array with the matches Pictures.
+    const picturesActivity: Picture[] = await pictures.map( picture => {
+      if(picture.activityId == activityId){
+        return picture;
+      }
+    });
+    return picturesActivity;
   }
 }
 
