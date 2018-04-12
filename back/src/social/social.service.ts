@@ -59,7 +59,7 @@ export class SocialService {
     }
   }
 
-  async signal(selector: SocialSelectorDto, signaled: boolean): Promise<void> {//Signaled picture or comment
+  async signal(selector: SocialSelectorDto, signaled: boolean = true): Promise<void> {//Signaled picture or comment
     if (isUndefined(selector.comment) && isUndefined(selector.picture)) {
       throw new Error('selector empty');
     }
