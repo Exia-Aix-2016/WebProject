@@ -12,8 +12,12 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async getAll(): Promise<IUser[]> {
-    return await this.userRepository.find();
+  async getAll(userId?: number[]): Promise<IUser[]> {
+    if(userId){
+      return await this.userRepository.findByIds(userId);  
+    }else{
+      return await this.userRepository.find();
+    }
   }
 
   async get(userId): Promise<IUser> {
