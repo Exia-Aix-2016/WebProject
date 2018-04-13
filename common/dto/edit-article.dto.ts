@@ -1,7 +1,9 @@
 export interface EditArticleDto{
-    id: number;
     name?: string;
     description?: string;
     price?: number;
     pictureUrl?: string;
+    categoryName?: string;
+    selling?: boolean;
+    solded?: number;
 }

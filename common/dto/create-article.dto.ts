@@ -3,4 +3,6 @@ export interface CreateArticleDto{
     description: string;
     price: number;
     pictureUrl: string;
+    categoryName: string;
+    selling: boolean;
 }

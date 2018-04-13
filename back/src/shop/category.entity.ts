@@ -6,6 +6,6 @@ export class Category {
   @PrimaryColumn({ length: 45 })
   name: string;
 
-  @OneToMany(type => Article, article => article.categoryName)
+  @OneToMany(type => Article, article => article.categoryName,  {cascadeUpdate: true})
   articles: Article[];
 }
