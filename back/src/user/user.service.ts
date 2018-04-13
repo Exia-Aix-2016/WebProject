@@ -29,8 +29,13 @@ export class UserService {
   }
 
   async get(userId): Promise<IUser> {
-    const { password, ...user } = await this.userRepository.findOneById(userId);
-    return user;
+    const user = await this.userRepository.findOneById(userId);
+    if (user) {
+      const { password, ...res } = user;
+      return res;
+    } else {
+      return undefined;
+    }
   }
 
   async create(createUserDto: CreateUserDto): Promise<IUser> {
@@ -56,5 +61,18 @@ export class UserService {
         ? user
         : typeof user === 'string' ? parseInt(user, 10) : user.id;
     return await this.userRepository.deleteById(userId);
+  }
+
+  async verifyCredentials(credentials: {
+    email: string;
+    password: string;
+  }): Promise<IUser> {
+    const user = await this.userRepository.findOne(credentials);
+    let res: IUser;
+    if (user) {
+      const { password, ...u } = user;
+      res = u;
+    }
+    return res;
   }
 }
