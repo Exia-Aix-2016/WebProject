@@ -5,3 +5,4 @@ export * from './cart-state.dto';
 export * from "./user.dto";
 export * from "./social.dto";
 export * from "./activity.dto";
+export * from './create-category.dto';

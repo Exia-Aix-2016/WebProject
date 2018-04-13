@@ -7,7 +7,7 @@ import {
   CategoryRepositoryToken,
 } from '../constants';
 import { CartArticle } from './cart-article.entity';
-import { EditArticleDto, CreateArticleDto } from '../../../common/dto';
+import { EditArticleDto, CreateArticleDto, CreateCategoryDto } from '../../../common/dto';
 import { IArticle, ICategory } from '../../../common/interface';
 import { Category } from './category.entity';
 import { error } from 'util';
@@ -52,6 +52,19 @@ export class ArticleService {
   }
 
   async getCategories(): Promise<ICategory[]>{
-    return this.categoryRepository.find();
+    return await this.categoryRepository.find();
+  }
+
+  async addCategory(createCategoryDto: CreateCategoryDto): Promise<ICategory>{
+    const category: Category = await this.categoryRepository.create(createCategoryDto);
+    return await this.categoryRepository.save(category);
+  }
+
+  async updateCategory(id: string, newId: CreateCategoryDto): Promise<void>{
+    return await this.categoryRepository.updateById(id, newId);
+  }
+
+  async deleteCategory(id: string): Promise<void>{
+    return this.categoryRepository.deleteById(id);
   }
 }

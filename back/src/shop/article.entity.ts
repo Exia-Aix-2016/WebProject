@@ -24,7 +24,7 @@ export class Article {
   @Column({ length: 100 })
   pictureUrl: string;
 
-  @ManyToOne(type => Category, category => category.articles, {eager: true})
+  @ManyToOne(type => Category, category => category.articles, {eager: true, cascadeUpdate: true})
   category: Category;
 
   @RelationId((article: Article) => article.category)
