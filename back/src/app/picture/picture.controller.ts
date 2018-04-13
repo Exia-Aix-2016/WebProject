@@ -26,6 +26,14 @@ export class PictureController {
     return await this.socialService.getPictures(params.activityId);
   }
 
+  @Put(':pictureId/signal')
+  async signalPicture(@Param() params, @Body() paramsBody){
+
+    let picture: IPicture = await this.socialService.getPicture(params.pictureId);
+
+    this.socialService.signal({picture}, paramsBody.signaled);
+  }
+
   @Delete(':pictureId')
   async deletePictureById(@Param() params): Promise<void> {
     let picture: IPicture = await this.socialService.getPicture(
@@ -90,6 +98,7 @@ export class PictureController {
   //update comment by its id
   @Put(':pictureId/comments/:commentId')
   async editCommentById(@Param() params, @Body() paramsBody): Promise<object> {
+
     if(isUndefined(paramsBody.userId) || isUndefined(paramsBody.content)){
       return { statut: 'error', msg: 'wrong body params' };
     }
@@ -117,5 +126,22 @@ export class PictureController {
       return acc;
     });
     await this.socialService.delete({ comment });
+  }
+
+  @Put(':pictureId/comments/:commentId/signal')
+  async signalCommentById(@Param() params, @Body() paramsBody): Promise<void>{
+
+    let comments: IComment[] = await this.socialService.getComments(parseInt(params.pictureId, 10));
+
+    let comment: IComment = await comments.reduce((acc, comment) => {
+      if (comment.id == params.commentId) {
+        acc = comment;
+      }
+      return acc;
+    });
+
+    this.socialService.signal({comment}, paramsBody.signaled);
+
+
   }
 }
