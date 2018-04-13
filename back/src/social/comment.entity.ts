@@ -2,8 +2,10 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  PrimaryColumn,
   OneToMany,
   RelationId,
+  ManyToOne,
 } from 'typeorm';
 import { Picture } from './picture.entity';
 
@@ -11,14 +13,14 @@ import { Picture } from './picture.entity';
 export class Comment {
   @PrimaryGeneratedColumn() id: number;
 
+  @Column() userId: number;
+
   @Column({ length: 500 })
   content: string;
 
   @Column() signaled: boolean;
 
-  @Column() idUser: number;
-
-  @OneToMany(type => Picture, Picture => Picture.comment)
+  @ManyToOne(type => Picture, Picture => Picture.comment)
   picture: Picture;
 
   @RelationId((comment: Comment) => comment.picture)
