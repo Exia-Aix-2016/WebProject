@@ -3,3 +3,4 @@ export * from './cart.interface';
 export * from "./user.interface";
 export * from "./activity.interface";
 export * from "./social.interface";
+export * from "./category.interface";

@@ -24,7 +24,7 @@ export class Article {
   @Column({ length: 100 })
   pictureUrl: string;
 
-  @ManyToOne(type => Category, category => category.articles)
+  @ManyToOne(type => Category, category => category.articles, {eager: true})
   category: Category;
 
   @RelationId((article: Article) => article.category)
@@ -33,5 +33,5 @@ export class Article {
   @OneToMany(type => CartArticle, cartArticle => cartArticle.article)
   cartArticles: CartArticle[];
 
-  @Column() selling: boolean;
+  @Column({default: true}) selling: boolean;
 }

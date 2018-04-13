@@ -4,6 +4,8 @@ import { articleProviders } from './article.provider';
 import { cartArticleProviders } from './cart-article.provider';
 import { cartProviders } from './cart.provider';
 import { categoryProviders } from './category.provider';
+import { ArticleService } from './article.service';
+import { CartService } from './cart.service';
 
 @Module({
   imports: [DatabaseModule],
@@ -12,7 +14,9 @@ import { categoryProviders } from './category.provider';
     ...cartArticleProviders,
     ...cartProviders,
     ...categoryProviders,
+    CartService,
+    ArticleService
   ],
-  exports: [ShopModule],
+  exports: [ArticleService, CartService],
 })
 export class ShopModule {}
