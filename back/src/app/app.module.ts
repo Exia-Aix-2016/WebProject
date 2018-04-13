@@ -8,13 +8,17 @@ import { AppController } from './app.controller';
 import { UserController } from './user/user.controller';
 import { GroupController } from './group/group.controller';
 import { AuthController } from './auth/auth.controller';
-import { UserController } from './user.controller';
 import { PictureController } from './picture/picture.controller';
 
 @Module({
   imports: [UserModule, ActivityModule, ShopModule, SocialModule, AuthModule],
-  controllers: [AppController, UserController, GroupController, AuthController],
-  controllers: [AppController, UserController, PictureController],
+  controllers: [
+    AppController,
+    UserController,
+    GroupController,
+    AuthController,
+    PictureController,
+  ],
   components: [],
 })
 export class AppModule {}
