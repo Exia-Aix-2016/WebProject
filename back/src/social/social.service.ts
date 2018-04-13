@@ -27,20 +27,16 @@ export class SocialService {
   async likes(pictureOpt: number | Picture): Promise<number> {
     /*Count the number of likes on the picture...
     Get number of likes on a picture.*/
-    const pictureId: number = typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
+    const pictureId: number =
+      typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
 
-    const picture: Picture = await this.pictureRepository.findOneById(pictureId);
+    const picture: Picture = await this.pictureRepository.findOneById(
+      pictureId,
+    );
     return await this.likeRepository.count({ picture });
   }
 
-  async like(
-    pictureOpt: number | Picture,
-    userId: number,
-    liked: boolean,
-  ): Promise<void> {
-    /*Allow to like dislike a picture*/
-    const pictureId: number = (typeof pictureOpt === 'number') ? pictureOpt : pictureOpt.id;
-
+  async like(pictureId: number, userId: number, liked: boolean): Promise<void> {
 
     /*get picture*/
     const picture: Picture = await this.pictureRepository.findOneById(
@@ -54,7 +50,6 @@ export class SocialService {
       ? true
       : false;
 
-
     if (alreadyLiked && !liked) {
       /*Already liked*/
       const like: Like = await this.likeRepository.findOne({
@@ -62,15 +57,16 @@ export class SocialService {
         pictureId,
       });
       await this.likeRepository.delete(like);
-
-
     } else if (!alreadyLiked && liked) {
       const like: Like = this.likeRepository.create({ picture, userId });
       await this.likeRepository.save(like);
     }
   }
 
-  async signal(selector: SocialSelectorDto, signaled: boolean = true): Promise<void> {
+  async signal(
+    selector: SocialSelectorDto,
+    signaled: boolean = true,
+  ): Promise<void> {
     /*Signaled picture or comment*/
     if (isUndefined(selector.comment) && isUndefined(selector.picture)) {
       throw new Error('selector empty');
@@ -107,20 +103,23 @@ export class SocialService {
     const pictureId: number =
       typeof pictureOpt === 'number' ? pictureOpt : pictureOpt.id;
 
-      const picture: Picture = await this.pictureRepository.findOneById(pictureId);
-      return await this.commentRepository.find({ picture });
+    const picture: Picture = await this.pictureRepository.findOneById(
+      pictureId,
+    );
+    return await this.commentRepository.find({ picture });
   }
 
-  async updateComment(commentId: number, commentDto: CommentDto){
+  async updateComment(commentId: number, commentDto: CommentDto) {
     await this.commentRepository.updateById(commentId, commentDto);
   }
-  async addComment(commentDto: CommentDto): Promise<void> {
-
-    let picture: Picture = await this.pictureRepository.findOneById(commentDto.pictureId);
-    let comment: Comment = await this.commentRepository.create({picture, userId: commentDto.userId, content: commentDto.content});
+  async addComment(pictureId:number, commentDto: CommentDto): Promise<void> {
+    let picture: Picture = await this.pictureRepository.findOneById(pictureId);
+    let comment: Comment = await this.commentRepository.create({
+      picture,
+      userId: commentDto.userId,
+      content: commentDto.content,
+    });
     this.commentRepository.save(comment);
-
-
   }
 
   async getPicture(pictureId: number): Promise<IPicture> {
@@ -134,11 +133,10 @@ export class SocialService {
 
     const pictures: Picture[] = await this.pictureRepository.find();
     /*In pictures we will search all picture with activityId then we create new array with the matches Pictures.*/
-    return  await pictures.filter(picture => picture.activityId == activityId);
+    return await pictures.filter(picture => picture.activityId == activityId);
   }
 
-  async addPicture(pictureDto: PictureDto){
-
+  async addPicture(pictureDto: PictureDto) {
     let picture: Picture = this.pictureRepository.create(pictureDto);
     this.pictureRepository.save(picture);
   }

@@ -13,7 +13,7 @@ export interface PictureDto{
 }
 
 export interface CommentDto{
-    userId: number;
+    userId: number
     pictureId: number;
     content: string;
     signaled?: boolean;
