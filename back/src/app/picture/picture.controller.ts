@@ -1,41 +1,39 @@
-import { Body, Get, Post, Put, Delete, Controller, Inject, Param } from '@nestjs/common';
+import { Body, Get, Post, Put, Delete, Controller, Inject, Param, UsePipes } from '@nestjs/common';
 import { SocialService } from '../../social/social.service';
 import { Picture } from '../../social/picture.entity';
 import { SocialSelectorDto } from '../../../../common/dto/index';
 import { IPicture, IComment } from '../../../../common/interface/index';
 import { isUndefined } from 'util';
-
+import { ValidationPipe } from '../validation.pipe';
+import { PictureDto, SignalDto, LikeDto, CommentDto, EditCommentDto } from './picture.dto';
 @Controller('pictures')
 export class PictureController {
   constructor(private readonly socialService: SocialService) {}
 
   @Post()
-  root(@Body() bodyParams): object {
-    if (isUndefined(bodyParams.activityId) || isUndefined(bodyParams.url)) {
-      return { statut: 'error', msg: 'wrong body params' };
-    }
-
-    this.socialService.addPicture({
-      url: bodyParams.url,
-      activityId: bodyParams.activityId,
-    });
+  @UsePipes(new ValidationPipe())
+  async create(@Body() pictureDto: PictureDto): Promise<void> {
+    this.socialService.addPicture(pictureDto);
   }
 
   @Get(':activityId')
   async findPicturesByActivityId(@Param() params): Promise<IPicture[]> {
-    return await this.socialService.getPictures(params.activityId);
+    return await this.socialService.getPictures(
+      parseInt(params.activityId, 10),
+    );
   }
 
   @Put(':pictureId/signal')
-  async signalPicture(@Param() params, @Body() paramsBody){
-
-    let picture: IPicture = await this.socialService.getPicture(params.pictureId);
-
-    this.socialService.signal({picture}, paramsBody.signaled);
+  @UsePipes(new ValidationPipe())
+  async signalPicture(@Param() params, @Body() paramsBody: SignalDto) {
+    let picture: IPicture = await this.socialService.getPicture(
+      params.pictureId,
+    );
+    this.socialService.signal({ picture }, paramsBody.signaled);
   }
 
   @Delete(':pictureId')
-  async deletePictureById(@Param() params): Promise<void> {
+  async deletePicture(@Param() params): Promise<void> {
     let picture: IPicture = await this.socialService.getPicture(
       params.pictureId,
     );
@@ -46,15 +44,12 @@ export class PictureController {
   ======== LIKE  ========
   */
   @Put(':pictureId/like')
-  async likedPicture(@Param() params, @Body() bodyParams) {
-    if (isUndefined(bodyParams.userId) || isUndefined(bodyParams.liked)) {
-      return { statut: 'error', msg: 'wrong body params' };
-    }
-
+  @UsePipes(new ValidationPipe())
+  async likedPicture(@Param() params, @Body() likeDto: LikeDto): Promise<void> {
     await this.socialService.like(
-      parseInt(params.pictureId, 10),
-      parseInt(bodyParams.userId, 10),
-      bodyParams.liked == 'true',
+      params.pictureId,
+      likeDto.userId,
+      likeDto.liked,
     );
   }
 
@@ -73,12 +68,15 @@ export class PictureController {
   }
 
   @Post(':pictureId/comments')
-  async postComment(@Param() params, @Body() paramsBody): Promise<void> {
-    await this.socialService.addComment({
-      pictureId: params.pictureId,
-      userId: paramsBody.userId,
-      content: paramsBody.content,
-    });
+  @UsePipes(new ValidationPipe())
+  async postComment(
+    @Param() params,
+    @Body() commentDto: CommentDto,
+  ): Promise<void> {
+    await this.socialService.addComment(
+      parseInt(params.pictureId, 10),
+      commentDto,
+    );
   }
 
   //get comment by its id
@@ -97,20 +95,15 @@ export class PictureController {
 
   //update comment by its id
   @Put(':pictureId/comments/:commentId')
-  async editCommentById(@Param() params, @Body() paramsBody): Promise<object> {
-
-    if(isUndefined(paramsBody.userId) || isUndefined(paramsBody.content)){
-      return { statut: 'error', msg: 'wrong body params' };
-    }
-
-    await this.socialService.updateComment(parseInt(params.commentId,10), 
-      {
-        content: paramsBody.content, 
-        userId: parseInt(paramsBody.userId, 10), 
-        pictureId: parseInt(params.pictureId),
-      });
-
-
+  @UsePipes(new ValidationPipe())
+  async editCommentById(
+    @Param() params,
+    @Body() commentDto: EditCommentDto,
+  ): Promise<void> {
+    await this.socialService.updateComment(
+      parseInt(params.commentId, 10),
+      commentDto,
+    );
   }
 
   //delete comment by its id
@@ -129,9 +122,11 @@ export class PictureController {
   }
 
   @Put(':pictureId/comments/:commentId/signal')
-  async signalCommentById(@Param() params, @Body() paramsBody): Promise<void>{
-
-    let comments: IComment[] = await this.socialService.getComments(parseInt(params.pictureId, 10));
+  @UsePipes(new ValidationPipe())
+  async signalCommentById(@Param() params, @Body() signaled: SignalDto): Promise<void> {
+    let comments: IComment[] = await this.socialService.getComments(
+      parseInt(params.pictureId, 10),
+    );
 
     let comment: IComment = await comments.reduce((acc, comment) => {
       if (comment.id == params.commentId) {
@@ -140,8 +135,6 @@ export class PictureController {
       return acc;
     });
 
-    this.socialService.signal({comment}, paramsBody.signaled);
-
-
+    this.socialService.signal({ comment }, signaled.signaled);
   }
 }
