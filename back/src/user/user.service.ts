@@ -22,20 +22,17 @@ export class UserService {
     } else {
       users = await this.userRepository.find();
     }
-    return users.map(user => {
-      const { password, ...u } = user;
-      return u;
-    });
+    return users.map(user => this.extractPassword(user));
   }
 
   async get(userId): Promise<IUser> {
     const user = await this.userRepository.findOneById(userId);
-    if (user) {
-      const { password, ...res } = user;
-      return res;
-    } else {
-      return undefined;
-    }
+    return user ? this.extractPassword(user) : undefined;
+  }
+
+  async getByEmail(email: string): Promise<IUser> {
+    const user = await this.userRepository.findOne({ email });
+    return user ? this.extractPassword(user) : undefined;
   }
 
   async create(createUserDto: CreateUserDto): Promise<IUser> {
@@ -68,11 +65,11 @@ export class UserService {
     password: string;
   }): Promise<IUser> {
     const user = await this.userRepository.findOne(credentials);
-    let res: IUser;
-    if (user) {
-      const { password, ...u } = user;
-      res = u;
-    }
+    return user ? this.extractPassword(user) : undefined;
+  }
+
+  private extractPassword(user: User): IUser {
+    const { password, ...res } = user;
     return res;
   }
 }

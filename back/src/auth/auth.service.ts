@@ -11,7 +11,7 @@ export class AuthService {
       email,
       password,
     });
-    if (user == undefined) {
+    if (user === undefined) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
     const expiresIn = 60,

@@ -8,6 +8,8 @@ import {
   UsePipes,
   Param,
   Delete,
+  HttpStatus,
+  HttpException,
 } from '@nestjs/common';
 import { ValidationPipe } from '../validation.pipe';
 import { UserService } from '../../user/user.service';
@@ -26,12 +28,20 @@ export class UserController {
   @Post()
   @UsePipes(new ValidationPipe())
   async create(@Body() createUserDto: CreateUserDto): Promise<IUser> {
+    const user: IUser = await this.userService.getByEmail(createUserDto.email);
+    if (user) {
+      throw new HttpException('Email already used', HttpStatus.CONFLICT);
+    }
     return await this.userService.create(createUserDto);
   }
 
   @Get(':id')
   async getById(@Param() params): Promise<IUser> {
-    return await this.userService.get(params.id);
+    const user: IUser = await this.userService.get(params.id);
+    if (user === undefined) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    return user;
   }
 
   @Put(':id')
