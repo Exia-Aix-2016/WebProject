@@ -7,12 +7,16 @@ import {
   Body,
   Request,
   UsePipes,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from '../../auth/auth.service';
 import { LoginDto } from './auth.dto';
 import { ValidationPipe } from '../validation.pipe';
+import { Groups } from '../groups.decorator';
+import { GroupsGuard } from 'groups.guard';
 
 @Controller('auth')
+@UseGuards(GroupsGuard)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -27,6 +31,7 @@ export class AuthController {
   }
 
   @Get('authorized')
+  @Groups('staff')
   public async authorized(@Request() request) {
     return 'Authorized route. Welcome ' + request.user.firstname;
   }
