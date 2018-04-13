@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   RelationId,
+  ManyToOne,
 } from 'typeorm';
 import { Occurrence } from './occurrence.entity';
 import { Participation } from './participation.entity';
+import { Vote } from './vote.entity';
 
 @Entity()
 export class Activity {
@@ -29,12 +31,15 @@ export class Activity {
 
   @Column() signaled: boolean;
 
-  @OneToMany(type => Occurrence, occurrence => occurrence.activities)
+  @ManyToOne(type => Occurrence, occurrence => occurrence.activities)
   occurrence: Occurrence;
 
   @RelationId((activity: Activity) => activity.occurrence)
   occurrenceName: string;
 
-  @OneToMany(type => Participation, Participation => Participation.activity)
+  @OneToMany(type => Participation, participation => participation.activity)
   participations: Participation[];
+
+  @OneToMany(type => Vote, vote => vote.activity)
+  votes: Vote[];
 }

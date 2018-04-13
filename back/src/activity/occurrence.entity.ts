@@ -13,6 +13,6 @@ export class Occurrence {
   @PrimaryColumn({ length: 45 })
   name: string;
 
-  @ManyToOne(type => Activity, activity => activity.occurrence)
+  @OneToMany(type => Activity, activity => activity.occurrence)
   activities: Activity[];
 }

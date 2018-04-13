@@ -19,3 +19,7 @@ export interface EditActivityDto {
     price?: number;
     occurrenceName?: string;
 }
+
+export interface BooleanEditIdea {
+    value: boolean;
+}

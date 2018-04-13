@@ -10,6 +10,7 @@ import { GroupController } from './group/group.controller';
 import { ArticleController } from './article/article.controller';
 import { AuthController } from './auth/auth.controller';
 import { PictureController } from './picture/picture.controller';
+import { IdeaController } from './idea/idea.controller';
 
 @Module({
   imports: [UserModule, ActivityModule, ShopModule, SocialModule, AuthModule],
@@ -20,6 +21,7 @@ import { PictureController } from './picture/picture.controller';
     AuthController,
     PictureController,
     ArticleController,
+    IdeaController,
   ],
   components: [],
 })
