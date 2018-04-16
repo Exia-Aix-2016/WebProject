@@ -10,8 +10,8 @@ import {
   Delete,
   HttpStatus,
   HttpException,
+  ValidationPipe,
 } from '@nestjs/common';
-import { ValidationPipe } from '../validation.pipe';
 import { UserService } from '../../user/user.service';
 import { IUser } from '../../../../common/interface';
 import { CreateUserDto, EditUserDto } from './user.dto';

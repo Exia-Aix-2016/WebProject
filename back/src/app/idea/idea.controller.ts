@@ -8,11 +8,11 @@ import {
   Put,
   Delete,
   Request,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ActivityService } from '../../activity/activity.service';
 import { IIdea } from '../../../../common/interface';
 import { CreateIdeaDto, BooleanEditIdea } from './idea.dto';
-import { ValidationPipe } from '../validation.pipe';
 
 @Controller('ideas')
 export class IdeaController {

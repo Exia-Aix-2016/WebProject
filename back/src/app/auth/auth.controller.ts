@@ -8,10 +8,10 @@ import {
   Request,
   UsePipes,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from '../../auth/auth.service';
 import { LoginDto } from './auth.dto';
-import { ValidationPipe } from '../validation.pipe';
 import { Groups } from '../groups.decorator';
 import { GroupsGuard } from 'groups.guard';
 

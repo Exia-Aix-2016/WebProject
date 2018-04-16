@@ -7,11 +7,11 @@ import {
   Param,
   Put,
   Delete,
+  ValidationPipe,
 } from '@nestjs/common';
 import { GroupDto } from './group.dto';
 import { IGroup } from '../../../../common/interface';
 import { GroupService } from '../../user/group.service';
-import { ValidationPipe } from '../validation.pipe';
 
 @Controller('groups')
 export class GroupController {
