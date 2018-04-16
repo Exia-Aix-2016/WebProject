@@ -16,11 +16,7 @@ export class AuthFormComponent implements OnInit {
 
   public onSubmit(): void {
 
-
-    let loginDto: LoginDto;
-    loginDto = {email: this.email, password: this.password};
-    console.log(loginDto);
-   this.authService.connection({email: this.email, password: this.password});
+   this.authService.connection({email: this.email, password: this.password}).subscribe(user => console.log(user));
   }
 
   ngOnInit() {}
