@@ -3,9 +3,10 @@ import { NgModule } from "@angular/core";
 import { ButtonsModule } from "ngx-bootstrap";
 
 import { AppComponent } from "./app.component";
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NavbarComponent],
   imports: [BrowserModule, ButtonsModule.forRoot()],
   providers: [],
   bootstrap: [AppComponent],
