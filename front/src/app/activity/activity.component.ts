@@ -8,6 +8,7 @@ import { IActivity } from "../../../../common/interface";
 })
 export class ActivityComponent implements OnInit {
   @Input() activity: IActivity;
+  @Input() isIdea = false;
 
   constructor() {}
 

@@ -12,10 +12,13 @@ import { LoginPageComponent } from "./login-page/login-page.component";
 import { ActivitiesPageComponent } from "./activities-page/activities-page.component";
 import { ActivityComponent } from "./activity/activity.component";
 import { NavbarComponent } from './navbar/navbar.component';
+import { IdeasPageComponent } from './ideas-page/ideas-page.component';
 
 const appRoutes: Routes = [
   { path: "login", component: LoginPageComponent },
   { path: "activities", component: ActivitiesPageComponent },
+  { path: "ideas", component: IdeasPageComponent },
+  { path "**", redirectTo: '/activities'}
 ];
 
 @NgModule({
@@ -25,6 +28,7 @@ const appRoutes: Routes = [
     ActivitiesPageComponent,
     ActivityComponent,
     NavbarComponent,
+    IdeasPageComponent,
   ],
   imports: [
     HttpClientModule,

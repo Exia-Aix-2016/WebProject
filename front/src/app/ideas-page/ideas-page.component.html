@@ -1,0 +1,4 @@
+<app-navbar></app-navbar>
+<div>
+  <app-activity *ngFor="let activity of ($activities | async)" [activity]="activity" [isIdea]="true"></app-activity>
+</div>

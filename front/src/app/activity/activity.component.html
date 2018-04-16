@@ -1,9 +1,13 @@
 <div class="card">
-  <img class="card-img-bottom" src="{{activity.posterUrl}}" alt="Card image cap">
+  <img class="card-img-bottom" src="{{activity.posterUrl}}">
   <div class="card-body">
-    <h5 class="card-title">{{activity.name}}</h5>
+    <h5 class="card-title">
+      {{activity.name}}
+      <span class="badge badge-primary" *ngIf="isIdea">0 votes</span>
+      <span class="badge badge-primary" *ngIf="!isIdea">{{activity.participants}} participants</span>
+    </h5>
     <p class="card-text">{{activity.description}}</p>
-    <p class="card-text">
+    <p class="card-text" *ngIf="!isIdea">
       <small class="text-muted">{{activity.date | date:'long'}}</small>
     </p>
   </div>

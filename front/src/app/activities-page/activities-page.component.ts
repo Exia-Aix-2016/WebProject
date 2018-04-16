@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Observable } from "rxjs";
 import { ActivityService } from "../activity.service";
 import { IActivity } from "../../../../common/interface";
@@ -9,12 +9,10 @@ import { IActivity } from "../../../../common/interface";
   styleUrls: ["./activities-page.component.scss"],
   providers: [ActivityService],
 })
-export class ActivitiesPageComponent implements OnInit {
+export class ActivitiesPageComponent {
   public $activities: Observable<IActivity[]>;
 
-  constructor(private activityService: ActivityService) {}
-
-  ngOnInit() {
-    this.$activities = this.activityService.getAll();
+  constructor(private activityService: ActivityService) {
+    this.$activities = this.activityService.getActivities(true);
   }
 }
