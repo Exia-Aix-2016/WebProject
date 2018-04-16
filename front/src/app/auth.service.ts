@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoginDto } from '../../../common/dto/';
+import { LoginDto, CreateUserDto } from '../../../common/dto/';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/observable';
 import { baseUrl } from './constants';
@@ -30,4 +30,17 @@ export class AuthService {
         return true;
       });
   }
+  public register(createUserDto: CreateUserDto): Observable<boolean> {
+
+
+    return this.http
+      .post(
+        baseUrl + 'users/',
+        createUserDto
+      )
+      .map(data => {
+        return true;
+      });
+
+    }
 }

@@ -13,9 +13,11 @@ import { ActivitiesPageComponent } from './activities-page/activities-page.compo
 import { ActivityComponent } from './activity/activity.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { IdeasPageComponent } from './ideas-page/ideas-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: RegisterPageComponent},
   { path: 'activities', component: ActivitiesPageComponent },
   { path: 'ideas', component: IdeasPageComponent },
   { path: '**', redirectTo: '/activities' },
@@ -29,6 +31,7 @@ const appRoutes: Routes = [
     ActivityComponent,
     NavbarComponent,
     IdeasPageComponent,
+    RegisterPageComponent,
   ],
   imports: [
     HttpClientModule,
