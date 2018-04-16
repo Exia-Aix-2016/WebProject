@@ -9,6 +9,7 @@ import {
   Delete,
   Request,
   ValidationPipe,
+  ParseIntPipe
 } from '@nestjs/common';
 import { ActivityService } from '../../activity/activity.service';
 import { IIdea } from '../../../../common/interface';
@@ -30,30 +31,30 @@ export class IdeaController {
   }
 
   @Delete(':id')
-  async delete(@Param() params): Promise<void> {
-    return await this.activityService.delete(params.id);
+  async delete(@Param('id', new ParseIntPipe()) ideaId: number): Promise<void> {
+    return await this.activityService.delete(ideaId);
   }
 
   @Put(':id/vote')
   async vote(
     @Request() request,
-    @Param() params,
+    @Param('id', new ParseIntPipe()) ideaId: number,
     @Body() booleanEditIdea: BooleanEditIdea,
   ): Promise<void> {
     return await this.activityService.vote(
       request.user.id,
-      parseInt(params.id, 10),
+      ideaId,
       booleanEditIdea.value,
     );
   }
 
   @Put(':id/signal')
   async signal(
-    @Param() params,
+    @Param('id', new ParseIntPipe()) ideaId: number,
     @Body() booleanEditIdea: BooleanEditIdea,
   ): Promise<void> {
     return await this.activityService.signal(
-      parseInt(params.id, 10),
+      ideaId,
       booleanEditIdea.value,
     );
   }
