@@ -1,14 +1,13 @@
-<div class="card">
-  <img class="card-img-bottom" src="{{activity.posterUrl}}">
-  <div class="card-body">
-    <h5 class="card-title">
-      {{activity.name}}
-      <span class="badge badge-primary" *ngIf="isIdea">0 votes</span>
-      <span class="badge badge-primary" *ngIf="!isIdea">{{activity.participants}} participants</span>
-    </h5>
-    <p class="card-text">{{activity.description}}</p>
-    <p class="card-text" *ngIf="!isIdea">
-      <small class="text-muted">{{activity.date | date:'long'}}</small>
-    </p>
-  </div>
+<img class="card-img-top" src="{{activity.posterUrl}}">
+<div class="card-body">
+  <h5 class="card-title">
+    {{activity.name}}
+    <span class="badge badge-pill badge-{{voting ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleVote()" *ngIf="displayVote">0 votes</span>
+    <span class="badge badge-pill badge-{{participating ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleParticipation()"
+      *ngIf="displayParticipation">{{activity.participants}} participants</span>
+  </h5>
+  <p class="card-text">{{activity.description}}</p>
+  <p class="card-text" *ngIf="displayDate">
+    <small class="text-muted">{{activity.date | date: 'long'}}</small>
+  </p>
 </div>
