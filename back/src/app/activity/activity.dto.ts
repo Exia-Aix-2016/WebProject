@@ -10,7 +10,7 @@ import {
 
 import { CreateActivityDto as ICreateActivityDto } from '../../../../common/dto';
 
-export class CreateActivityDtoSSS implements ICreateActivityDto {
+export class CreateActivityDto implements ICreateActivityDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(45)

@@ -9,14 +9,19 @@ import {
   Delete,
   Request,
   ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ActivityService } from '../../activity/activity.service';
-import { IIdea, IActivity } from '../../../../common/interface';
-import { CreateActivityDtoSSS } from './activity.dto';
+import { IIdea, IActivity, IPicture } from '../../../../common/interface';
+import { CreateActivityDto } from './activity.dto';
+import { SocialService } from 'social/social.service';
 
 @Controller('activities')
 export class ActivityController {
-  constructor(private readonly activityService: ActivityService) {}
+  constructor(
+    private readonly activityService: ActivityService,
+    private readonly socialService: SocialService,
+  ) {}
 
   @Get()
   async getAll(): Promise<IActivity[]> {
@@ -26,8 +31,33 @@ export class ActivityController {
   @Post()
   @UsePipes(new ValidationPipe())
   async create(
-    @Body() createActivityDto: CreateActivityDtoSSS,
+    @Body() createActivityDto: CreateActivityDto,
   ): Promise<IActivity> {
     return await this.activityService.createActivity(createActivityDto);
+  }
+
+  @Delete(':id')
+  async delete(
+    @Param('id', new ParseIntPipe())
+    activityId: number,
+  ): Promise<void> {
+    return await this.activityService.delete(activityId);
+  }
+
+  @Get(':id')
+  async getById(
+    @Param('id', new ParseIntPipe())
+    activityId: number,
+  ): Promise<IActivity> {
+    return await this.activityService.getActivity(activityId);
+  }
+
+  @Get(':id/pictures')
+  async getPictures(
+    @Param('id', new ParseIntPipe())
+    activityId: number,
+  ): Promise<IPicture[]> {
+    await this.activityService.getActivity(activityId);
+    return await this.socialService.getPictures(activityId);
   }
 }

@@ -1,9 +1,10 @@
-import { Component, Inject } from '@nestjs/common';
+import { Component, Inject, HttpCode, HttpStatus } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import {
   ActivityRepositoryToken,
   ParticipationRepositoryToken,
   VoteRepositoryToken,
+  OccurrenceRepositoryToken,
 } from '../constants';
 import { IActivity, IIdea } from '../../../common/interface';
 import {
@@ -14,6 +15,9 @@ import {
 import { Activity } from './activity.entity';
 import { Participation } from './participation.entity';
 import { Vote } from './vote.entity';
+import { Occurrence } from './occurrence.entity';
+import { isUndefined } from 'util';
+import { HttpException } from '@nestjs/core';
 
 @Component()
 export class ActivityService {
@@ -24,6 +28,8 @@ export class ActivityService {
     private readonly participationRepository: Repository<Participation>,
     @Inject(VoteRepositoryToken)
     private readonly voteRepository: Repository<Vote>,
+    @Inject(OccurrenceRepositoryToken)
+    private readonly occurrenceRepository: Repository<Occurrence>,
   ) {}
 
   async getAll(): Promise<IIdea[]> {
@@ -50,6 +56,24 @@ export class ActivityService {
     );
   }
 
+  async getActivity(activityOpt: number | Activity): Promise<IActivity> {
+    const activity: Activity =
+      typeof activityOpt === 'number'
+        ? await this.activityRepository.findOne({
+            id: activityOpt,
+            planned: true,
+          })
+        : activityOpt;
+    if (isUndefined(activity)) {
+      throw new HttpException('Activity not found', HttpStatus.NOT_FOUND);
+    }
+    const participations: Participation[] = await activity.participations;
+    return Object.assign(
+      { participants: participations ? participations.length : 0 },
+      activity,
+    );
+  }
+
   async createActivity(
     createActivityDto: CreateActivityDto,
   ): Promise<IActivity> {
@@ -60,6 +84,14 @@ export class ActivityService {
       activity.posterUrl =
         'https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';
     }
+    const occurrence: Occurrence = await this.occurrenceRepository.findOneById(
+      createActivityDto.occurrenceName,
+    );
+    if (isUndefined(occurrence)) {
+      throw new Error('Occurrence undefined');
+    }
+    activity.occurrence = occurrence;
+    activity.planned = true;
     await this.activityRepository.save(activity);
     return Object.assign({ participants: 0 }, activity);
   }
