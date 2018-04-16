@@ -18,6 +18,7 @@ export interface EditActivityDto {
     date?: Date;
     price?: number;
     occurrenceName?: string;
+    planned?: boolean;
 }
 
 export interface BooleanEditIdea {

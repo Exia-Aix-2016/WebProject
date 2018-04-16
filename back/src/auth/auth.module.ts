@@ -22,6 +22,7 @@ export class AuthModule implements NestModule {
       .forRoutes(
         { path: '/auth/authorized', method: RequestMethod.ALL },
         { path: '/ideas/*', method: RequestMethod.ALL },
+        { path: '/activities/*', method: RequestMethod.ALL },
       );
   }
 }

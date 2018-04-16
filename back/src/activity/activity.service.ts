@@ -1,4 +1,10 @@
-import { Component, Inject, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Component,
+  Inject,
+  HttpCode,
+  HttpStatus,
+  HttpException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import {
   ActivityRepositoryToken,
@@ -17,7 +23,6 @@ import { Participation } from './participation.entity';
 import { Vote } from './vote.entity';
 import { Occurrence } from './occurrence.entity';
 import { isUndefined } from 'util';
-import { HttpException } from '@nestjs/core';
 
 @Component()
 export class ActivityService {
@@ -132,14 +137,17 @@ export class ActivityService {
     activityOpt: number | Activity,
     participate: boolean = true,
   ): Promise<void> {
-    const activityId: number =
-      typeof activityOpt === 'number' ? activityOpt : activityOpt.id;
-    const activity: Activity = await this.activityRepository.findOneById(
-      activityId,
-      {
-        relations: ['participations'],
-      },
-    );
+    const activity: Activity =
+      typeof activityOpt === 'number'
+        ? await this.activityRepository.findOneById(activityOpt, {
+            relations: ['participations'],
+          })
+        : activityOpt;
+
+    if (isUndefined(activity)) {
+      throw new HttpException('Activity not found', HttpStatus.NOT_FOUND);
+    }
+
     const alreadyParticipate: boolean = activity.participations.find(
       p => p.userId === userId,
     )
@@ -148,19 +156,15 @@ export class ActivityService {
 
     if (!alreadyParticipate && participate) {
       const participation: Participation = this.participationRepository.create({
+        activity,
         userId,
       });
-      activity.participations.push(participation);
+      await this.participationRepository.save(participation);
     }
 
     if (alreadyParticipate && !participate) {
-      const i: number = activity.participations.findIndex(
-        p => p.userId === userId,
-      );
-      activity.participations.splice(i, 1);
+      await this.participationRepository.delete({ userId, activity });
     }
-
-    await this.activityRepository.save(activity);
   }
 
   async getUsers(activityOpt: number | Activity): Promise<number[]> {

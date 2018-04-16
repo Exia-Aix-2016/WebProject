@@ -13,7 +13,11 @@ import {
 } from '@nestjs/common';
 import { ActivityService } from '../../activity/activity.service';
 import { IIdea, IActivity, IPicture } from '../../../../common/interface';
-import { CreateActivityDto } from './activity.dto';
+import {
+  CreateActivityDto,
+  EditActvityDto,
+  BooleanEditDto,
+} from './activity.dto';
 import { SocialService } from 'social/social.service';
 
 @Controller('activities')
@@ -52,6 +56,16 @@ export class ActivityController {
     return await this.activityService.getActivity(activityId);
   }
 
+  @Put(':id')
+  async edit(
+    @Param('id', new ParseIntPipe())
+    activityId: number,
+    @Body(new ValidationPipe())
+    editActvityDto: EditActvityDto,
+  ): Promise<void> {
+    return this.activityService.edit(editActvityDto);
+  }
+
   @Get(':id/pictures')
   async getPictures(
     @Param('id', new ParseIntPipe())
@@ -59,5 +73,31 @@ export class ActivityController {
   ): Promise<IPicture[]> {
     await this.activityService.getActivity(activityId);
     return await this.socialService.getPictures(activityId);
+  }
+
+  @Put(':id/participate')
+  async editParticipation(
+    @Param('id', new ParseIntPipe())
+    activityId: number,
+    @Request() request,
+    @Body(new ValidationPipe())
+    booleanEditDto: BooleanEditDto,
+  ): Promise<void> {
+    await this.activityService.participate(
+      request.user.id,
+      activityId,
+      booleanEditDto.value,
+    );
+  }
+
+  @Put(':id/signal')
+  async editSignal(
+    @Param('id', new ParseIntPipe())
+    activityId: number,
+    @Request() request,
+    @Body(new ValidationPipe())
+    booleanEditDto: BooleanEditDto,
+  ): Promise<void> {
+    await this.activityService.signal(activityId, booleanEditDto.value);
   }
 }
