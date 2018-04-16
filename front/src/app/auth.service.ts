@@ -1,14 +1,15 @@
-import { Injectable } from "@angular/core";
-import { LoginDto } from "../../../common/dto/";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { LoginDto } from '../../../common/dto/';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/observable';
+import { baseUrl } from './constants';
 
 @Injectable()
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public getToken(): string {
-    return localStorage.getItem("token");
+    return localStorage.getItem('token');
   }
 
   public isAuthenticated(): boolean {
@@ -21,11 +22,11 @@ export class AuthService {
   public connection(loginDto: LoginDto): Observable<boolean> {
     return this.http
       .post<{ access_token: string; expires_in: number }>(
-        "http://localhost:3000/auth/token",
+        baseUrl + 'auth/token',
         loginDto
       )
       .map(data => {
-        localStorage.setItem("token", data.access_token);
+        localStorage.setItem('token', data.access_token);
         return true;
       });
   }
