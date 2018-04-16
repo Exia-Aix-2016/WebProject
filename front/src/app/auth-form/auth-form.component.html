@@ -1,0 +1,8 @@
+<form (ngSubmit)="onSubmit()" name="AuthForm" ng-controller="FormController" >
+
+  email: <input [(ngModel)]="email" type="email" ng-model="email" name="email" id="email">
+
+  password: <input [(ngModel)]="password" type="password" ng-model="password" name="password" id="password">
+
+  <button type="submit" class="btn btn-primary">SignIn</button>
+</form>
