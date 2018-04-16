@@ -5,9 +5,11 @@ import {Observable} from "rxjs/"
 import { catchError } from 'rxjs/operators';
 @Injectable()
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   public connection(loginDto: LoginDto): Observable<{}> {
+
      return this.http
        .post(
          "http://localhost:3000/auth/token",
