@@ -7,6 +7,7 @@ import { ButtonsModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AuthService } from './auth.service';
+import { ActivityService } from './activity.service';
 import { TokenInterceptor } from './token.interceptor';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ActivitiesPageComponent } from './activities-page/activities-page.component';
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthService,
+    ActivityService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { IActivity, IIdea } from '../../../../common/interface';
 import { ActivityMode } from '../activity-mode.enum';
+import { ActivityService } from '../activity.service';
+import { Activity } from '../activity';
 
 @Component({
   selector: 'app-activity',
@@ -10,13 +11,12 @@ import { ActivityMode } from '../activity-mode.enum';
 export class ActivityComponent implements OnInit {
 
   @HostBinding('class.card') isCard = true;
-  @Input() activity: IActivity | IIdea;
+  @Input() activity: Activity;
   @Input() mode: ActivityMode;
 
-  participating = false;
   voting = false;
 
-  constructor() { }
+  constructor(private activityService: ActivityService) { }
 
   ngOnInit() { }
 
@@ -37,6 +37,8 @@ export class ActivityComponent implements OnInit {
   }
 
   toggleParticipation() {
-    this.participating = !this.participating;
+    this.activityService.setParticipation(this.activity.id, !this.activity.participating).subscribe({
+      error: e => console.error(e)
+    });
   }
 }

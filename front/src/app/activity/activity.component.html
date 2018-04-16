@@ -3,7 +3,7 @@
   <h5 class="card-title">
     {{activity.name}}
     <span class="badge badge-pill badge-{{voting ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleVote()" *ngIf="displayVote">0 votes</span>
-    <span class="badge badge-pill badge-{{participating ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleParticipation()"
+    <span class="badge badge-pill badge-{{activity.participating ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleParticipation()"
       *ngIf="displayParticipation">{{activity.participants}} participants</span>
   </h5>
   <p class="card-text">{{activity.description}}</p>

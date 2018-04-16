@@ -2,27 +2,41 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/switchMapTo';
+import 'rxjs/add/operator/do';
 import { IActivity, IIdea } from '../../../common/interface';
 import { baseUrl } from './constants';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Activity } from './activity';
 
 @Injectable()
 export class ActivityService {
+
+  private $update: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
   constructor(private http: HttpClient) { }
 
-  getActivities(autoRefresh: boolean = false): Observable<IActivity[]> {
-    return autoRefresh
-      ? Observable.timer(0, 5000).switchMapTo(
-        this.http.get<IActivity[]>(baseUrl + 'activities')
-      )
-      : this.http.get<IActivity[]>(baseUrl + 'activities');
+  getActivities(): Observable<Activity[]> {
+    return this.$update.switchMapTo(this.http.get<IActivity[]>(baseUrl + 'activities').flatMap(activities => {
+      return Observable.forkJoin(
+        activities.map(
+          activity => this.http.get<{ value: boolean }>(baseUrl + 'activities/' + activity.id + '/participate')
+            .map(p => {
+              return { ...activity, participating: p.value };
+            })
+        )
+      );
+    }));
   }
 
-  getIdeas(autoRefresh: boolean = false): Observable<IIdea[]> {
-    return autoRefresh
-      ? Observable.timer(0, 5000).switchMapTo(
-        this.http.get<IActivity[]>(baseUrl + 'ideas')
-      )
-      : this.http.get<IActivity[]>(baseUrl + 'ideas');
+  getIdeas(): Observable<Activity[]> {
+    return this.$update.switchMapTo(this.http.get<IIdea[]>(baseUrl + 'ideas'));
+  }
+
+  setParticipation(activityId: number, value: boolean) {
+    const url = baseUrl + 'activities/' + activityId + '/participate';
+    return this.http.put(url, { value })
+      .do(() => this.$update.next(true));
   }
 }

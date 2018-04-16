@@ -1,22 +1,21 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivityService } from '../activity.service';
-import { IIdea, IActivity } from '../../../../common/interface';
 import { ActivitiesListMode } from '../activities-list-mode.enum';
 import { ActivityMode } from '../activity-mode.enum';
+import { Activity } from '../activity';
 
 @Component({
   selector: 'app-activities-list',
   templateUrl: './activities-list.component.html',
   styleUrls: ['./activities-list.component.scss'],
-  providers: [ActivityService],
 })
 export class ActivitiesListComponent implements OnInit {
 
   @HostBinding('class.card-deck') isCardDeck = true;
   @Input() mode: ActivitiesListMode;
 
-  public $activities: Observable<IIdea[] | IActivity[]>;
+  public $activities: Observable<Activity[]>;
 
   constructor(private activityService: ActivityService) { }
 
@@ -25,10 +24,10 @@ export class ActivitiesListComponent implements OnInit {
       case ActivitiesListMode.ALL:
         break;
       case ActivitiesListMode.IDEAS:
-        this.$activities = this.activityService.getIdeas(false);
+        this.$activities = this.activityService.getIdeas();
         break;
       case ActivitiesListMode.ACTIVITIES:
-        this.$activities = this.activityService.getActivities(false);
+        this.$activities = this.activityService.getActivities();
         break;
     }
   }
