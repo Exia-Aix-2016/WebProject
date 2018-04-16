@@ -36,13 +36,16 @@ export class ActivityService {
 
   async getAllActivites(): Promise<IActivity[]> {
     const activities: Activity[] = await this.activityRepository.find({
-      planned: false,
+      planned: true,
     });
 
     return await Promise.all(
       activities.map(async (activity): Promise<IActivity> => {
         const participations: Participation[] = await activity.participations;
-        return Object.assign({ participants: participations.length }, activity);
+        return Object.assign(
+          { participants: participations ? participations.length : 0 },
+          activity,
+        );
       }),
     );
   }
@@ -53,6 +56,10 @@ export class ActivityService {
     const activity: Activity = this.activityRepository.create(
       createActivityDto,
     );
+    if (!createActivityDto.posterUrl) {
+      activity.posterUrl =
+        'https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';
+    }
     await this.activityRepository.save(activity);
     return Object.assign({ participants: 0 }, activity);
   }
