@@ -1,7 +1,9 @@
-import { Get, Controller, Inject, Query, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Get, Controller, Inject, Query, Post, Body, Param, Put, Delete, UsePipes } from '@nestjs/common';
 import { ArticleService } from '../../shop/article.service';
 import { Article } from '../../shop/article.entity';
 import { Category } from 'shop/category.entity';
+import { CreateCategoryDto, EditArticleDto, CreateArticleDto } from './article.dto';
+import { ValidationPipe } from '../validation.pipe';
 
 @Controller('articles')
 export class ArticleController {
@@ -13,12 +15,14 @@ export class ArticleController {
   }
 
   @Post('/categories')
-  postCat(@Body() body): any{
+  @UsePipes(new ValidationPipe())
+  postCat(@Body() body: CreateCategoryDto): any{
     return this.articleService.addCategory(body);
   }
 
   @Put('/categories/:id')
-  putCat(@Param() param, @Body() body): any{
+  @UsePipes(new ValidationPipe())
+  putCat(@Param() param, @Body() body: CreateCategoryDto): any{
     return this.articleService.updateCategory(param.id, body);
   }
   
@@ -37,7 +41,8 @@ export class ArticleController {
   }
 
   @Post()
-  post(@Body() body): any{
+  @UsePipes(new ValidationPipe())
+  post(@Body() body: CreateArticleDto): any{
     if(body){
       return this.articleService.create(body);
     }
@@ -49,11 +54,8 @@ export class ArticleController {
   }
 
   @Put(':id')
-  put(@Param() param, @Body() body): any{
+  @UsePipes(new ValidationPipe())
+  put(@Param() param, @Body() body: EditArticleDto): any{
     return this.articleService.edit(param.id, body);
-  }
-
-  
-
-   
+  }   
 }
