@@ -10,20 +10,28 @@ import { AuthService } from "./auth.service";
 import { FormsModule } from "@angular/forms";
 import { TokenInterceptor } from "./token.interceptor";
 import { LoginPageComponent } from "./login-page/login-page.component";
+import { ActivitiesPageComponent } from "./activities-page/activities-page.component";
+import { ActivityComponent } from "./activity/activity.component";
 
-const appRoutes: Routes = [{ path: "login", component: LoginPageComponent }];
+const appRoutes: Routes = [
+  { path: "login", component: LoginPageComponent },
+  { path: "activities", component: ActivitiesPageComponent },
+];
 
 @NgModule({
-  declarations: [AppComponent, AuthFormComponent, LoginPageComponent],
+  declarations: [
+    AppComponent,
+    AuthFormComponent,
+    LoginPageComponent,
+    ActivitiesPageComponent,
+    ActivityComponent,
+  ],
   imports: [
     HttpClientModule,
     FormsModule,
     BrowserModule,
     ButtonsModule.forRoot(),
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    ),
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [
     AuthService,
