@@ -19,6 +19,9 @@ export class AuthModule implements NestModule {
   public configure(consumer: MiddlewaresConsumer) {
     consumer
       .apply(passport.authenticate('jwt', { session: false }))
-      .forRoutes({ path: '/auth/authorized', method: RequestMethod.ALL });
+      .forRoutes(
+        { path: '/auth/authorized', method: RequestMethod.ALL },
+        { path: '/ideas/*', method: RequestMethod.ALL },
+      );
   }
 }

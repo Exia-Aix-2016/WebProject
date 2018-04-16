@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import {
   ActivityRepositoryToken,
   ParticipationRepositoryToken,
+  VoteRepositoryToken,
 } from '../constants';
 import { IActivity, IIdea } from '../../../common/interface';
 import {
@@ -12,6 +13,7 @@ import {
 } from '../../../common/dto';
 import { Activity } from './activity.entity';
 import { Participation } from './participation.entity';
+import { Vote } from './vote.entity';
 
 @Component()
 export class ActivityService {
@@ -20,6 +22,8 @@ export class ActivityService {
     private readonly activityRepository: Repository<Activity>,
     @Inject(ParticipationRepositoryToken)
     private readonly participationRepository: Repository<Participation>,
+    @Inject(VoteRepositoryToken)
+    private readonly voteRepository: Repository<Vote>,
   ) {}
 
   async getAll(): Promise<IIdea[]> {
@@ -55,6 +59,10 @@ export class ActivityService {
 
   async createIdea(createIdeaDto: CreateIdeaDto): Promise<IIdea> {
     const activity: Activity = this.activityRepository.create(createIdeaDto);
+    if (!createIdeaDto.posterUrl) {
+      activity.posterUrl =
+        'https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';
+    }
     return await this.activityRepository.save(activity);
   }
 
@@ -127,5 +135,30 @@ export class ActivityService {
     );
 
     return activity.participations.map(p => p.userId);
+  }
+
+  async vote(
+    userId: number,
+    activityOpt: number | Activity,
+    voted: boolean,
+  ): Promise<void> {
+    const activity: Activity =
+      typeof activityOpt === 'number'
+        ? await this.activityRepository.findOneById(activityOpt)
+        : activityOpt;
+    let vote: Vote = await this.voteRepository.findOne({
+      userId,
+      activity,
+    });
+    const alreadyVote: boolean = vote ? true : false;
+
+    if (voted && !alreadyVote) {
+      vote = this.voteRepository.create({ userId, activity });
+      await this.voteRepository.save(vote);
+    }
+
+    if (!voted && alreadyVote) {
+      await this.voteRepository.delete({ activity, userId });
+    }
   }
 }

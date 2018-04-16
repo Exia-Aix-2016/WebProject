@@ -16,3 +16,8 @@ export interface EditUserDto {
 export interface GroupDto {
     name: string;
 }
+
+export interface LikeDto {
+    userId: number;
+    pictureId: number;
+}

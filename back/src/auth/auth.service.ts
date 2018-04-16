@@ -14,7 +14,7 @@ export class AuthService {
     if (user === undefined) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
-    const expiresIn = 60,
+    const expiresIn = 60 * 60,
       secretOrKey = 'secret';
     const token = jwt.sign(user, secretOrKey, { expiresIn });
     return {

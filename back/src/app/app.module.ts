@@ -12,6 +12,7 @@ import { AuthController } from './auth/auth.controller';
 import { PictureController } from './picture/picture.controller';
 import { CartController } from './cart/cart.controller';
  
+import { IdeaController } from './idea/idea.controller';
 @Module({
   imports: [UserModule, ActivityModule, ShopModule, SocialModule, AuthModule],
   controllers: [
@@ -21,6 +22,7 @@ import { CartController } from './cart/cart.controller';
     AuthController,
     PictureController,
     ArticleController,
+    IdeaController,
     CartController
   ],
   components: [],
