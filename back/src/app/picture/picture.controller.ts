@@ -1,11 +1,27 @@
-import { Body, Get, Post, Put, Delete, Controller, Inject, Param, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Controller,
+  Inject,
+  Param,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { SocialService } from '../../social/social.service';
 import { Picture } from '../../social/picture.entity';
 import { SocialSelectorDto } from '../../../../common/dto/index';
 import { IPicture, IComment } from '../../../../common/interface/index';
 import { isUndefined } from 'util';
-import { ValidationPipe } from '../validation.pipe';
-import { PictureDto, SignalDto, LikeDto, CommentDto, EditCommentDto } from './picture.dto';
+import {
+  PictureDto,
+  SignalDto,
+  LikeDto,
+  CommentDto,
+  EditCommentDto,
+} from './picture.dto';
 @Controller('pictures')
 export class PictureController {
   constructor(private readonly socialService: SocialService) {}
@@ -123,7 +139,10 @@ export class PictureController {
 
   @Put(':pictureId/comments/:commentId/signal')
   @UsePipes(new ValidationPipe())
-  async signalCommentById(@Param() params, @Body() signaled: SignalDto): Promise<void> {
+  async signalCommentById(
+    @Param() params,
+    @Body() signaled: SignalDto,
+  ): Promise<void> {
     let comments: IComment[] = await this.socialService.getComments(
       parseInt(params.pictureId, 10),
     );
