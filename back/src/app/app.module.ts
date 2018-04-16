@@ -11,9 +11,9 @@ import { ArticleController } from './article/article.controller';
 import { AuthController } from './auth/auth.controller';
 import { PictureController } from './picture/picture.controller';
 import { CartController } from './cart/cart.controller';
- 
 import { IdeaController } from './idea/idea.controller';
 import { ActivityController } from './activity/activity.controller';
+
 @Module({
   imports: [UserModule, ActivityModule, ShopModule, SocialModule, AuthModule],
   controllers: [
@@ -24,7 +24,8 @@ import { ActivityController } from './activity/activity.controller';
     PictureController,
     ArticleController,
     IdeaController,
-    CartController
+    CartController,
+    ActivityController,
   ],
   components: [],
 })
