@@ -1,3 +1,10 @@
-<app-navbar></app-navbar>
-<h1>Login</h1>
-<app-auth-form></app-auth-form>
+<form (ngSubmit)="onSubmit()" class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input [(ngModel)]="email" name="email" type="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="Email address"
+        required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input [(ngModel)]="password" name="password" type="password" id="inputPassword" autocomplete="current-password" class="form-control"
+        placeholder="Password" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>

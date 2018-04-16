@@ -1,3 +1,10 @@
-<p>
-  activity works!
-</p>
+<div class="card">
+  <img class="card-img-bottom" src="{{activity.posterUrl}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{activity.name}}</h5>
+    <p class="card-text">{{activity.description}}</p>
+    <p class="card-text">
+      <small class="text-muted">{{activity.date | date:'long'}}</small>
+    </p>
+  </div>
+</div>

@@ -1,4 +1,4 @@
 <app-navbar></app-navbar>
-<ul>
-  <li *ngFor="let activity of ($activities | async)">{{activity.name}}</li>
-</ul>
+<div>
+  <app-activity *ngFor="let activity of ($activities | async)" [activity]="activity"></app-activity>
+</div>

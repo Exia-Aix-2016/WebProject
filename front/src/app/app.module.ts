@@ -2,12 +2,11 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
 import { ButtonsModule } from "ngx-bootstrap";
 
 import { AppComponent } from "./app.component";
-import { AuthFormComponent } from "./auth-form/auth-form.component";
 import { AuthService } from "./auth.service";
-import { FormsModule } from "@angular/forms";
 import { TokenInterceptor } from "./token.interceptor";
 import { LoginPageComponent } from "./login-page/login-page.component";
 import { ActivitiesPageComponent } from "./activities-page/activities-page.component";
@@ -22,7 +21,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AuthFormComponent,
     LoginPageComponent,
     ActivitiesPageComponent,
     ActivityComponent,
