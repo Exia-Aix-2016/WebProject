@@ -21,3 +21,7 @@ export interface LikeDto {
     userId: number;
     pictureId: number;
 }
+export interface LoginDto {
+  email: string;
+  password: string;
+}
