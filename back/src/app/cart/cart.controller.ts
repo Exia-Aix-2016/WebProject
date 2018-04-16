@@ -6,10 +6,20 @@ import { Cart } from 'shop/cart.entity';
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 
+    @Put(':cartId/articles/:articleId')
+    putArticleInCart(@Param() param, @Body() body): any{
+        return this.cartService.setQuantityInCart(param.cartId, param.articleId, body);
+    }
+
+    @Delete(':cartId/articles/:articleId')
+    deleteArticleInCart(@Param() param): any{
+        return this.cartService.deleteArticleInCart(param.cartId, param.articleId);
+    }
+
     @Get(':id/articles')
     getArticles(@Param() param): any{
         return this.cartService.getArticlesById(param.id);
-    }
+    }   
 
     @Post(':id/articles')
     postArticles(@Param() param, @Body() body): any{

@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { Cart } from './cart.entity';
 import { User } from '../user/user.entity';
 import { CartRepositoryToken, CartArticleRepositoryToken, ArticleRepositoryToken } from '../constants';
-import { CreateCartDto, CartStateDto, CreateCartArticleDto } from '../../../common/dto';
+import { CreateCartDto, CartStateDto, CreateCartArticleDto, setQuantityInCartDto } from '../../../common/dto';
 import { Article } from './article.entity';
 import { CartArticle } from './cart-article.entity';
 import { ICart, IArticle, ICartArticle } from '../../../common/interface';
@@ -70,10 +70,18 @@ export class CartService {
   }
 
   async addArticle(idCart: number,createCartArticleDto: CreateCartArticleDto): Promise <ICartArticle>{
-
     const cartArticle: CartArticle = await this.cartArticleRepository.create(createCartArticleDto);
     cartArticle.cart = await this.cartRepository.findOneById(idCart);
     cartArticle.article = await this.articleRepository.findOneById(createCartArticleDto.articleId);
     return await this.cartArticleRepository.save(cartArticle);
+  }
+
+  async setQuantityInCart(idCart: number, idArticle: number, setQuantityInCart: setQuantityInCartDto): Promise <void>{
+    const cartIn: CartArticle = await this.cartArticleRepository.findOne({cartId: idCart, articleId: idArticle});
+    return await this.cartArticleRepository.update(cartIn, setQuantityInCart);
+  }
+
+  async deleteArticleInCart(idCart: number, idArticle: number): Promise <void>{
+    return await this.cartArticleRepository.delete({cartId: idCart, articleId: idArticle});
   }
 }
