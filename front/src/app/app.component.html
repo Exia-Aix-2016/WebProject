@@ -1,17 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container">
-    <div style="text-align:center">
-
-      <h1>
-        Welcome to {{ title }}!
-      </h1>
-      <button type="button" class="btn btn-primary">
-        Single Button
-      </button>
-
-      <app-auth-form></app-auth-form>
-</div>
-
-
-
+  <div style="text-align:center">
+    <a routerLink="/login" routerLinkActive="active">Login</a>
+    <router-outlet></router-outlet>
+  </div>
 </div>
