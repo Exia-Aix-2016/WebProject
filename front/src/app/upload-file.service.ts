@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { baseUrl } from "./constants";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 
 @Injectable()
 export class UploadFileService {
   constructor(private http: HttpClient) {}
 
-  public uploadFile(fileToUpload: File): void {
+  public uploadFile(fileToUpload): void {
 
-     this.http.post(baseUrl + "pictures/imgs", fileToUpload, {
-    headers: new HttpHeaders({
-    'Content-Type':  'form-data',})
-       
-     }).map(data => {
-       return true;
-     }).subscribe();
+    /*const endpoint = 'your-destination-url';
+    const formData: FormData = new FormData();
+
+    formData.append('file', fileToUpload, fileToUpload.name);
+     this.http
+       .post(baseUrl + "files", formData)
+
+       .subscribe();*/
   }
 }

@@ -29,13 +29,7 @@ import {
 @Controller('pictures')
 export class PictureController {
   constructor(private readonly socialService: SocialService) {}
-  @Post('imgs')
-  @UseInterceptors(FileInterceptor('img'))
-  upload(@UploadedFile() img): string {
-    console.log(img);
-
-    return 'url';
-  }
+  
   @Post()
   @UsePipes(new ValidationPipe())
   async create(@Body() pictureDto: PictureDto): Promise<void> {
