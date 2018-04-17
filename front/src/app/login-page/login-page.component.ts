@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login-page',
@@ -11,7 +12,7 @@ export class LoginPageComponent implements OnInit {
   public email: string;
   public password: string;
 
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService, private router: Router) { }
 
   ngOnInit() { }
 
@@ -19,7 +20,10 @@ export class LoginPageComponent implements OnInit {
     this.authService
       .connection({ email: this.email, password: this.password })
       .subscribe({
-        complete: () => console.log('success !'),
+        complete: () => { 
+          console.log('success !');
+          this.router.navigateByUrl("");
+      } ,
         error: e => console.error(e),
       });
   }
