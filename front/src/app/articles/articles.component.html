@@ -1,0 +1,6 @@
+<ng-container *ngIf="($articles | async)">
+  <h5>{{category | uppercase}}</h5>
+  <div id="articles-container">
+    <app-article *ngFor="let article of ($articles | async)" [article]="article" [mode]="articleMode"></app-article>
+  </div>
+</ng-container>

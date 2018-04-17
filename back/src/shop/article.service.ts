@@ -21,9 +21,9 @@ export class ArticleService {
     private readonly cartArticleRepository: Repository<CartArticle>,
     @Inject(CategoryRepositoryToken)
     private readonly categoryRepository: Repository<Category>,
-  ) {}
+  ) { }
 
-  async edit(id: number,editArticleDto: EditArticleDto): Promise<void> {
+  async edit(id: number, editArticleDto: EditArticleDto): Promise<void> {
     return await this.articleRepository.updateById(
       id,
       editArticleDto,
@@ -32,39 +32,39 @@ export class ArticleService {
 
   async create(createArticleDto: CreateArticleDto): Promise<IArticle> {
     const category: Category = await this.categoryRepository.findOneById(createArticleDto.categoryName);
-    const article: Article = this.articleRepository.create(createArticleDto);    
-    if(category){
+    const article: Article = this.articleRepository.create(createArticleDto);
+    if (category) {
       article.category = category;
     }
     return await this.articleRepository.save(article);
   }
 
   async getAll(): Promise<IArticle[]> {
-      return await this.articleRepository.find();
+    return await this.articleRepository.find();
   }
 
   async getAllByCategory(categoryName: string): Promise<IArticle[]> {
-    return (await this.articleRepository.find()).filter(a => a.categoryName == categoryName);
+    return (await this.articleRepository.find()).filter(a => a.categoryName === categoryName);
   }
 
-  async getById(id: number): Promise<IArticle>{
+  async getById(id: number): Promise<IArticle> {
     return await this.articleRepository.findOneById(id);
   }
 
-  async getCategories(): Promise<ICategory[]>{
+  async getCategories(): Promise<ICategory[]> {
     return await this.categoryRepository.find();
   }
 
-  async addCategory(createCategoryDto: CreateCategoryDto): Promise<ICategory>{
+  async addCategory(createCategoryDto: CreateCategoryDto): Promise<ICategory> {
     const category: Category = await this.categoryRepository.create(createCategoryDto);
     return await this.categoryRepository.save(category);
   }
 
-  async updateCategory(id: string, newId: CreateCategoryDto): Promise<void>{
+  async updateCategory(id: string, newId: CreateCategoryDto): Promise<void> {
     return await this.categoryRepository.updateById(id, newId);
   }
 
-  async deleteCategory(id: string): Promise<void>{
+  async deleteCategory(id: string): Promise<void> {
     return this.categoryRepository.deleteById(id);
   }
 }
