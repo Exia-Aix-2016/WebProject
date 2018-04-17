@@ -18,6 +18,7 @@ import { ActivityComponent } from './activity/activity.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
+import { IsConnectedComponent } from './is-connected/is-connected.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
     NavbarComponent,
     RegisterPageComponent,
     ActivitiesListComponent,
+    IsConnectedComponent,
   ],
   imports: [
     HttpClientModule,

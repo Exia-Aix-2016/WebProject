@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  providers: [AuthService],
 })
 export class LoginPageComponent implements OnInit {
   public email: string;
@@ -21,7 +20,6 @@ export class LoginPageComponent implements OnInit {
       .connect({ email: this.email, password: this.password })
       .subscribe({
         complete: () => {
-          console.log('success !');
           this.router.navigateByUrl('');
         },
         error: e => console.error(e),

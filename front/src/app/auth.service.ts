@@ -16,7 +16,6 @@ export class AuthService {
     if (this.isAuthenticated()) {
       this.$connection.next(this.payload);
     }
-    this.connection.subscribe(console.log);
   }
 
   public get token(): string {
