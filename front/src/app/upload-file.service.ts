@@ -7,15 +7,19 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 export class UploadFileService {
   constructor(private http: HttpClient) {}
 
-  public uploadFile(fileToUpload): void {
+  public uploadFile(formData: FormData): Observable<{}> {
 
-    /*const endpoint = 'your-destination-url';
-    const formData: FormData = new FormData();
 
-    formData.append('file', fileToUpload, fileToUpload.name);
-     this.http
-       .post(baseUrl + "files", formData)
+    let headers = new HttpHeaders({
+      'Accept': 'application/json'
+    });
 
-       .subscribe();*/
+    return this.http.post(baseUrl + 'files', formData, {headers: headers})
+    .map(res => {return res})
+    .catch(error => Observable.throw(error))
+
+
+
+
   }
 }

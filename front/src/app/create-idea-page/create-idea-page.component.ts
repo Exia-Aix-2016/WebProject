@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadFileService } from '../upload-file.service';
+import { CreateActivityDto } from '../../../../common/dto/activity.dto';
 
 
 @Component({
@@ -8,25 +9,32 @@ import { UploadFileService } from '../upload-file.service';
   styleUrls: ["./create-idea-page.component.scss"]
 })
 export class CreateIdeaPageComponent implements OnInit {
-  private fileToUpload: File;
+
 
   constructor(private uploadFileService: UploadFileService) {}
 
+  private formdata: FormData;
+  private activity: CreateActivityDto;
   ngOnInit() {}
 
   private upload() {
-    this.uploadFileService.uploadFile(this.fileToUpload);
+
+    
+    this.uploadFileService.uploadFile(this.formdata).subscribe(
+      data => { console.log(data)
+      
+      },
+      error => console.log(error)
+  );
   }
   onFileChange(event) {
-    let reader = new FileReader();
-    if(event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        
-        this.fileToUpload = reader.result;
-        console.log(this.fileToUpload);
-      };
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        this.formdata = new FormData();
+
+        let file: File = fileList[0];
+        this.formdata.append('file', file, file.name);
+
     }
   }
 }

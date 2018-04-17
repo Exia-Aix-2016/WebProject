@@ -9,6 +9,7 @@ import {
   Param,
   UsePipes,
   Request,
+  Res,
   FileInterceptor,
   UploadedFile,
   UseInterceptors,
@@ -25,7 +26,7 @@ export class FileController {
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
-  upload(@UploadedFile() img): string {
+  upload(@UploadedFile() img): object {
     console.log(img.originalname);
 
     const fileName: string = crypto.createHash('md5').update(img.originalname).digest('hex') + Math.random();
@@ -35,6 +36,16 @@ export class FileController {
       if (err) throw err;
       console.log('The file has been saved!');
     });
-    return 'url';
+    return {
+     "error": "success",
+      "imgUrl": `http://localhost:3000/files/${fileName}`
+
+            }
+  }
+  @Get(':name')
+  getFile(@Param() params, @Res() response){
+    fs.readFile(`../imgs/${params.name}`, (err, data) => {
+      response.set('content-type', 'image/png').send(data);
+    });
   }
 }

@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BsDropdownModule } from "ngx-bootstrap";
+import { BsDropdownModule, ModalModule } from "ngx-bootstrap";
 
 
 
@@ -27,7 +27,6 @@ const appRoutes: Routes = [
   { path: "signup", component: RegisterPageComponent },
   { path: "activities", component: ActivitiesPageComponent },
   { path: "ideas", component: ActivitiesPageComponent },
-  { path: "addIdea", component: CreateIdeaPageComponent },
   { path: "**", redirectTo: "/activities" }
 ];
 
@@ -50,6 +49,7 @@ const appRoutes: Routes = [
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AngularSvgIconModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     AuthService,

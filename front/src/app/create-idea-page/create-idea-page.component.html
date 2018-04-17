@@ -1,6 +1,12 @@
-<app-navbar></app-navbar>
-<form (ngSubmit)="upload()" class="form-group">
-  <label for="inputEmail" class="sr-only">Choose file</label>
-  <input name="file" type="file" id="file" (change)="onFileChange($event)" #fileInput>
+<form (ngSubmit)="upload()" class="form-signin">
+
+
+    <label for="file">Choose file</label>
+    <input class="form-control-file" name="file" type="file" id="file" (change)="onFileChange($event)" accept=".png" #fileInput>
+
+
+
+
   <button type="submit">upload !</button>
 </form>
+
