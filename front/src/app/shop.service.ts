@@ -11,11 +11,13 @@ export class ShopService {
 
   constructor(private http: HttpClient) { }
 
-  public getArticles(category?: string) {
+  public getArticles(withCartArticles = false, category?: string) {
     if (category) {
       return this.$update.switchMapTo(this.http.get<IArticle[]>(baseUrl + 'articles', { params: { category } }));
     }
-    return this.$update.switchMapTo(this.http.get<IArticle[]>(baseUrl + 'articles'));
+    return this.$update.switchMapTo(
+      this.http.get<IArticle[]>(baseUrl + 'articles', { params: { withCartArticles: withCartArticles.toString() } })
+    );
   }
 
   public getCategories() {

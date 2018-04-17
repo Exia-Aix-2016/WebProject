@@ -39,8 +39,11 @@ export class ArticleService {
     return await this.articleRepository.save(article);
   }
 
-  async getAll(): Promise<IArticle[]> {
-    return await this.articleRepository.find();
+  async getAll(withCartArticle = false): Promise<IArticle[]> {
+    const articles: Article[] = withCartArticle ?
+      await this.articleRepository.find({ relations: ['cartArticles'] })
+      : await this.articleRepository.find();
+    return articles;
   }
 
   async getAllByCategory(categoryName: string): Promise<IArticle[]> {

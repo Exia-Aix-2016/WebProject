@@ -26,8 +26,13 @@ export class ArticlesComponent implements OnInit, OnChanges {
     let $c: Observable<IArticle[]>;
     if (this.category === 'all') {
       $c = this.shopService.getArticles();
+    } else if (this.category === 'bestsellers') {
+      $c = this.shopService.getArticles(true)
+        .map(articles => {
+          return articles.sort((a, b) => b.cartArticles.length - a.cartArticles.length).slice(0, 3);
+        });
     } else {
-      $c = this.shopService.getArticles(this.category);
+      $c = this.shopService.getArticles(false, this.category);
     }
     this.$articles = $c.map(articles => {
       return articles.sort((a, b) => {

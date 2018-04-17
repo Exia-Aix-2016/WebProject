@@ -1,4 +1,6 @@
-export interface IArticle{
+import { ICartArticle } from ".";
+
+export interface IArticle {
     readonly id: number;
     readonly name: string;
     readonly description: string;
@@ -7,4 +9,5 @@ export interface IArticle{
     readonly categoryName: string;
     readonly selling: boolean;
     readonly solded?: number;
+    readonly cartArticles: ICartArticle[]
 }
