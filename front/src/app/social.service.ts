@@ -7,17 +7,43 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/do';
-import { Picture } from './picture';
-import { IPicture } from '../../../common/interface';
+import { IPicture, IPictureExtended, IComment, IUser } from '../../../common/interface';
+import { baseUrl } from './constants';
 
 @Injectable()
 export class SocialService {
 
+  private $update: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
   constructor(private http: HttpClient) { }
 
-  getPictures(activityId: number): Observable<Picture[]> {
-    return this.http.get<IPicture[]>("/activities/" + activityId + "/pictures");
+  public getExtendedPictures(activityId: number): Observable<IPictureExtended[]> {
+    return this.$update
+      .switchMapTo(this.getPictures(activityId))
+      .flatMap(pictures => Observable.forkJoin(pictures.map(
+        picture => this.getComments(picture)
+          .flatMap(comments => Observable.forkJoin(comments.map(
+            comment => this.getCommentUser(comment)
+              .map(user => {
+                return { ...comment, user };
+              })
+          )))
+          .map(comments => {
+            return { ...picture, comments };
+          })
+
+      )));
   }
 
+  public getCommentUser(comment: IComment) {
+    return this.http.get<IUser>(baseUrl + 'users/' + comment.userId);
+  }
 
+  public getPictures(activityId: number): Observable<IPicture[]> {
+    return this.http.get<IPicture[]>(baseUrl + 'activities/' + activityId + '/pictures');
+  }
+
+  public getComments(picture: IPicture): Observable<IComment[]> {
+    return this.http.get<IComment[]>(baseUrl + 'pictures/' + picture.id + '/comments');
+  }
 }

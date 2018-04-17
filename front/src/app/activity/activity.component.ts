@@ -4,6 +4,7 @@ import { ActivityService } from '../activity.service';
 import { Activity } from '../activity';
 import { Router } from '@angular/router';
 import { baseUrl } from '../constants';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-activity',
@@ -18,7 +19,7 @@ export class ActivityComponent implements OnInit {
 
   voting = false;
 
-  constructor(private activityService: ActivityService, private router: Router) { }
+  constructor(private activityService: ActivityService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() { }
 
@@ -38,14 +39,17 @@ export class ActivityComponent implements OnInit {
     this.voting = !this.voting;
   }
 
-  toggleParticipation() {
+  toggleParticipation(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
     this.activityService.setParticipation(this.activity.id, !this.activity.participating).subscribe({
       error: e => console.error(e)
     });
   }
 
-  public openSocial(){
-    console.log("/activities/" + this.activity.id );
-    return this.router.navigateByUrl("/activities/" + this.activity.id);
+  public openSocial() {
+    if (this.mode === ActivityMode.FULL) {
+      this.router.navigateByUrl('/activities/' + this.activity.id);
+    }
   }
 }
