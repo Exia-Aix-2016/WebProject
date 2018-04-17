@@ -5,20 +5,44 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <!-- <a class="nav-item nav-link " href="/activities">Activities<span class="sr-only">(current)</span></a> -->
-      <a class="nav-item nav-link" *ngFor="let route of routes" [href]="route.path" [ngClass]="{'active': route.active}">{{route.title}}</a>
+      <!--<a class="nav-item nav-link " href="/activities">Activities<span class="sr-only">(current)</span></a> -->
+      <div *ngFor="let route of routes" [ngClass]="{'active': route.active}">
+
+        <a class="nav-item nav-link" *ngIf="route.path != '/ideas' else Ideas" [href]="route.path"> {{route.title}}</a>
+          
+        <ng-template #Ideas>
+
+            <div class="btn-group" dropdown>
+              <a class="nav-item nav-link" href="/ideas">{{route.title}}</a>
+              <a id="button-split" dropdownToggle class="nav-item nav-link dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
+                <span class="caret"></span>
+                <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
+                  <li role="menuitem">
+                    <a class="dropdown-item" href="/addIdea">Ajouter</a>
+                  </li>
+                </ul>
+              </a>
+            </div>
+      
+          </ng-template>
+      </div>
+
     </div>
+
+
   </div>
 
-  <button type="button" class="btn btn-primary">
-      <svg-icon src="assets/svg/cart.svg" id="cart-icon" style="width: 30px"></svg-icon> <span class="badge badge-light">4</span>
+  <div *ngIf="displayLogin; else Cart"></div>
+  <ng-template #Cart>
+    <button type="button" class="btn btn-primary" id="cart-button">
+        <svg-icon src="assets/svg/cart.svg" id="cart-icon" style="width: 25px" href="/cart"></svg-icon> <span class="badge badge-light" id="cart-number">4</span>
     </button>
+  </ng-template>  
     
-
   <div *ngIf="!displayLogin; else Signup"></div>
-  <ng-template #Signup><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkup" href="/signup">SignUp</a></ng-template>
-  
-  <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkup" (click)="disconnect()">Logout</button> 
-  <ng-template #Login><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkup" href="/login">Login</a></ng-template>
+  <ng-template #Signup><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkupLog" href="/signup">SignUp</a></ng-template>
 
-</nav>
+  <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkupLog" (click)="disconnect()">Logout</button> 
+  <ng-template #Login><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkupLog" href="/login">Login</a></ng-template>
+
+</nav>  

@@ -30,7 +30,7 @@ export class RegisterPageComponent implements OnInit {
     }).subscribe({
       complete: () =>{
         console.log("success !");
-        this.router.navigateByUrl("");
+        this.router.navigateByUrl("/login");
 
       } ,
       error: e => console.error(e),
