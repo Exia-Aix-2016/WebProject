@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <button class="btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkup" (click)="disconnect()">Logout</button> 
+  <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkup" (click)="disconnect()">Logout</button> 
   <ng-template #Login><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkup" href="/login">Login</a></ng-template>
 
 </nav>
