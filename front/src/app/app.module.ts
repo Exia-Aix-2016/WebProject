@@ -13,7 +13,6 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { ActivitiesPageComponent } from './activities-page/activities-page.component';
 import { ActivityComponent } from './activity/activity.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { IdeasPageComponent } from './ideas-page/ideas-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
 
@@ -32,20 +31,21 @@ const appRoutes: Routes = [
     ActivitiesPageComponent,
     ActivityComponent,
     NavbarComponent,
-    IdeasPageComponent,
+    RegisterPageComponent,
+    ActivitiesListComponent,
   ],
   imports: [
     HttpClientModule,
     FormsModule,
     BrowserModule,
     ButtonsModule.forRoot(),
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     AuthService,
     ActivityService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

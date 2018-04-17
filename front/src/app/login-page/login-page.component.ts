@@ -20,7 +20,10 @@ export class LoginPageComponent implements OnInit {
     this.authService
       .connection({ email: this.email, password: this.password })
       .subscribe({
-        complete: () => console.log('success !'),
+        complete: () => {
+          console.log('success !')
+          this.router.navigateByUrl("");
+        },
         error: e => console.error(e),
       });
   }
