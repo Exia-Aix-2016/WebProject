@@ -16,10 +16,10 @@ export class NavbarComponent {
     { path: '/shop', title: 'Shop', active: false },
   ];
 
-  public logins: Array<{title: string, path: string}> = [
-    { title: "Login", path: "/login"},
-    { title: "Logout", path: "" }
-  ]
+  public logins: Array<{ title: string, path: string }> = [
+    { title: 'Login', path: '/login' },
+    { title: 'Logout', path: '' }
+  ];
 
   constructor(private route: ActivatedRoute, private authService: AuthService) {
     this.route.url.subscribe(segments => {
@@ -29,11 +29,11 @@ export class NavbarComponent {
     });
   }
 
-  public get displayLogin(){
+  public get displayLogin() {
     return !this.authService.isAuthenticated();
   }
 
-  public disconnect(){
-    return this.authService.disconnection();
+  public disconnect() {
+    return this.authService.disconnect();
   }
 }

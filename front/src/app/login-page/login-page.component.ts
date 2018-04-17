@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -18,11 +18,11 @@ export class LoginPageComponent implements OnInit {
 
   public onSubmit(): void {
     this.authService
-      .connection({ email: this.email, password: this.password })
+      .connect({ email: this.email, password: this.password })
       .subscribe({
         complete: () => {
-          console.log('success !')
-          this.router.navigateByUrl("");
+          console.log('success !');
+          this.router.navigateByUrl('');
         },
         error: e => console.error(e),
       });
