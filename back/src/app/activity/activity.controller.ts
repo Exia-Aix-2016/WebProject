@@ -25,7 +25,7 @@ export class ActivityController {
   constructor(
     private readonly activityService: ActivityService,
     private readonly socialService: SocialService,
-  ) {}
+  ) { }
 
   @Get()
   async getAll(): Promise<IActivity[]> {
@@ -88,6 +88,12 @@ export class ActivityController {
       activityId,
       booleanEditDto.value,
     );
+  }
+
+  @Get(':id/participate')
+  async getParticipation(@Param('id', new ParseIntPipe()) activityId: number, @Request() request): Promise<{ value: boolean }> {
+    const userIds = await this.activityService.getUsers(activityId);
+    return { value: userIds.find(userId => userId === request.user.id) ? true : false };
   }
 
   @Put(':id/signal')
