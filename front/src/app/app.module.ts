@@ -42,7 +42,9 @@ const appRoutes: Routes = [
     FormsModule,
     BrowserModule,
     ButtonsModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    BsDropdownModule.forRoot(),
+    RouterModule.forRoot(appRoutes),
+    AngularSvgIconModule,
   ],
   providers: [
     AuthService,
