@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from "@angular/router"; 
 
 @Component({
   selector: 'app-register-page',
@@ -9,7 +10,7 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterPageComponent implements OnInit {
 
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -27,7 +28,11 @@ export class RegisterPageComponent implements OnInit {
       email: this.email,
       password: this.password
     }).subscribe({
-      complete: () => console.log('success !'),
+      complete: () =>{
+        console.log("success !");
+        this.router.navigateByUrl("");
+
+      } ,
       error: e => console.error(e),
     });
 
