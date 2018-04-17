@@ -30,4 +30,8 @@ export class AuthService {
         return true;
       });
   }
+
+  public disconnection(){
+    localStorage.removeItem("token");
+  }
 }
