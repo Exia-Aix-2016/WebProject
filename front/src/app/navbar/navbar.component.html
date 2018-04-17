@@ -10,15 +10,17 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-primary">
-      <svg-icon src="assets/svg/cart.svg" id="cart-icon" style="width: 30px"></svg-icon> <span class="badge badge-light">4</span>
+  <div *ngIf="displayLogin; else Cart"></div>
+  <ng-template #Cart>
+    <button type="button" class="btn btn-primary">
+        <svg-icon src="assets/svg/cart.svg" id="cart-icon" style="width: 30px" href="/cart"></svg-icon> <span class="badge badge-light">4</span>
     </button>
+  </ng-template>  
     
-
   <div *ngIf="!displayLogin; else Signup"></div>
   <ng-template #Signup><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkup" href="/signup">SignUp</a></ng-template>
   
   <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkup" (click)="disconnect()">Logout</button> 
   <ng-template #Login><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkup" href="/login">Login</a></ng-template>
 
-</nav>
+</nav>  
