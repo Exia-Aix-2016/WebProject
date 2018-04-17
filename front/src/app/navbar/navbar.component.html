@@ -40,9 +40,9 @@
   </ng-template>  
     
   <div *ngIf="!displayLogin; else Signup"></div>
-  <ng-template #Signup><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkup" href="/signup">SignUp</a></ng-template>
+  <ng-template #Signup><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkupLog" href="/signup">SignUp</a></ng-template>
 
-  <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkup" (click)="disconnect()">Logout</button> 
-  <ng-template #Login><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkup" href="/login">Login</a></ng-template>
+  <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkupLog" (click)="disconnect()">Logout</button> 
+  <ng-template #Login><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkupLog" href="/login">Login</a></ng-template>
 
 </nav>  
