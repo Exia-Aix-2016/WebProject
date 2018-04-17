@@ -4,6 +4,7 @@ import { ActivityService } from '../activity.service';
 import { ActivitiesListMode } from '../activities-list-mode.enum';
 import { ActivityMode } from '../activity-mode.enum';
 import { Activity } from '../activity';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-activities-list',
@@ -17,19 +18,24 @@ export class ActivitiesListComponent implements OnInit {
 
   public $activities: Observable<Activity[]>;
 
-  constructor(private activityService: ActivityService) { }
+  constructor(private activityService: ActivityService, private authService: AuthService) { }
 
   ngOnInit() {
-    switch (this.mode) {
-      case ActivitiesListMode.ALL:
-        break;
-      case ActivitiesListMode.IDEAS:
-        this.$activities = this.activityService.getIdeas();
-        break;
-      case ActivitiesListMode.ACTIVITIES:
-        this.$activities = this.activityService.getActivities();
-        break;
-    }
+    this.authService.connection.subscribe(user => {
+      if (user) {
+        switch (this.mode) {
+          case ActivitiesListMode.ALL:
+            break;
+          case ActivitiesListMode.IDEAS:
+            this.$activities = this.activityService.getIdeas();
+            break;
+          case ActivitiesListMode.ACTIVITIES:
+            this.$activities = this.activityService.getActivities();
+            break;
+        }
+      }
+    });
+
   }
 
   public get activityMode(): ActivityMode {
