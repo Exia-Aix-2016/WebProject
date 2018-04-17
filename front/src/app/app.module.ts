@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { AppComponent } from './app.component';
 import { AuthService } from './auth.service';
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
     BrowserModule,
     ButtonsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
+    AngularSvgIconModule,
   ],
   providers: [
     AuthService,
