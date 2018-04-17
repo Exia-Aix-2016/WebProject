@@ -31,7 +31,6 @@ export class ActivityController {
   async getAll(): Promise<IActivity[]> {
     return await this.activityService.getAllActivites();
   }
-
   @Post()
   @UsePipes(new ValidationPipe())
   async create(
