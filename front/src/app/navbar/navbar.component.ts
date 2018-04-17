@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/observable';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,11 +16,24 @@ export class NavbarComponent {
     { path: '/shop', title: 'Shop', active: false },
   ];
 
-  constructor(private route: ActivatedRoute) {
+  public logins: Array<{title: string, path: string}> = [
+    { title: "Login", path: "/login"},
+    { title: "Logout", path: "" }
+  ]
+
+  constructor(private route: ActivatedRoute, private authService: AuthService) {
     this.route.url.subscribe(segments => {
       this.routes.forEach(route => {
         route.active = route.path.includes(segments[0].path) ? true : false;
       });
     });
+  }
+
+  public get displayLogin(){
+    return !this.authService.isAuthenticated();
+  }
+
+  public disconnect(){
+    return this.authService.disconnection();
   }
 }
