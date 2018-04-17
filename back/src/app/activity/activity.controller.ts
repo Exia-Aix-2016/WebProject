@@ -12,13 +12,14 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { ActivityService } from '../../activity/activity.service';
-import { IIdea, IActivity, IPicture } from '../../../../common/interface';
+import { IIdea, IActivity, IPicture, IPayload } from '../../../../common/interface';
 import {
   CreateActivityDto,
   EditActvityDto,
   BooleanEditDto,
 } from './activity.dto';
 import { SocialService } from 'social/social.service';
+import { User } from '../user.decorator';
 
 @Controller('activities')
 export class ActivityController {
@@ -79,12 +80,12 @@ export class ActivityController {
   async editParticipation(
     @Param('id', new ParseIntPipe())
     activityId: number,
-    @Request() request,
     @Body(new ValidationPipe())
     booleanEditDto: BooleanEditDto,
+    @User() user: IPayload,
   ): Promise<void> {
     await this.activityService.participate(
-      request.user.id,
+      user.id,
       activityId,
       booleanEditDto.value,
     );

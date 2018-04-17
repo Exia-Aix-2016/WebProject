@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Payload } from '../payload.interface';
+import { IPayload } from '../../../../common/interface';
 
 @Component({
   selector: 'app-is-connected',
@@ -15,7 +15,7 @@ export class IsConnectedComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
-  private getDisplay(user: Payload): boolean {
+  private getDisplay(user: IPayload): boolean {
     if (user) {
       if (this.groups) {
         return this.groups.find(g => g === user.groupName) ? true : false;
