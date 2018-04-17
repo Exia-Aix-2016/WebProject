@@ -11,6 +11,7 @@ import {
   HttpStatus,
   HttpException,
   ValidationPipe,
+  Request,
 } from '@nestjs/common';
 import { UserService } from '../../user/user.service';
 import { IUser } from '../../../../common/interface';
@@ -24,7 +25,6 @@ export class UserController {
   async getAll(): Promise<IUser[]> {
     return await this.userService.getAll();
   }
-
   @Post()
   @UsePipes(new ValidationPipe())
   async create(@Body() createUserDto: CreateUserDto): Promise<IUser> {
@@ -33,6 +33,12 @@ export class UserController {
       throw new HttpException('Email already used', HttpStatus.CONFLICT);
     }
     return await this.userService.create(createUserDto);
+  }
+
+  @Post('me')
+  async me(@Request() request): Promise<IUser>{
+    console.log(request.body.user);
+    return await this.userService.verifyCredentials(request.body.user);
   }
 
   @Get(':id')
