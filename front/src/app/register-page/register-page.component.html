@@ -1,0 +1,21 @@
+<form (ngSubmit)="signUp()" class="form-signin">
+  <h1 class="h3 mb-3 font-weight-normal">Please Sign up !</h1>
+
+  <label for="inputName" class="sr-only">Name</label>
+  <input [(ngModel)]="name" name="name" type="text" id="inputName" class="form-control" autocomplete="name" placeholder="Name"
+      required autofocus>
+
+  <label for="inputfirstname" class="sr-only">First name</label>
+  <input [(ngModel)]="firstname" name="firstname" type="text" id="inputfirstname" class="form-control" autocomplete="firstname" placeholder="firstname"
+      required autofocus>
+
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input [(ngModel)]="email" name="email" type="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="Email address"
+          required autofocus>
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input [(ngModel)]="password" name="password" type="password" id="inputPassword" autocomplete="current-password" class="form-control"
+      placeholder="Password" required>
+
+      
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up !</button>
+</form>

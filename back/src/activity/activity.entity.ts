@@ -37,7 +37,7 @@ export class Activity {
   @RelationId((activity: Activity) => activity.occurrence)
   occurrenceName: string;
 
-  @OneToMany(type => Participation, participation => participation.activity)
+  @OneToMany(type => Participation, participation => participation.activity, { eager: true })
   participations: Participation[];
 
   @OneToMany(type => Vote, vote => vote.activity)

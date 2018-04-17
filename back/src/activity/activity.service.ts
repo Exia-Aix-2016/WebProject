@@ -35,7 +35,7 @@ export class ActivityService {
     private readonly voteRepository: Repository<Vote>,
     @Inject(OccurrenceRepositoryToken)
     private readonly occurrenceRepository: Repository<Occurrence>,
-  ) {}
+  ) { }
 
   async getAll(): Promise<IIdea[]> {
     return await this.activityRepository.find();
@@ -65,9 +65,9 @@ export class ActivityService {
     const activity: Activity =
       typeof activityOpt === 'number'
         ? await this.activityRepository.findOne({
-            id: activityOpt,
-            planned: true,
-          })
+          id: activityOpt,
+          planned: true,
+        })
         : activityOpt;
     if (isUndefined(activity)) {
       throw new HttpException('Activity not found', HttpStatus.NOT_FOUND);
@@ -139,9 +139,7 @@ export class ActivityService {
   ): Promise<void> {
     const activity: Activity =
       typeof activityOpt === 'number'
-        ? await this.activityRepository.findOneById(activityOpt, {
-            relations: ['participations'],
-          })
+        ? await this.activityRepository.findOneById(activityOpt)
         : activityOpt;
 
     if (isUndefined(activity)) {
@@ -170,12 +168,7 @@ export class ActivityService {
   async getUsers(activityOpt: number | Activity): Promise<number[]> {
     const activityId: number =
       typeof activityOpt === 'number' ? activityOpt : activityOpt.id;
-    const activity: Activity = await this.activityRepository.findOneById(
-      activityId,
-      {
-        relations: ['participations'],
-      },
-    );
+    const activity: Activity = await this.activityRepository.findOneById(activityId);
 
     return activity.participations.map(p => p.userId);
   }
