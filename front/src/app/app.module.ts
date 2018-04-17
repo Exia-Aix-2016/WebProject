@@ -13,10 +13,13 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { ActivitiesPageComponent } from './activities-page/activities-page.component';
 import { ActivityComponent } from './activity/activity.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { IdeasPageComponent } from './ideas-page/ideas-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: RegisterPageComponent},
   { path: 'activities', component: ActivitiesPageComponent },
   { path: 'ideas', component: ActivitiesPageComponent },
   { path: '**', redirectTo: '/activities' },
@@ -29,7 +32,7 @@ const appRoutes: Routes = [
     ActivitiesPageComponent,
     ActivityComponent,
     NavbarComponent,
-    ActivitiesListComponent,
+    IdeasPageComponent,
   ],
   imports: [
     HttpClientModule,

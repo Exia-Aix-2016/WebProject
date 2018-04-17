@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login-page',
@@ -20,10 +20,7 @@ export class LoginPageComponent implements OnInit {
     this.authService
       .connection({ email: this.email, password: this.password })
       .subscribe({
-        complete: () => {
-          console.log('success !');
-          this.router.navigateByUrl("");
-        },
+        complete: () => console.log('success !'),
         error: e => console.error(e),
       });
   }
