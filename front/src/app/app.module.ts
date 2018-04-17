@@ -19,12 +19,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
 import { IsConnectedComponent } from './is-connected/is-connected.component';
+import { SocialPageComponent } from './social-page/social-page.component';
+import { SocialService } from './social.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: RegisterPageComponent},
   { path: 'activities', component: ActivitiesPageComponent },
   { path: 'ideas', component: ActivitiesPageComponent },
+  { path: 'activities/:id', component: SocialPageComponent },
   { path: '**', redirectTo: '/activities' },
 ];
 
@@ -38,6 +41,7 @@ const appRoutes: Routes = [
     RegisterPageComponent,
     ActivitiesListComponent,
     IsConnectedComponent,
+    SocialPageComponent,
   ],
   imports: [
     HttpClientModule,
@@ -51,6 +55,7 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     ActivityService,
+    SocialService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

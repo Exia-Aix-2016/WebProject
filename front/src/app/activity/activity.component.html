@@ -1,3 +1,4 @@
+<div (click)="openSocial()">
 <img class="card-img-top" src="{{activity.posterUrl}}">
 <div class="card-body">
   <h5 class="card-title">
@@ -10,4 +11,5 @@
   <p class="card-text" *ngIf="displayDate">
     <small class="text-muted">{{activity.date | date: 'long'}}</small>
   </p>
+</div>
 </div>

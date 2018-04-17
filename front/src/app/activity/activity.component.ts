@@ -2,6 +2,8 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { ActivityMode } from '../activity-mode.enum';
 import { ActivityService } from '../activity.service';
 import { Activity } from '../activity';
+import { Router } from '@angular/router';
+import { baseUrl } from '../constants';
 
 @Component({
   selector: 'app-activity',
@@ -16,7 +18,7 @@ export class ActivityComponent implements OnInit {
 
   voting = false;
 
-  constructor(private activityService: ActivityService) { }
+  constructor(private activityService: ActivityService, private router: Router) { }
 
   ngOnInit() { }
 
@@ -40,5 +42,10 @@ export class ActivityComponent implements OnInit {
     this.activityService.setParticipation(this.activity.id, !this.activity.participating).subscribe({
       error: e => console.error(e)
     });
+  }
+
+  public openSocial(){
+    console.log("/activities/" + this.activity.id );
+    return this.router.navigateByUrl("/activities/" + this.activity.id);
   }
 }
