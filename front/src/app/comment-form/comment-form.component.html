@@ -1,13 +1,6 @@
-<form class="card">
-    <div class="card-header">
-        Your name
-      </div>
-    <div class="card-body">
-        <p class="card-text">type your comment :</p>
-        <textarea class="form-control" aria-label="With textarea"></textarea>
-      
-    </div>
+<form (ngSubmit)="onPost()" class="card">
+    <textarea [(ngModel)]="content" name="content" aria-label="With textarea" class="form-control card-body" placeholder="type your comment..."></textarea>
     <div class="card-footer text-right">
-        <a href="#" class="btn btn-primary">  post  </a>
+        <button type="submit" class="btn btn-primary">  post  </button>
     </div>
   </form>

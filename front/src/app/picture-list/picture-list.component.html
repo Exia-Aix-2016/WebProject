@@ -1,26 +1,31 @@
 
 <!-- futur picturecomponent -->
 <div *ngIf="canDisplay">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                        <img src="{{ currentPicture.url }}">
-
-                        <button class="btn btn-primary" (click)="onPrevious()">previous</button>
-                        <button class="btn btn-primary" (click)="onNext()">next</button>
+        <app-is-connected>
+                <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                    <img src="{{ currentPicture.url }}">
+            
+                                    <button class="btn btn-primary" (click)="onPrevious()">previous</button>
+                                    <button class="btn btn-primary" (click)="onNext()">next</button>
+                                </div>
+            
+                            <app-comment-list class="col-sm comment" [comments]="currentPicture.comments"></app-comment-list>
+                                        
+            
+                            <!-- Force next columns to break to new line -->
+                            <div class="w-100"></div>
+                            <div class="col-sm"></div>
+                            
+                            <div class="col-sm"><app-comment-form [pictureId]="currentPicture.id"></app-comment-form></div>
+                        </div>
+            
+            
                     </div>
 
-                <app-comment-list class="col-sm comment" [comments]="currentPicture.comments"></app-comment-list>
-                            
+        </app-is-connected>
 
-                <!-- Force next columns to break to new line -->
-                <div class="w-100"></div>
-                <div class="col-sm"></div>
-                <div class="col-sm"><app-comment-form></app-comment-form></div>
-            </div>
-
-
-        </div>
 </div>
 
 

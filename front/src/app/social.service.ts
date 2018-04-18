@@ -52,6 +52,13 @@ export class SocialService {
   }
 
 
+  public postComment(comment: CommentDto){
+
+    const url = baseUrl + `pictures/${comment.pictureId}/comments`;
+    return this.http.post(url, comment).do(() => this.$update.next(true));
+
+
+  }
 
   public updateComment(comment: IComment, newContent: string){
 
@@ -65,6 +72,8 @@ export class SocialService {
 
     return this.http.put(url, {signaled: value}).do(() => this.$update.next(true));
   }
+
+  
 
   public signalPicture(picture: IPicture, value: boolean){
 

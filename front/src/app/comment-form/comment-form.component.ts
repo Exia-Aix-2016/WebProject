@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { SocialService } from '../social.service'
+import { AuthService } from '../auth.service';
+
 
 @Component({
   selector: 'app-comment-form',
@@ -7,9 +10,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommentFormComponent implements OnInit {
 
-  constructor() { }
+  userId: number;
+  @Input() pictureId: number;
+  @Input() username: string;
+  content: string;
+  constructor(private authService: AuthService, private socialService: SocialService) { }
+
 
   ngOnInit() {
+
+  }
+
+  onPost(){
+
+
+    this.authService.connection.subscribe(user => {
+
+      this.socialService.postComment({
+        pictureId: this.pictureId,
+        userId: user.id,
+        content: this.content
+      }).subscribe();
+
+      
+      
+    });
   }
 
 }
