@@ -1,48 +1,46 @@
-
-<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
 <form (ngSubmit)="upload()" class="form-signin">
 
-<div class="container">
-    <div class="input-group">
-        <label for="nameActivity">Activity name </label>
-        <input [(ngModel)]="nameActivity" name="nameActivity" id="nameActivity" type="text" class="form-control">
-    </div>
-    <div class="input-group">
-        <label for="nameActivity">Activity description </label>
-        <input [(ngModel)]="descActivity" name="descActivity" id="nameActivity" type="text" class="form-control">
-    </div>
-
-    <div class="input-group">
-        <label for="nameActivity">Activity price </label>
-        <input [(ngModel)]="priceActivity" name="priceActivity" id="nameActivity" type="number" class="form-control">
-    </div>
-
-    <div class="input-group">
-            
-    </div>
-    <!-- CHOOSE DATE -->
-    <div class="input-group mb-3">
-        <label for="dateActivity">Choose date </label>
-        <input [(ngModel)]="dateActivity" name="dateActivity" type="datetime" id="dateActivity" class="form-control" #dp="bsDatepicker" bsDatepicker [bsValue]="bsValue">
-        <div class="input-group-append">
-            <button type="button" class="btn btn-primary" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen">Date</button>
+    <div class="container">
+        <div class="input-group">
+            <label for="nameActivity">Activity name </label>
+            <input [(ngModel)]="nameActivity" name="nameActivity" id="nameActivity" type="text" class="form-control">
         </div>
-    </div>
+        <div class="input-group">
+            <label for="nameActivity">Activity description </label>
+            <input [(ngModel)]="descActivity" name="descActivity" id="nameActivity" type="text" class="form-control">
+        </div>
 
-      <!-- image-->
-      <div class="input-group mb-3">
-        <label for="nameImg">Choose poster </label>
-          <input [(ngModel)]="nameImg" name="nameImg" id="nameImg" type="text" class="form-control input-group-text" disabled="disabled">
-          <span class="input-group-btn">
-              <div class=" image-preview-input">
-                  <span class="glyphicon glyphicon-folder-open"></span>
-                  <button class="btn btn-primary">Browse</button>
-                  <input class="form-control-file" name="file" type="file" id="file" (change)="onFileChange($event)" accept=".png" #fileInput>
-              </div>
-          </span>
-      </div>
-      <button type="submit" class="btn btn-success pull-right">Add activity</button>
-</div>
+        <div class="input-group">
+            <label for="nameActivity">Activity price </label>
+            <input [(ngModel)]="priceActivity" name="priceActivity" id="nameActivity" type="number" class="form-control">
+        </div>
+
+        <div class="input-group">
+
+        </div>
+        <!-- CHOOSE DATE -->
+        <div class="input-group mb-3">
+            <label for="dateActivity">Choose date </label>
+            <input [(ngModel)]="dateActivity" name="dateActivity" type="datetime" id="dateActivity" class="form-control" #dp="bsDatepicker"
+                bsDatepicker [bsValue]="bsValue">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-primary" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen">Date</button>
+            </div>
+        </div>
+
+        <!-- image-->
+        <div class="input-group mb-3">
+            <label for="nameImg">Choose poster </label>
+            <input [(ngModel)]="nameImg" name="nameImg" id="nameImg" type="text" class="form-control input-group-text" disabled="disabled">
+            <span class="input-group-btn">
+                <div class=" image-preview-input">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                    <button class="btn btn-primary">Browse</button>
+                    <input class="form-control-file" name="file" type="file" id="file" (change)="onFileChange($event)" accept=".png" #fileInput>
+                </div>
+            </span>
+        </div>
+        <button type="submit" class="btn btn-success pull-right">Add activity</button>
+    </div>
 
 </form>
-
