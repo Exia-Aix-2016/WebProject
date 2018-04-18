@@ -22,12 +22,15 @@ export class SocialService {
       .switchMapTo(this.getPictures(activityId))
       .flatMap(pictures => Observable.forkJoin(pictures.map(
         picture => this.getComments(picture)
-          .flatMap(comments => Observable.forkJoin(comments.map(
-            comment => this.getCommentUser(comment)
-              .map(user => {
-                return { ...comment, user };
-              })
-          )))
+          .flatMap(comments => {
+            return comments.length > 0 ? Observable.forkJoin(
+              comments.map(comment =>
+                this.getCommentUser(comment).map(user => {
+                  return { ...comment, user };
+                })
+              )
+            ) : Observable.of([]);
+          })
           .map(comments => {
             return { ...picture, comments };
           })
@@ -40,10 +43,10 @@ export class SocialService {
   }
 
   public getPictures(activityId: number): Observable<IPicture[]> {
-    return this.http.get<IPicture[]>(baseUrl + 'activities/' + activityId + '/pictures');
+    return this.http.get<IPicture[]>(baseUrl + "activities/" + activityId + "/pictures");
   }
 
   public getComments(picture: IPicture): Observable<IComment[]> {
-    return this.http.get<IComment[]>(baseUrl + 'pictures/' + picture.id + '/comments');
+    return this.http.get<IComment[]>(baseUrl + "pictures/" + picture.id + "/comments");
   }
 }

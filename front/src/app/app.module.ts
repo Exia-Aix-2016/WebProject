@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BsDropdownModule } from "ngx-bootstrap";
+import { BsDropdownModule, CarouselModule } from "ngx-bootstrap";
 
 
 import { AppComponent } from './app.component';
@@ -21,6 +21,9 @@ import { ActivitiesListComponent } from './activities-list/activities-list.compo
 import { IsConnectedComponent } from './is-connected/is-connected.component';
 import { SocialPageComponent } from './social-page/social-page.component';
 import { SocialService } from './social.service';
+import { CommentComponent } from './comment/comment.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
+import { PictureListComponent } from './picture-list/picture-list.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -42,6 +45,9 @@ const appRoutes: Routes = [
     ActivitiesListComponent,
     IsConnectedComponent,
     SocialPageComponent,
+    CommentComponent,
+    CommentListComponent,
+    PictureListComponent,
   ],
   imports: [
     HttpClientModule,
@@ -49,6 +55,7 @@ const appRoutes: Routes = [
     BrowserModule,
     ButtonsModule.forRoot(),
     BsDropdownModule.forRoot(),
+    CarouselModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AngularSvgIconModule,
   ],

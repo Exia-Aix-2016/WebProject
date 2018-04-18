@@ -13,17 +13,9 @@ import { IPictureExtended } from '../../../../common/interface';
 })
 export class SocialPageComponent implements OnInit {
 
-  public pictures: IPictureExtended[] = [];
-  id: number;
-
-  constructor(private sociaService: SocialService, private route: ActivatedRoute) { }
+  constructor(private sociaService: SocialService) { }
 
   ngOnInit() {
-    this.id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-    this.sociaService.getExtendedPictures(this.id).subscribe((pictures) => {
-      console.log(pictures);
-      this.pictures = pictures;
-    });
   }
 
 }
