@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { BsDropdownModule, ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
@@ -55,6 +55,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     BrowserModule,
+    ReactiveFormsModule,
     ButtonsModule.forRoot(),
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes),

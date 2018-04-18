@@ -55,4 +55,8 @@ export class ActivityService {
     const url = baseUrl + 'activities/' + activityId + '/participate';
     return this.http.put(url, { value }).do(() => this.$update.next(true));
   }
+
+  getOccurrences() {
+    return this.http.get<string[]>(baseUrl + 'activities/occurrences');
+  }
 }

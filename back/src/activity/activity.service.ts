@@ -197,4 +197,8 @@ export class ActivityService {
       await this.voteRepository.delete({ activity, userId });
     }
   }
+
+  async getOccurrences(): Promise<Occurrence[]> {
+    return await this.occurrenceRepository.find();
+  }
 }

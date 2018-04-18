@@ -20,6 +20,7 @@ import {
 } from './activity.dto';
 import { SocialService } from 'social/social.service';
 import { User } from '../user.decorator';
+import { Occurrence } from 'activity/occurrence.entity';
 
 @Controller('activities')
 export class ActivityController {
@@ -38,6 +39,12 @@ export class ActivityController {
     @Body() createActivityDto: CreateActivityDto,
   ): Promise<IActivity> {
     return await this.activityService.createActivity(createActivityDto);
+  }
+
+  @Get('occurrences')
+  async getOccurrences(): Promise<string[]> {
+    const occurrences: Occurrence[] = await this.activityService.getOccurrences();
+    return occurrences.map(occurrence => occurrence.name);
   }
 
   @Delete(':id')

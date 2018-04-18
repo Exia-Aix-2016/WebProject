@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { UploadFileService } from '../upload-file.service';
 import { ActivityService } from '../activity.service';
 import { } from '../arti';
 import { CreateActivityDto } from '../../../../common/dto/activity.dto';
 import { Activity } from '../activity';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-activity-manager',
@@ -13,44 +14,75 @@ import { Activity } from '../activity';
 })
 export class ActivityManagerComponent implements OnInit {
 
+  @HostBinding('class.container') isContainer = true;
+  @Input() editMode = false;
   @Input() activityMode = false;
-
+  @Input() model: {
+    name?: string;
+    description?: string,
+    posterUrl?: string,
+    date?: Date,
+    price?: number,
+    occurrenceName?: string,
+  } = {};
+  private activityForm: FormGroup;
   private formdata: FormData;
-  private nameImg: string;
-  private nameActivity: string;
-  private descActivity: string;
-  private dateActivity: Date = new Date(Date.now());
-  private priceActivity = 0;
-  private posterUrl: string;
-  private occurenceActivity = 'day';
   private minDate = new Date(Date.now());
-  private submitEnabled = false;
+  private img = {
+    name: '',
+    url: '',
+  };
+  private occurrences$: Observable<string[]>;
 
   constructor(private uploadFileService: UploadFileService, private activityService: ActivityService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.activityForm = new FormGroup({
+      'name': new FormControl(this.model.name, [Validators.required, Validators.minLength(4)]),
+      'description': new FormControl(this.model.description, [Validators.required, Validators.minLength(10)]),
+      'posterUrl': new FormControl(this.model.posterUrl, [Validators.required]),
+    });
+    this.updateFormControls();
+    this.occurrences$ = this.activityService.getOccurrences();
+  }
 
-  private upload() {
+  updateFormControls(event?: MouseEvent) {
+    const actM = event ? (<HTMLInputElement>event.toElement).checked : false;
+    if (actM) {
+      this.activityForm.addControl('date', new FormControl(this.model.date, [Validators.required]));
+      this.activityForm.addControl('price', new FormControl(this.model.price, [Validators.required, Validators.min(0)]));
+      this.activityForm.addControl('occurrenceName', new FormControl(this.model.occurrenceName, [Validators.required]));
+    } else {
+      this.activityForm.removeControl('date');
+      this.activityForm.removeControl('price');
+      this.activityForm.removeControl('occurrenceName');
+    }
+  }
+
+  getClass(k: string) {
+    const name = this.activityForm.get(k);
+    if (!name) {
+      return {};
+    }
+    const invalid = name.invalid && (name.dirty || name.touched);
+    const valid = name.status === 'VALID';
+    return { 'is-valid': valid, 'is-invalid': invalid };
+  }
+
+  private submit() {
+    console.log(this.activityForm.value);
     let req: Observable<Activity>;
     if (this.activityMode) {
-      req = this.activityService.createActivity({
-        name: this.nameActivity,
-        description: this.descActivity,
-        date: this.dateActivity,
-        posterUrl: this.posterUrl,
-        price: this.priceActivity,
-        occurrenceName: 'daily'
-
-      });
+      req = this.activityService.createActivity(this.activityForm.value);
     } else {
-      req = this.activityService.createIdea({
-        name: this.nameActivity,
-        description: this.descActivity,
-        posterUrl: this.posterUrl,
-      });
+      req = this.activityService.createIdea(this.activityForm.value);
     }
 
     req.subscribe(() => console.log('upload woked'), console.error);
+  }
+
+  get submitEnabled(): boolean {
+    return this.activityForm.status === 'VALID';
   }
 
   onFileChange(event) {
@@ -59,12 +91,11 @@ export class ActivityManagerComponent implements OnInit {
       this.formdata = new FormData();
 
       const file: File = fileList[0];
-      this.nameImg = file.name;
+      this.img.name = file.name;
       this.formdata.append('file', file, file.name);
-      this.submitEnabled = false;
       this.uploadFileService.uploadFile(this.formdata).subscribe(d => {
-        this.posterUrl = d.imgUrl;
-        this.submitEnabled = true;
+        this.img.url = d.imgUrl;
+        this.activityForm.setValue(Object.assign({}, this.activityForm.value, { 'posterUrl': this.img.url }));
       });
     }
   }
