@@ -49,4 +49,24 @@ export class SocialService {
   public getComments(picture: IPicture): Observable<IComment[]> {
     return this.http.get<IComment[]>(baseUrl + "pictures/" + picture.id + "/comments");
   }
+
+
+  /*  setParticipation(activityId: number, value: boolean) {
+    const url = baseUrl + 'activities/' + activityId + '/participate';
+    return this.http.put(url, { value })
+      .do(() => this.$update.next(true));
+  }*/
+
+  public signalComment(comment: IComment, value: boolean){
+
+    const url = baseUrl + `pictures/${comment.pictureId}/comments/${comment.id}/signal`;
+
+    return this.http.put(url, {value}).do(() => this.$update.next(true));
+  }
+
+  public signalPicture(picture: IPicture, value: boolean){
+
+    const url = baseUrl + `pictures/${picture.id}/signal`;
+    return this.http.put(url, {value}).do(() => this.$update.next(true));
+  }
 }
