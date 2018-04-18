@@ -9,6 +9,7 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/do';
 import { IPicture, IPictureExtended, IComment, IUser } from '../../../common/interface';
 import { baseUrl } from './constants';
+import { CommentDto } from '../../../common/dto';
 
 @Injectable()
 export class SocialService {
@@ -51,11 +52,12 @@ export class SocialService {
   }
 
 
-  /*  setParticipation(activityId: number, value: boolean) {
-    const url = baseUrl + 'activities/' + activityId + '/participate';
-    return this.http.put(url, { value })
-      .do(() => this.$update.next(true));
-  }*/
+
+  public updateComment(comment: IComment, newContent: string){
+
+    const url = baseUrl + `pictures/${comment.pictureId}/comments/${comment.id}`;
+    return this.http.put(url, {content: newContent}).do(() => this.$update.next(true));
+  }
 
   public signalComment(comment: IComment, value: boolean){
 
