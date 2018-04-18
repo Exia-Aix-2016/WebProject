@@ -19,10 +19,11 @@ import {
   EditArticleDto,
   CreateArticleDto,
 } from './article.dto';
+import { IArticle } from '../../../../common/interface';
 
 @Controller('articles')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(private readonly articleService: ArticleService) { }
 
   @Get('/categories')
   getCat(): any {
@@ -51,7 +52,7 @@ export class ArticleController {
     if (query.category) {
       return this.articleService.getAllByCategory(query.category);
     } else {
-      return this.articleService.getAll();
+      return this.articleService.getAll(query.withCartArticles === 'true');
     }
   }
 

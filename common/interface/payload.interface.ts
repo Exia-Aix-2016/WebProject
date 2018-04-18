@@ -1,4 +1,4 @@
-export interface RawPayload {
+export interface IRawPayload {
     email: string;
     exp: number;
     firstname: string;
@@ -8,7 +8,7 @@ export interface RawPayload {
     name: string;
 }
 
-export interface Payload {
+export interface IPayload {
     email: string;
     exp: Date;
     firstname: string;

@@ -1,2 +1,7 @@
 <app-navbar></app-navbar>
-<app-activities-list [mode]="listMode"></app-activities-list>
+<app-is-connected>
+    <app-activities-list [mode]="listMode"></app-activities-list>
+    <div id="not-connected" not-connected>
+        <h1>You must be connected !</h1>
+    </div>
+</app-is-connected>

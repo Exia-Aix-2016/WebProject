@@ -17,7 +17,7 @@ export class CartService {
     private readonly cartArticleRepository: Repository<CartArticle>,
     @Inject(ArticleRepositoryToken)
     private readonly articleRepository: Repository<Article>,
-  ) {}
+  ) { }
 
   async create(createCartDto: CreateCartDto): Promise<ICart> {
     const cart: Cart = this.cartRepository.create(createCartDto);
@@ -53,7 +53,6 @@ export class CartService {
   }
 
   async setState(id: number, cartStateDto: CartStateDto): Promise<void> {
-    console.log(cartStateDto);
     return await this.cartRepository.updateById(id, cartStateDto);
   }
 
@@ -61,27 +60,27 @@ export class CartService {
     return await this.cartRepository.find({ delivered: false });
   }
 
-  async delete(id: number): Promise <void>{
+  async delete(id: number): Promise<void> {
     return await this.cartRepository.deleteById(id);
   }
 
-  async getArticlesById(cartId: number): Promise <ICartArticle[]>{
-    return await this.cartArticleRepository.find({cartId});
+  async getArticlesById(cartId: number): Promise<ICartArticle[]> {
+    return await this.cartArticleRepository.find({ cartId });
   }
 
-  async addArticle(idCart: number,createCartArticleDto: CreateCartArticleDto): Promise <ICartArticle>{
+  async addArticle(idCart: number, createCartArticleDto: CreateCartArticleDto): Promise<ICartArticle> {
     const cartArticle: CartArticle = await this.cartArticleRepository.create(createCartArticleDto);
     cartArticle.cart = await this.cartRepository.findOneById(idCart);
     cartArticle.article = await this.articleRepository.findOneById(createCartArticleDto.articleId);
     return await this.cartArticleRepository.save(cartArticle);
   }
 
-  async setQuantityInCart(idCart: number, idArticle: number, setQuantityInCart: setQuantityInCartDto): Promise <void>{
-    const cartIn: CartArticle = await this.cartArticleRepository.findOne({cartId: idCart, articleId: idArticle});
+  async setQuantityInCart(idCart: number, idArticle: number, setQuantityInCart: setQuantityInCartDto): Promise<void> {
+    const cartIn: CartArticle = await this.cartArticleRepository.findOne({ cartId: idCart, articleId: idArticle });
     return await this.cartArticleRepository.update(cartIn, setQuantityInCart);
   }
 
-  async deleteArticleInCart(idCart: number, idArticle: number): Promise <void>{
-    return await this.cartArticleRepository.delete({cartId: idCart, articleId: idArticle});
+  async deleteArticleInCart(idCart: number, idArticle: number): Promise<void> {
+    return await this.cartArticleRepository.delete({ cartId: idCart, articleId: idArticle });
   }
 }

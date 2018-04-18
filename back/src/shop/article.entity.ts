@@ -24,14 +24,14 @@ export class Article {
   @Column({ length: 100 })
   pictureUrl: string;
 
-  @ManyToOne(type => Category, category => category.articles, {eager: true, cascadeUpdate: true})
+  @ManyToOne(type => Category, category => category.articles, { eager: true, cascadeUpdate: true })
   category: Category;
 
   @RelationId((article: Article) => article.category)
   categoryName: string;
 
   @OneToMany(type => CartArticle, cartArticle => cartArticle.article)
-  cartArticles: CartArticle[];
+  cartArticles: CartArticle[] = [];
 
-  @Column({default: true}) selling: boolean;
+  @Column({ default: true }) selling: boolean;
 }
