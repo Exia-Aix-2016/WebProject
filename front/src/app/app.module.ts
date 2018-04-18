@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BsDropdownModule } from "ngx-bootstrap";
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 
 import { AppComponent } from './app.component';
@@ -19,12 +19,17 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
 import { IsConnectedComponent } from './is-connected/is-connected.component';
+import { ShopPageComponent } from './shop-page/shop-page.component';
+import { ShopService } from './shop.service';
+import { ArticleComponent } from './article/article.component';
+import { ArticlesComponent } from './articles/articles.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
-  { path: 'signup', component: RegisterPageComponent},
+  { path: 'signup', component: RegisterPageComponent },
   { path: 'activities', component: ActivitiesPageComponent },
   { path: 'ideas', component: ActivitiesPageComponent },
+  { path: 'shop', component: ShopPageComponent },
   { path: '**', redirectTo: '/activities' },
 ];
 
@@ -38,6 +43,9 @@ const appRoutes: Routes = [
     RegisterPageComponent,
     ActivitiesListComponent,
     IsConnectedComponent,
+    ShopPageComponent,
+    ArticleComponent,
+    ArticlesComponent,
   ],
   imports: [
     HttpClientModule,
@@ -51,8 +59,9 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     ActivityService,
+    ShopService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
