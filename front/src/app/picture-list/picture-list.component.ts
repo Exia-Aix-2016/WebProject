@@ -31,7 +31,6 @@ export class PictureListComponent implements OnInit {
   }
 
   get currentPicture(): IPictureExtended {
-    console.log(this.pictures[this.currentPictureId]);
     return this.pictures[this.currentPictureId];
   }
 
@@ -40,7 +39,6 @@ export class PictureListComponent implements OnInit {
     this.currentPictureId++;
 
     this.currentPictureId = this.currentPictureId % this.pictures.length;
-    console.log(this.currentPictureId);
     
   }
 
