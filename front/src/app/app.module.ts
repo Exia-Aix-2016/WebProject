@@ -5,7 +5,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
+
 
 
 import { AppComponent } from './app.component';
@@ -23,6 +24,8 @@ import { ShopPageComponent } from './shop-page/shop-page.component';
 import { ShopService } from './shop.service';
 import { ArticleComponent } from './article/article.component';
 import { ArticlesComponent } from './articles/articles.component';
+import { ActivityManagerComponent } from './activity-manager/activity-manager.component';
+import { UploadFileService } from './upload-file.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -42,6 +45,7 @@ const appRoutes: Routes = [
     NavbarComponent,
     RegisterPageComponent,
     ActivitiesListComponent,
+    ActivityManagerComponent,
     IsConnectedComponent,
     ShopPageComponent,
     ArticleComponent,
@@ -55,11 +59,14 @@ const appRoutes: Routes = [
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AngularSvgIconModule,
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
   ],
   providers: [
     AuthService,
     ActivityService,
     ShopService,
+    UploadFileService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

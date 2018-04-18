@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/observable';
 import { AuthService } from '../auth.service';
+import { BsModalRef } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +12,7 @@ import { AuthService } from '../auth.service';
 })
 export class NavbarComponent {
 
+  modalRef: BsModalRef;
   public routes: Array<{ path: string, title: string, active: boolean }> = [
     { path: '/activities', title: 'Activities', active: false },
     { path: '/ideas', title: 'Suggestion Box', active: false },
@@ -21,7 +24,7 @@ export class NavbarComponent {
     { title: 'Logout', path: '' }
   ];
 
-  constructor(private route: ActivatedRoute, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private authService: AuthService, private modalService: BsModalService) {
     this.route.url.subscribe(segments => {
       this.routes.forEach(route => {
         route.active = route.path.includes(segments[0].path) ? true : false;
@@ -29,6 +32,9 @@ export class NavbarComponent {
     });
   }
 
+  public openModal(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template);
+  }
   public get displayLogin() {
     return !this.authService.isAuthenticated();
   }

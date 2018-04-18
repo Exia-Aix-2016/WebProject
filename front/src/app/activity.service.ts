@@ -6,37 +6,47 @@ import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/do';
 import { IActivity, IIdea } from '../../../common/interface';
+import { CreateActivityDto } from '../../../common/dto/';
 import { baseUrl } from './constants';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Activity } from './activity';
 
 @Injectable()
 export class ActivityService {
+  private $update: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    true
+  );
 
-  private $update: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getActivities(): Observable<Activity[]> {
-    return this.$update.switchMapTo(this.http.get<IActivity[]>(baseUrl + 'activities').flatMap(activities => {
-      return Observable.forkJoin(
-        activities.map(
-          activity => this.http.get<{ value: boolean }>(baseUrl + 'activities/' + activity.id + '/participate')
-            .map(p => {
-              return { ...activity, participating: p.value };
-            })
-        )
-      );
-    }));
+    return this.$update.switchMapTo(
+      this.http.get<IActivity[]>(baseUrl + "activities").flatMap(activities => {
+        return Observable.forkJoin(
+          activities.map(activity =>
+            this.http
+              .get<{ value: boolean }>(
+                baseUrl + "activities/" + activity.id + "/participate"
+              )
+              .map(p => {
+                return { ...activity, participating: p.value };
+              })
+          )
+        );
+      })
+    );
+  }
+
+  createIdea(createActivityDto: CreateActivityDto): Observable<Activity> {
+    return this.http.post<IActivity>(baseUrl + "activities", createActivityDto);
   }
 
   getIdeas(): Observable<Activity[]> {
-    return this.$update.switchMapTo(this.http.get<IIdea[]>(baseUrl + 'ideas'));
+    return this.$update.switchMapTo(this.http.get<IIdea[]>(baseUrl + "ideas"));
   }
 
   setParticipation(activityId: number, value: boolean) {
-    const url = baseUrl + 'activities/' + activityId + '/participate';
-    return this.http.put(url, { value })
-      .do(() => this.$update.next(true));
+    const url = baseUrl + "activities/" + activityId + "/participate";
+    return this.http.put(url, { value }).do(() => this.$update.next(true));
   }
 }
