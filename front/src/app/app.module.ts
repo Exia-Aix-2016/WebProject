@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BsDropdownModule, ModalModule, BsDatepickerModule  } from "ngx-bootstrap";
+import { BsDropdownModule, ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 
 
@@ -19,15 +19,15 @@ import { ActivityComponent } from './activity/activity.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
-import { CreateIdeaPageComponent } from './create-idea-page/create-idea-page.component';
+import { ActivityManagerComponent } from './activity-manager/activity-manager.component';
 import { UploadFileService } from './upload-file.service';
 
 const appRoutes: Routes = [
-  { path: "login", component: LoginPageComponent },
-  { path: "signup", component: RegisterPageComponent },
-  { path: "activities", component: ActivitiesPageComponent },
-  { path: "ideas", component: ActivitiesPageComponent },
-  { path: "**", redirectTo: "/activities" }
+  { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: RegisterPageComponent },
+  { path: 'activities', component: ActivitiesPageComponent },
+  { path: 'ideas', component: ActivitiesPageComponent },
+  { path: '**', redirectTo: '/activities' }
 ];
 
 @NgModule({
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     NavbarComponent,
     RegisterPageComponent,
     ActivitiesListComponent,
-    CreateIdeaPageComponent,
+    ActivityManagerComponent,
   ],
   imports: [
     HttpClientModule,
@@ -60,4 +60,4 @@ const appRoutes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

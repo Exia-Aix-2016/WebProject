@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/activities">BDE CESI-EXIA</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -9,22 +10,22 @@
       <div *ngFor="let route of routes" [ngClass]="{'active': route.active}">
 
         <a class="nav-item nav-link" *ngIf="route.path != '/ideas' else Ideas" [href]="route.path"> {{route.title}}</a>
-          
+
         <ng-template #Ideas>
 
-            <div class="btn-group" dropdown>
-              <a class="nav-item nav-link" href="/ideas">{{route.title}}</a>
-              <a id="button-split" dropdownToggle class="nav-item nav-link dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
-                <span class="caret"></span>
-                <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
-                  <li role="menuitem">
-                    <a class="dropdown-item" (click)="openModal(ModalAddIdea)">Ajouter</a>
-                  </li>
-                </ul>
-              </a>
-            </div>
-      
-          </ng-template>
+          <div class="btn-group" dropdown>
+            <a class="nav-item nav-link" href="/ideas">{{route.title}}</a>
+            <a id="button-split" dropdownToggle class="nav-item nav-link dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
+              <span class="caret"></span>
+              <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
+                <li role="menuitem">
+                  <a class="dropdown-item" (click)="openModal(ModalAddIdea)">Ajouter</a>
+                </li>
+              </ul>
+            </a>
+          </div>
+
+        </ng-template>
 
       </div>
 
@@ -32,29 +33,33 @@
   </div>
 
   <ng-template #ModalAddIdea>
-      <div class="modal-header">
-          <h4 class="modal-title pull-left">Add Idea</h4>
-          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-
-          <app-create-idea-page></app-create-idea-page>
-        </div>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Add Idea</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-activity-manager></app-activity-manager>
+    </div>
   </ng-template>
 
   <div *ngIf="displayLogin; else Cart"></div>
   <ng-template #Cart>
     <button type="button" class="btn btn-primary" id="cart-button">
-        <svg-icon src="assets/svg/cart.svg" id="cart-icon" style="width: 25px" href="/cart"></svg-icon> <span class="badge badge-light" id="cart-number">4</span>
+      <svg-icon src="assets/svg/cart.svg" id="cart-icon" style="width: 25px" href="/cart"></svg-icon>
+      <span class="badge badge-light" id="cart-number">4</span>
     </button>
-  </ng-template>  
-    
+  </ng-template>
+
   <div *ngIf="!displayLogin; else Signup"></div>
-  <ng-template #Signup><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkupLog" href="/signup">SignUp</a></ng-template>
+  <ng-template #Signup>
+    <a class="btn btn-sm btn-outline-primary" id="navbarNavAltMarkupLog" href="/signup">SignUp</a>
+  </ng-template>
 
-  <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkupLog" (click)="disconnect()">Logout</button> 
-  <ng-template #Login><a class="btn btn-sm btn-outline-primary"  id="navbarNavAltMarkupLog" href="/login">Login</a></ng-template>
+  <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkupLog" (click)="disconnect()">Logout</button>
+  <ng-template #Login>
+    <a class="btn btn-sm btn-outline-primary" id="navbarNavAltMarkupLog" href="/login">Login</a>
+  </ng-template>
 
-</nav>  
+</nav>

@@ -3,34 +3,27 @@ import { UploadFileService } from '../upload-file.service';
 import { CreateActivityDto } from '../../../../common/dto/activity.dto';
 
 @Component({
-  selector: 'app-create-idea-page',
-  templateUrl: './create-idea-page.component.html',
-  styleUrls: ['./create-idea-page.component.scss']
+  selector: 'app-activity-manager',
+  templateUrl: './activity-manager.component.html',
+  styleUrls: ['./activity-manager.component.scss']
 })
-export class CreateIdeaPageComponent implements OnInit {
-  bsValue = new Date();
-  bsRangeValue: Date[];
-  maxDate = new Date();
+export class ActivityManagerComponent implements OnInit {
+  minDate = new Date(Date.now());
 
   private formdata: FormData;
   private nameImg: string;
 
   private nameActivity: string;
   private descActivity: string;
-  private dateActivity: string;
-  private priceActivity: string;
+  private dateActivity: Date = new Date(Date.now());
+  private priceActivity = 0;
   private occurenceActivity = 'day';
 
-  constructor(private uploadFileService: UploadFileService) {
-    this.maxDate.setDate(this.maxDate.getDate() + 7);
-    this.bsRangeValue = [this.bsValue, this.maxDate];
-  }
+  constructor(private uploadFileService: UploadFileService) { }
 
   ngOnInit() { }
 
   private upload() {
-
-
     this.uploadFileService.uploadFile(this.formdata).subscribe(
       data => {
         console.log((<{ error, imgUrl }>data).imgUrl);
@@ -43,6 +36,7 @@ export class CreateIdeaPageComponent implements OnInit {
       error => console.log(error)
     );
   }
+
   onFileChange(event) {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
