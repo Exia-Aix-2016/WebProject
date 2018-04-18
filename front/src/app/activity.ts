@@ -10,4 +10,6 @@ export interface Activity {
     readonly occurrenceName?: string;
     readonly participants?: number;
     readonly participating?: boolean;
+    readonly votes?: { userId: number }[];
+    readonly voting?: boolean;
 }

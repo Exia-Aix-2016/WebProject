@@ -2,7 +2,8 @@
 <div class="card-body">
   <h5 class="card-title">
     {{activity.name}}
-    <span class="badge badge-pill badge-{{voting ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleVote()" *ngIf="displayVote">0 votes</span>
+    <span class="badge badge-pill badge-{{activity.voting ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleVote()"
+      *ngIf="displayVote">{{activity.voters}} votes</span>
     <span class="badge badge-pill badge-{{activity.participating ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleParticipation()"
       *ngIf="displayParticipation">{{activity.participants}} participants</span>
     <span class="badge badge-pill badge-danger" *ngIf="signaled">signaled</span>

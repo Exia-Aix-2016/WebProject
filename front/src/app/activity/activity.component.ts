@@ -39,10 +39,13 @@ export class ActivityComponent implements OnInit {
   }
 
   toggleVote() {
-    this.voting = !this.voting;
+    this.activityService.setVote(this.activity.id, !this.activity.voting).subscribe({
+      error: e => console.error(e)
+    });
   }
 
   toggleParticipation() {
+    console.log(this.activity);
     this.activityService.setParticipation(this.activity.id, !this.activity.participating).subscribe({
       error: e => console.error(e)
     });

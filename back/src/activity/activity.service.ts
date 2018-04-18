@@ -42,7 +42,16 @@ export class ActivityService {
   }
 
   async getAllIdeas(): Promise<IIdea[]> {
-    return await this.activityRepository.find({ planned: false });
+    const activities: Activity[] = await this.activityRepository.find({ planned: false });
+    return await Promise.all(
+      activities.map(async (activity): Promise<IIdea> => {
+        const votes: Vote[] = await activity.votes;
+        return Object.assign(
+          { voters: votes ? votes.length : 0 },
+          activity,
+        );
+      }),
+    );
   }
 
   async getAllActivites(): Promise<IActivity[]> {

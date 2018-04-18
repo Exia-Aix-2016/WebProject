@@ -48,7 +48,16 @@ export class ActivityService {
   }
 
   getIdeas(): Observable<Activity[]> {
-    return this.$update.switchMapTo(this.http.get<IIdea[]>(baseUrl + 'ideas'));
+    return this.$update.switchMapTo(this.http.get<IIdea[]>(baseUrl + 'ideas'))
+      .flatMap(ideas => {
+        return Observable.forkJoin(
+          ideas.map(idea =>
+            this.http.get<{ value: true }>(`${baseUrl}ideas/${idea.id}/vote`)
+              .map(vote => {
+                return { ...idea, voting: vote.value };
+              })
+          ));
+      });
   }
 
   setParticipation(activityId: number, value: boolean) {
@@ -72,6 +81,11 @@ export class ActivityService {
 
   signal(activityId: number, activity: boolean, value: boolean) {
     return this.http.put<void>(baseUrl + (activity ? 'activities/' : 'ideas/') + activityId + '/signal', { value })
+      .do(v => this.$update.next(true));
+  }
+
+  setVote(activityId: number, value: boolean) {
+    return this.http.put<void>(`${baseUrl}ideas/${activityId}/vote`, { value })
       .do(v => this.$update.next(true));
   }
 
