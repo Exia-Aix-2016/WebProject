@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import { baseUrl } from "./constants";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Observable } from 'rxjs/Observable';
+import { baseUrl } from './constants';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class UploadFileService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  public uploadFile(formData: FormData): Observable<{}> {
+  public uploadFile(formData: FormData): Observable<{ imgUrl: string }> {
 
 
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'Accept': 'application/json'
     });
 
-    return this.http.post(baseUrl + 'files', formData, {headers: headers})
-    .map(res => {return <object>res})
-    .catch(error => Observable.throw(error))
-
-
-
-
+    return this.http.post<{ imgUrl: string }>(baseUrl + 'files', formData, { headers: headers });
   }
 }

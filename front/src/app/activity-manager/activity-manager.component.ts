@@ -1,7 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { UploadFileService } from '../upload-file.service';
 import { ActivityService } from '../activity.service';
+import { } from '../arti';
 import { CreateActivityDto } from '../../../../common/dto/activity.dto';
+import { Activity } from '../activity';
 
 @Component({
   selector: 'app-activity-manager',
@@ -9,44 +12,45 @@ import { CreateActivityDto } from '../../../../common/dto/activity.dto';
   styleUrls: ['./activity-manager.component.scss']
 })
 export class ActivityManagerComponent implements OnInit {
-  minDate = new Date(Date.now());
+
+  @Input() activityMode = false;
 
   private formdata: FormData;
   private nameImg: string;
-
   private nameActivity: string;
   private descActivity: string;
   private dateActivity: Date = new Date(Date.now());
   private priceActivity = 0;
+  private posterUrl: string;
   private occurenceActivity = 'day';
+  private minDate = new Date(Date.now());
+  private submitEnabled = false;
 
   constructor(private uploadFileService: UploadFileService, private activityService: ActivityService) { }
-
-  @Input() activityMode = false;
 
   ngOnInit() { }
 
   private upload() {
-    this.uploadFileService.uploadFile(this.formdata).subscribe(
-      data => {
-        let posterUrl: string = (<{ error, imgUrl }>data).imgUrl
+    let req: Observable<Activity>;
+    if (this.activityMode) {
+      req = this.activityService.createActivity({
+        name: this.nameActivity,
+        description: this.descActivity,
+        date: this.dateActivity,
+        posterUrl: this.posterUrl,
+        price: this.priceActivity,
+        occurrenceName: 'daily'
 
-        this.activityService.createIdea({
-          name: this.nameActivity,
-          description: this.descActivity,
-          date: this.dateActivity,
-          posterUrl: posterUrl,
-          price: this.priceActivity,
-          occurrenceName: 'day'
-          
-        }).subscribe(
-          data => console.log(data),
-          error => console.log(error)
-        );
+      });
+    } else {
+      req = this.activityService.createIdea({
+        name: this.nameActivity,
+        description: this.descActivity,
+        posterUrl: this.posterUrl,
+      });
+    }
 
-      },
-      error => console.log(error)
-    );
+    req.subscribe(() => console.log('upload woked'), console.error);
   }
 
   onFileChange(event) {
@@ -57,7 +61,11 @@ export class ActivityManagerComponent implements OnInit {
       const file: File = fileList[0];
       this.nameImg = file.name;
       this.formdata.append('file', file, file.name);
-
+      this.submitEnabled = false;
+      this.uploadFileService.uploadFile(this.formdata).subscribe(d => {
+        this.posterUrl = d.imgUrl;
+        this.submitEnabled = true;
+      });
     }
   }
 }

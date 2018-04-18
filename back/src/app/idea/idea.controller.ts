@@ -9,7 +9,7 @@ import {
   Delete,
   Request,
   ValidationPipe,
-  ParseIntPipe
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ActivityService } from '../../activity/activity.service';
 import { IIdea } from '../../../../common/interface';
@@ -17,7 +17,7 @@ import { CreateIdeaDto, BooleanEditIdea } from './idea.dto';
 
 @Controller('ideas')
 export class IdeaController {
-  constructor(private readonly activityService: ActivityService) {}
+  constructor(private readonly activityService: ActivityService) { }
 
   @Get()
   async getAll(): Promise<IIdea[]> {
