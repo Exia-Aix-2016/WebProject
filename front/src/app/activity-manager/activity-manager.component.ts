@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UploadFileService } from '../upload-file.service';
 import { ActivityService } from '../activity.service';
 import { CreateActivityDto } from '../../../../common/dto/activity.dto';
@@ -21,6 +21,8 @@ export class ActivityManagerComponent implements OnInit {
   private occurenceActivity = 'day';
 
   constructor(private uploadFileService: UploadFileService, private activityService: ActivityService) { }
+
+  @Input() activityMode = false;
 
   ngOnInit() { }
 

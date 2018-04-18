@@ -1,15 +1,16 @@
 <form (ngSubmit)="upload()" class="form-signin">
-
     <div class="container">
-        <div class="form-group d-flex justify-content-end">
-            <div class="form-check">
 
-                <input class="form-check-input" type="checkbox" value="" id="activityModeCheck">
-                <label class="form-check-label" for="activityModeCheck">
-                    Activity Mode
-                </label>
+        <app-is-connected group="staff">
+            <div class="form-group d-flex justify-content-end">
+                <div class="form-check">
+                    <input [(ngModel)]="activityMode" [ngModelOptions]="{standalone: true}" class="form-check-input" type="checkbox" id="activityModeCheck">
+                    <label class="form-check-label" for="activityModeCheck">
+                        Activity Mode
+                    </label>
+                </div>
             </div>
-        </div>
+        </app-is-connected>
 
         <div class="form-group">
             <label for="nameActivity">Activity name </label>
@@ -20,12 +21,12 @@
             <input [(ngModel)]="descActivity" name="descActivity" id="nameActivity" type="text" class="form-control">
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="activityMode">
             <label for="nameActivity">Activity price </label>
             <input [(ngModel)]="priceActivity" name="priceActivity" id="nameActivity" type="number" class="form-control">
         </div>
-        <!-- CHOOSE DATE -->
-        <div class="form-group">
+
+        <div class="form-group" *ngIf="activityMode">
             <label for="dateActivity">Choose date </label>
             <div class="input-group mb-3">
                 <input [(ngModel)]="dateActivity" name="dateActivity" type="datetime" id="dateActivity" class="form-control" #dp="bsDatepicker"
@@ -36,9 +37,7 @@
             </div>
         </div>
 
-
-        <!-- image-->
-        <div class="form-group">
+        <div class="form-group" *ngIf="activityMode">
             <label for="nameImg">Choose poster </label>
             <div class="input-group mb-3">
                 <input [(ngModel)]="nameImg" name="nameImg" id="nameImg" type="text" class="form-control input-group-text" disabled="disabled">
@@ -51,9 +50,10 @@
                 </span>
             </div>
         </div>
+
         <br/>
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-success pull-right">Add activity</button>
+            <button type="submit" class="btn btn-success pull-right">{{activityMode ? 'Add Activity': 'Add Idea'}}</button>
         </div>
 
     </div>
