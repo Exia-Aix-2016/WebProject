@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ICommentExtended } from '../../../../common/interface';
+import { Comment } from '../comment';
+import { SocialService } from '../social.service';
 
 @Component({
   selector: 'app-comment',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommentComponent implements OnInit {
 
-  constructor() { }
+  @Input() private comment: Comment;
 
-  ngOnInit() {
+  constructor(private socialService: SocialService) { }
+
+  ngOnInit() { }
+
+  get displayConent() {
+    return this.comment.content;
   }
 
+  toggleSignal(event: MouseEvent){
+    this.socialService.signalComment(this.comment, !this.comment.signaled).subscribe({
+      error: e => console.error(e)
+    });
+  }
+  
 }

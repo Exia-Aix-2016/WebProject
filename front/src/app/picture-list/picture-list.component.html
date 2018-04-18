@@ -3,6 +3,6 @@
 <div *ngIf="canDisplay">
     <img src="{{ currentPicture.url }}">
 
-    <button (click)="onNext()">next</button>
-    <button (click)="onPrevious()">previous</button>
+    <button class="btn btn-primary" (click)="onPrevious()">previous</button>
+    <button class="btn btn-primary" (click)="onNext()">next</button>
 </div>

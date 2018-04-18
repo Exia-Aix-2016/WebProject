@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { IComment, IPicture } from '../../../../common/interface';
 import { SocialService } from '../social.service';
 
@@ -9,17 +10,13 @@ import { SocialService } from '../social.service';
 })
 export class CommentListComponent implements OnInit {
 
-  private comments: IComment[];
+  private comments: Observable <Comment[]>;
+  @Input() currentPicture: IPicture;
+
   constructor(private socialService: SocialService) { }
 
   ngOnInit() {
-
-
+    // this.comments = this.socialService.getComments(this.currentPicture);
   }
-
-  getComments(picture: IPicture): void{
-    this.socialService.getComments(picture).subscribe(
-      data =>  this.comments = data
-    );
-  }
+  
 }
