@@ -1,15 +1,15 @@
-<div (click)="openSocial()">
-<img class="card-img-top" src="{{activity.posterUrl}}">
-<div class="card-body">
-  <h5 class="card-title">
-    {{activity.name}}
-    <span class="badge badge-pill badge-{{voting ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleVote()" *ngIf="displayVote">0 votes</span>
-    <span class="badge badge-pill badge-{{activity.participating ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleParticipation()"
-      *ngIf="displayParticipation">{{activity.participants}} participants</span>
-  </h5>
-  <p class="card-text">{{activity.description}}</p>
-  <p class="card-text" *ngIf="displayDate">
-    <small class="text-muted">{{activity.date | date: 'long'}}</small>
-  </p>
-</div>
+<div (click)="openSocial($event)">
+  <img class="card-img-top" src="{{activity.posterUrl}}">
+  <div class="card-body">
+    <h5 class="card-title">
+      {{activity.name}}
+      <span class="badge badge-pill badge-{{voting ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleVote($event)" *ngIf="displayVote">0 votes</span>
+      <span class="badge badge-pill badge-{{activity.participating ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleParticipation($event)"
+        *ngIf="displayParticipation">{{activity.participants}} participants</span>
+    </h5>
+    <p class="card-text">{{activity.description}}</p>
+    <p class="card-text" *ngIf="displayDate">
+      <small class="text-muted">{{activity.date | date: 'long'}}</small>
+    </p>
+  </div>
 </div>

@@ -3,8 +3,8 @@ import { ActivityMode } from '../activity-mode.enum';
 import { ActivityService } from '../activity.service';
 import { Activity } from '../activity';
 import { SocialService } from '../social.service';
-import { Picture } from '../picture';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { IPictureExtended } from '../../../../common/interface';
 
 @Component({
   selector: 'app-social-page',
@@ -13,16 +13,17 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 })
 export class SocialPageComponent implements OnInit {
 
-  public pictures: Picture[] = [];
+  public pictures: IPictureExtended[] = [];
   id: number;
 
   constructor(private sociaService: SocialService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.id = parseInt(this.route.snapshot.paramMap.get("id"));
-    this.sociaService.getPictures(this.id).subscribe((pictures) =>{
+    this.id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
+    this.sociaService.getExtendedPictures(this.id).subscribe((pictures) => {
+      console.log(pictures);
       this.pictures = pictures;
     });
-   }
+  }
 
 }
