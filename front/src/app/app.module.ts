@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BsDropdownModule, CarouselModule } from "ngx-bootstrap";
+import { BsDropdownModule, CarouselModule, PaginationModule } from "ngx-bootstrap";
 
 
 import { AppComponent } from './app.component';
@@ -58,6 +58,7 @@ const appRoutes: Routes = [
     ButtonsModule.forRoot(),
     BsDropdownModule.forRoot(),
     CarouselModule.forRoot(),
+    PaginationModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AngularSvgIconModule,
   ],

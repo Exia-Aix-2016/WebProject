@@ -1,5 +1,8 @@
 <form (ngSubmit)="onPost()" class="card">
-    <textarea [(ngModel)]="content" name="content" aria-label="With textarea" class="form-control card-body" placeholder="type your comment..."></textarea>
+    <div class="card-header">
+        Comment
+    </div>
+    <textarea [(ngModel)]="content" name="content" aria-label="With textarea" class="form-control card-body" placeholder="type your comment"></textarea>
     <div class="card-footer text-right">
         <button type="submit" class="btn btn-primary">  post  </button>
     </div>
