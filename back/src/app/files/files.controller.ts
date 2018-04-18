@@ -38,7 +38,7 @@ export class FileController {
     });
     return {
      "error": "success",
-      "imgUrl": `http://localhost:3000/files/${fileName}`
+      "imgUrl": `http://localhost:3000/files/${fileName}.png`
 
             }
   }

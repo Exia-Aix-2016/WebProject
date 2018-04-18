@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BsDropdownModule, ModalModule } from "ngx-bootstrap";
+import { BsDropdownModule, ModalModule, BsDatepickerModule  } from "ngx-bootstrap";
 
 
 
@@ -50,6 +50,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AngularSvgIconModule,
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
   ],
   providers: [
     AuthService,

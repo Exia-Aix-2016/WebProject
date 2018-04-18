@@ -15,7 +15,7 @@ export class UploadFileService {
     });
 
     return this.http.post(baseUrl + 'files', formData, {headers: headers})
-    .map(res => {return res})
+    .map(res => {return <object>res})
     .catch(error => Observable.throw(error))
 
 
