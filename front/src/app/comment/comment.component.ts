@@ -10,7 +10,7 @@ import { SocialService } from '../social.service';
 })
 export class CommentComponent implements OnInit {
 
-  @Input() private comment: Comment;
+  @Input() private comment: ICommentExtended;
 
   constructor(private socialService: SocialService) { }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { IComment, IPicture } from '../../../../common/interface';
+import { IComment, IPicture, ICommentExtended } from '../../../../common/interface';
 import { SocialService } from '../social.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { SocialService } from '../social.service';
 export class CommentListComponent implements OnInit {
 
   //private comments: Observable <Comment[]>;
-  @Input() comments: IComment[];
+  @Input() comments: ICommentExtended[];
 
   constructor(private socialService: SocialService) { }
 
