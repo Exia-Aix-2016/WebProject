@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadFileService } from '../upload-file.service';
+import { ActivityService } from '../activity.service';
 import { CreateActivityDto } from '../../../../common/dto/activity.dto';
 
 @Component({
@@ -19,18 +20,27 @@ export class ActivityManagerComponent implements OnInit {
   private priceActivity = 0;
   private occurenceActivity = 'day';
 
-  constructor(private uploadFileService: UploadFileService) { }
+  constructor(private uploadFileService: UploadFileService, private activityService: ActivityService) { }
 
   ngOnInit() { }
 
   private upload() {
     this.uploadFileService.uploadFile(this.formdata).subscribe(
       data => {
-        console.log((<{ error, imgUrl }>data).imgUrl);
-        console.log(this.nameActivity);
-        console.log(this.descActivity);
-        console.log(this.dateActivity);
-        console.log(this.priceActivity);
+        let posterUrl: string = (<{ error, imgUrl }>data).imgUrl
+
+        this.activityService.createIdea({
+          name: this.nameActivity,
+          description: this.descActivity,
+          date: this.dateActivity,
+          posterUrl: posterUrl,
+          price: this.priceActivity,
+          occurrenceName: 'day'
+          
+        }).subscribe(
+          data => console.log(data),
+          error => console.log(error)
+        );
 
       },
       error => console.log(error)
