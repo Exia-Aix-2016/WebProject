@@ -7,7 +7,7 @@
 <div class="commentlist">
 <div class="row">
     <div class="col-xs-12 col-12">
-        <pagination [totalItems]="totalItems-50" [(ngModel)]="currentPage" [maxSize]="4" (pageChanged)="pageChanged($event)"></pagination>
+        <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" (pageChanged)="pageChanged($event)"></pagination>
     </div>
   </div>
 </div>

@@ -12,8 +12,8 @@ export class CommentListComponent implements OnInit {
 
   @Input() canDisplay: boolean;
   private maxSize = 5;
-  private totalItems = 0;
-  private currentPage = 0;
+  private totalItems = 20;
+  private currentPage = 1;
   //private comments: Observable <Comment[]>;
   @Input() comments: ICommentExtended[];
 
@@ -21,12 +21,12 @@ export class CommentListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.totalItems = (this.comments.length * 10);
   }
 
 
   get getPageComments(): ICommentExtended[]{
-    return this.comments.slice(this.currentPage);
+    this.totalItems = (this.comments.length / this.maxSize) * 10;
+    return this.comments.slice((this.currentPage*this.maxSize)-this.maxSize);
   }
 
   private pageChanged(event: any): void {
