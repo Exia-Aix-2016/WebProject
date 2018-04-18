@@ -9,7 +9,7 @@ import { IPayload, IRawPayload } from '../../../common/interface';
 @Injectable()
 export class AuthService {
 
-  private $connection = new BehaviorSubject<Payload>(undefined);
+  private $connection = new BehaviorSubject<IPayload>(undefined);
   private timeoutId;
 
   constructor(private http: HttpClient) {
