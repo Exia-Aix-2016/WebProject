@@ -10,9 +10,15 @@
                         <button class="btn btn-primary" (click)="onNext()">next</button>
                     </div>
 
-                        <app-comment-list class="col-sm comment" [comments]="currentPicture.comments"></app-comment-list>
+                <app-comment-list class="col-sm comment" [comments]="currentPicture.comments"></app-comment-list>
+                            
 
+                <!-- Force next columns to break to new line -->
+                <div class="w-100"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"><app-comment-form></app-comment-form></div>
             </div>
+
 
         </div>
 </div>

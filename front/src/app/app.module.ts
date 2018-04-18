@@ -24,6 +24,7 @@ import { SocialService } from './social.service';
 import { CommentComponent } from './comment/comment.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { PictureListComponent } from './picture-list/picture-list.component';
+import { CommentFormComponent } from './comment-form/comment-form.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     CommentComponent,
     CommentListComponent,
     PictureListComponent,
+    CommentFormComponent,
   ],
   imports: [
     HttpClientModule,
