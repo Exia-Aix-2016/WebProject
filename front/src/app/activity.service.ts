@@ -6,7 +6,7 @@ import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/do';
 import { IActivity, IIdea } from '../../../common/interface';
-import { CreateActivityDto, CreateIdeaDto } from '../../../common/dto/';
+import { CreateActivityDto, CreateIdeaDto, EditActivityDto } from '../../../common/dto/';
 import { baseUrl } from './constants';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Activity } from './activity';
@@ -58,5 +58,25 @@ export class ActivityService {
 
   getOccurrences() {
     return this.http.get<string[]>(baseUrl + 'activities/occurrences');
+  }
+
+  deleteActivity(activityId: number) {
+    return this.http.delete<void>(baseUrl + 'activities/' + activityId)
+      .do(v => this.$update.next(true));
+  }
+
+  deleteIdea(activityId: number) {
+    return this.http.delete<void>(baseUrl + 'ideas/' + activityId)
+      .do(v => this.$update.next(true));
+  }
+
+  signal(activityId: number, activity: boolean, value: boolean) {
+    return this.http.put<void>(baseUrl + (activity ? 'activities/' : 'ideas/') + activityId + '/signal', { value })
+      .do(v => this.$update.next(true));
+  }
+
+  edit(editActivityDto: EditActivityDto) {
+    return this.http.put<void>(`${baseUrl}activities/${editActivityDto.id}`, editActivityDto)
+      .do(v => this.$update.next(true));
   }
 }

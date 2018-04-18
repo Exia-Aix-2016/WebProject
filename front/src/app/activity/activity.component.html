@@ -5,9 +5,44 @@
     <span class="badge badge-pill badge-{{voting ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleVote()" *ngIf="displayVote">0 votes</span>
     <span class="badge badge-pill badge-{{activity.participating ? 'primary' : 'secondary'}} badge-clickable" (click)="toggleParticipation()"
       *ngIf="displayParticipation">{{activity.participants}} participants</span>
+    <span class="badge badge-pill badge-danger" *ngIf="signaled">signaled</span>
+
   </h5>
   <p class="card-text">{{activity.description}}</p>
+  <app-is-connected [groups]="['staff', 'cesi']">
+    <div id="dropdown-action" class="btn-group" dropdown>
+      <button id="dropdown-action-btn" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-action-menu">
+        Actions
+        <span class="caret"></span>
+      </button>
+      <ul id="dropdown-action-menu" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdown-action-btn">
+        <li role="menuitem">
+          <a class="dropdown-item" (click)="report()">Report</a>
+        </li>
+        <app-is-connected group="staff">
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="edit(editTemplate)">Edit</a>
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="delete()">Delete</a>
+          </li>
+        </app-is-connected>
+      </ul>
+    </div>
+  </app-is-connected>
   <p class="card-text" *ngIf="displayDate">
     <small class="text-muted">{{activity.date | date: 'long'}}</small>
   </p>
 </div>
+
+<ng-template #editTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-activity-manager [model]="activity" editMode="true"></app-activity-manager>
+  </div>
+</ng-template>

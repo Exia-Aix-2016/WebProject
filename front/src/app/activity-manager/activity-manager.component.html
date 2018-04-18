@@ -1,5 +1,5 @@
 <app-is-connected group="staff">
-    <div class="form-group d-flex justify-content-end">
+    <div class="form-group d-flex justify-content-end" *ngIf="!editMode">
         <div class="form-check">
             <input [(ngModel)]="activityMode" [ngModelOptions]="{standalone: true}" (click)="updateFormControls($event)" class="form-check-input"
                 type="checkbox" id="activityModeCheck">
@@ -25,7 +25,7 @@
     <div class="form-group">
         <label for="nameImg">Choose poster </label>
         <div class="input-group mb-3">
-            <input [value]="img.name" id="nameImg" type="text" class="form-control input-group-text" disabled="disabled">
+            <input [value]="imgName" id="nameImg" type="text" class="form-control input-group-text" disabled="disabled">
             <span class="input-group-btn">
                 <div class=" image-preview-input">
                     <span class="glyphicon glyphicon-folder-open"></span>

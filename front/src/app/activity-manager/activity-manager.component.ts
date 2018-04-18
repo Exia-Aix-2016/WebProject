@@ -18,44 +18,59 @@ export class ActivityManagerComponent implements OnInit {
   @Input() editMode = false;
   @Input() activityMode = false;
   @Input() model: {
+    id?: number;
     name?: string;
     description?: string,
     posterUrl?: string,
     date?: Date,
     price?: number,
     occurrenceName?: string,
+    planned?: boolean
   } = {};
   private activityForm: FormGroup;
   private formdata: FormData;
   private minDate = new Date(Date.now());
-  private img = {
-    name: '',
-    url: '',
-  };
+  private imgName: string;
   private occurrences$: Observable<string[]>;
 
   constructor(private uploadFileService: UploadFileService, private activityService: ActivityService) { }
 
   ngOnInit() {
+    console.log(this.model);
     this.activityForm = new FormGroup({
       'name': new FormControl(this.model.name, [Validators.required, Validators.minLength(4)]),
       'description': new FormControl(this.model.description, [Validators.required, Validators.minLength(10)]),
       'posterUrl': new FormControl(this.model.posterUrl, [Validators.required]),
     });
-    this.updateFormControls();
+    console.log(this.activityForm.value, this.activityForm.status);
+    if (this.model.posterUrl) {
+      this.imgName = this.model.posterUrl.split('/').pop();
+    }
+    if (this.editMode) {
+      this.addControls();
+      this.activityMode = true;
+    }
     this.occurrences$ = this.activityService.getOccurrences();
+  }
+
+  private addControls() {
+    this.activityForm.addControl('date', new FormControl(this.model.date, [Validators.required]));
+    this.activityForm.addControl('price', new FormControl(this.model.price, [Validators.required, Validators.min(0)]));
+    this.activityForm.addControl('occurrenceName', new FormControl(this.model.occurrenceName, [Validators.required]));
+  }
+
+  private removeControls() {
+    this.activityForm.removeControl('date');
+    this.activityForm.removeControl('price');
+    this.activityForm.removeControl('occurrenceName');
   }
 
   updateFormControls(event?: MouseEvent) {
     const actM = event ? (<HTMLInputElement>event.toElement).checked : false;
     if (actM) {
-      this.activityForm.addControl('date', new FormControl(this.model.date, [Validators.required]));
-      this.activityForm.addControl('price', new FormControl(this.model.price, [Validators.required, Validators.min(0)]));
-      this.activityForm.addControl('occurrenceName', new FormControl(this.model.occurrenceName, [Validators.required]));
+      this.addControls();
     } else {
-      this.activityForm.removeControl('date');
-      this.activityForm.removeControl('price');
-      this.activityForm.removeControl('occurrenceName');
+      this.removeControls();
     }
   }
 
@@ -70,9 +85,10 @@ export class ActivityManagerComponent implements OnInit {
   }
 
   private submit() {
-    console.log(this.activityForm.value);
-    let req: Observable<Activity>;
-    if (this.activityMode) {
+    let req: Observable<any>;
+    if (this.editMode) {
+      req = this.activityService.edit(Object.assign({ id: this.model.id, planned: true }, this.activityForm.value));
+    } else if (this.activityMode) {
       req = this.activityService.createActivity(this.activityForm.value);
     } else {
       req = this.activityService.createIdea(this.activityForm.value);
@@ -91,10 +107,9 @@ export class ActivityManagerComponent implements OnInit {
       this.formdata = new FormData();
 
       const file: File = fileList[0];
-      this.img.name = file.name;
+      this.imgName = file.name;
       this.formdata.append('file', file, file.name);
       this.uploadFileService.uploadFile(this.formdata).subscribe(d => {
-        this.img.url = d.imgUrl;
         this.activityForm.setValue(Object.assign({}, this.activityForm.value, { 'posterUrl': this.img.url }));
       });
     }

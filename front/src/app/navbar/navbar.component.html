@@ -7,11 +7,12 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
     <div class="navbar-nav">
-      <div *ngFor="let route of routes" [ngClass]="{'active': route.active}">
-        <a class="nav-item nav-link" *ngIf="route.path != '/ideas' else Ideas" [href]="route.path"> {{route.title}}</a>
+      <div *ngFor="let route of routes">
+        <a class="nav-item nav-link" *ngIf="route.path != '/ideas' else Ideas" [href]="route.path" [ngClass]="{'active': route.active}">
+          {{route.title}}</a>
         <ng-template #Ideas>
           <div class="btn-group" dropdown>
-            <a class="nav-item nav-link" href="/ideas">{{route.title}}</a>
+            <a class="nav-item nav-link" href="/ideas" [ngClass]="{'active': route.active}">{{route.title}}</a>
             <app-is-connected>
               <a id="button-split" dropdownToggle class="nav-item nav-link dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
                 <span class="caret"></span>

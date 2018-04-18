@@ -32,7 +32,7 @@ export class NavbarComponent {
     });
   }
 
-  public openModal(template: TemplateRef<any>){
+  public openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
   public get displayLogin() {
