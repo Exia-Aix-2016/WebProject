@@ -25,5 +25,9 @@ export class CommentComponent implements OnInit {
       error: e => console.error(e)
     });
   }
+
+  isSignaled(){
+    return this.comment.signaled;
+  }
   
 }

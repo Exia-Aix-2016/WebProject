@@ -1,6 +1,11 @@
 <div class="card-body">
   <h5 class="userName">{{comment.user.name}}</h5>
   <p class="content"> {{ comment.content}}</p>
-  <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Signal</button>
-  <button type="button" class="btn btn-danger" data-toggle="button" aria-pressed="false" autocomplete="off">Delete</button>
+  <app-is-connected group="staff">
+    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" (click)="toggleSignal($event)">Signal</button>
+  </app-is-connected> 
+  <app-is-connected group="cesi">
+      <button type="button" *ngIf="isSignaled()" class="btn btn-danger" data-toggle="button" aria-pressed="false" autocomplete="off">Delete</button>
+  </app-is-connected> 
 </div>
+  
