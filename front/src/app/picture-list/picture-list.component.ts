@@ -31,6 +31,7 @@ export class PictureListComponent implements OnInit {
   }
 
   get currentPicture(): IPictureExtended {
+    console.log(this.pictures[this.currentPictureId]);
     return this.pictures[this.currentPictureId];
   }
 
