@@ -12,14 +12,16 @@
         <ng-template #Ideas>
           <div class="btn-group" dropdown>
             <a class="nav-item nav-link" href="/ideas">{{route.title}}</a>
-            <a id="button-split" dropdownToggle class="nav-item nav-link dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
-              <span class="caret"></span>
-              <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
-                <li role="menuitem">
-                  <a class="dropdown-item" (click)="openModal(ModalAddIdea)">Ajouter</a>
-                </li>
-              </ul>
-            </a>
+            <app-is-connected>
+              <a id="button-split" dropdownToggle class="nav-item nav-link dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
+                <span class="caret"></span>
+                <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
+                  <li role="menuitem">
+                    <a class="dropdown-item" (click)="openModal(ModalAddIdea)">Ajouter</a>
+                  </li>
+                </ul>
+              </a>
+            </app-is-connected>
           </div>
         </ng-template>
       </div>
