@@ -10,8 +10,8 @@ import { SocialService } from '../social.service';
 })
 export class CommentListComponent implements OnInit {
 
-  private comments: Observable <Comment[]>;
-  @Input() currentPicture: IPicture;
+  //private comments: Observable <Comment[]>;
+  @Input() comments: IComment[];
 
   constructor(private socialService: SocialService) { }
 
