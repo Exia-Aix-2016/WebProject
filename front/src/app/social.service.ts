@@ -63,12 +63,12 @@ export class SocialService {
 
     const url = baseUrl + `pictures/${comment.pictureId}/comments/${comment.id}/signal`;
 
-    return this.http.put(url, {value}).do(() => this.$update.next(true));
+    return this.http.put(url, {signaled: value}).do(() => this.$update.next(true));
   }
 
   public signalPicture(picture: IPicture, value: boolean){
 
     const url = baseUrl + `pictures/${picture.id}/signal`;
-    return this.http.put(url, {value}).do(() => this.$update.next(true));
+    return this.http.put(url, {signaled: value}).do(() => this.$update.next(true));
   }
 }
