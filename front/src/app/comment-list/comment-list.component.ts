@@ -12,7 +12,7 @@ export class CommentListComponent implements OnInit {
 
   @Input() canDisplay: boolean;
   private maxSize = 5;
-  private totalItems = 20;
+  private totalItems = 0;
   private currentPage = 1;
   //private comments: Observable <Comment[]>;
   @Input() comments: ICommentExtended[];
