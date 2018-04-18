@@ -1,13 +1,20 @@
 
 <!-- futur picturecomponent -->
 <div *ngIf="canDisplay">
-    <img src="{{ currentPicture.url }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                        <img src="{{ currentPicture.url }}">
 
-    <button class="btn btn-primary" (click)="onPrevious()">previous</button>
-    <button class="btn btn-primary" (click)="onNext()">next</button>
+                        <button class="btn btn-primary" (click)="onPrevious()">previous</button>
+                        <button class="btn btn-primary" (click)="onNext()">next</button>
+                    </div>
 
+                        <app-comment-list class="col-sm comment" [comments]="currentPicture.comments"></app-comment-list>
 
-    <app-comment-list [comments]="currentPicture.comments"></app-comment-list>
+            </div>
+
+        </div>
 </div>
 
 

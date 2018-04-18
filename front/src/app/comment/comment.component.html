@@ -1,11 +1,16 @@
-<div class="card-body">
-  <h5 class="userName">{{comment.user.name}}</h5>
-  <p class="content"> {{ comment.content}}</p>
-  <app-is-connected group="staff">
-    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" (click)="toggleSignal($event)">Signal</button>
-  </app-is-connected> 
-  <app-is-connected group="cesi">
-      <button type="button" *ngIf="isSignaled()" class="btn btn-danger" data-toggle="button" aria-pressed="false" autocomplete="off">Delete</button>
-  </app-is-connected> 
-</div>
-  
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+          <p class="content"> {{ comment.content}}</p>
+        <footer class="blockquote-footer"><cite title="Source Title"> {{comment.user.name}} {{comment.user.firstname}}</cite>
+          <app-is-connected group="staff">
+              <a  class="btn btn-xs btn-warning"  data-toggle="button" aria-pressed="false" autocomplete="off" (click)="toggleSignal($event)">Signal</a>
+            </app-is-connected> 
+            <app-is-connected group="cesi">
+                <a class="btn btn-xs btn-danger"  *ngIf="isSignaled()" data-toggle="button" aria-pressed="false" autocomplete="off">Delete</a>
+            </app-is-connected> 
+        </footer>
+      </blockquote>
+    </div>
+  </div>
