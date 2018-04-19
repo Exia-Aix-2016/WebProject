@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, HostBinding, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivityMode } from '../activity-mode.enum';
 import { ActivityService } from '../activity.service';
 import { Activity } from '../activity';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { baseUrl } from '../constants';
 
 @Component({
   selector: 'app-activity',
@@ -39,18 +40,26 @@ export class ActivityComponent implements OnInit {
   }
 
   toggleVote() {
+    event.preventDefault();
+    event.stopPropagation();
     this.activityService.setVote(this.activity.id, !this.activity.voting).subscribe({
       error: e => console.error(e)
     });
   }
 
-  toggleParticipation() {
-    console.log(this.activity);
+  toggleParticipation(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
     this.activityService.setParticipation(this.activity.id, !this.activity.participating).subscribe({
       error: e => console.error(e)
     });
   }
 
+  public openSocial() {
+    if (this.mode === ActivityMode.FULL) {
+      this.router.navigateByUrl('/activities/' + this.activity.id);
+    }
+    
   edit(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
