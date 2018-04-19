@@ -2,11 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { BsDropdownModule, CarouselModule, PaginationModule } from "ngx-bootstrap";
-
+import { BsDropdownModule, ModalModule, BsDatepickerModule, CarouselModule, PaginationModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AuthService } from './auth.service';
@@ -25,13 +24,20 @@ import { CommentComponent } from './comment/comment.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { PictureListComponent } from './picture-list/picture-list.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
+import { ShopPageComponent } from './shop-page/shop-page.component';
+import { ShopService } from './shop.service';
+import { ArticleComponent } from './article/article.component';
+import { ArticlesComponent } from './articles/articles.component';
+import { ActivityManagerComponent } from './activity-manager/activity-manager.component';
+import { UploadFileService } from './upload-file.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
-  { path: 'signup', component: RegisterPageComponent},
+  { path: 'signup', component: RegisterPageComponent },
   { path: 'activities', component: ActivitiesPageComponent },
   { path: 'ideas', component: ActivitiesPageComponent },
   { path: 'activities/:id', component: SocialPageComponent },
+  { path: 'shop', component: ShopPageComponent },
   { path: '**', redirectTo: '/activities' },
 ];
 
@@ -44,30 +50,39 @@ const appRoutes: Routes = [
     NavbarComponent,
     RegisterPageComponent,
     ActivitiesListComponent,
+    ActivityManagerComponent,
     IsConnectedComponent,
     SocialPageComponent,
     CommentComponent,
     CommentListComponent,
     PictureListComponent,
     CommentFormComponent,
+    ShopPageComponent,
+    ArticleComponent,
+    ArticlesComponent,
   ],
   imports: [
     HttpClientModule,
     FormsModule,
     BrowserModule,
+    ReactiveFormsModule,
     ButtonsModule.forRoot(),
     BsDropdownModule.forRoot(),
     CarouselModule.forRoot(),
     PaginationModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AngularSvgIconModule,
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
   ],
   providers: [
     AuthService,
     ActivityService,
     SocialService,
+    ShopService,
+    UploadFileService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

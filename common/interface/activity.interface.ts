@@ -5,6 +5,8 @@ export interface IIdea {
     readonly posterUrl: string;
     readonly planned: boolean;
     readonly signaled: boolean;
+    readonly voters?: number;
+    readonly votes?: { userId: number }[];
 }
 
 export interface IActivity extends IIdea {

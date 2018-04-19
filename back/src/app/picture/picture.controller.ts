@@ -8,6 +8,10 @@ import {
   Inject,
   Param,
   UsePipes,
+  Request,
+  FileInterceptor,
+  UploadedFile,
+  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
 import { SocialService } from '../../social/social.service';
@@ -25,7 +29,7 @@ import {
 @Controller('pictures')
 export class PictureController {
   constructor(private readonly socialService: SocialService) {}
-
+  
   @Post()
   @UsePipes(new ValidationPipe())
   async create(@Body() pictureDto: PictureDto): Promise<void> {

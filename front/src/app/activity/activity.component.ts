@@ -1,10 +1,9 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivityMode } from '../activity-mode.enum';
 import { ActivityService } from '../activity.service';
 import { Activity } from '../activity';
-import { Router } from '@angular/router';
 import { baseUrl } from '../constants';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-activity',
@@ -17,9 +16,10 @@ export class ActivityComponent implements OnInit {
   @Input() activity: Activity;
   @Input() mode: ActivityMode;
 
+  modalRef: BsModalRef;
   voting = false;
 
-  constructor(private activityService: ActivityService, private router: Router, private authService: AuthService) { }
+  constructor(private activityService: ActivityService, private modalService: BsModalService) { }
 
   ngOnInit() { }
 
@@ -35,8 +35,16 @@ export class ActivityComponent implements OnInit {
     return this.mode === ActivityMode.COMPACT;
   }
 
+  get signaled(): boolean {
+    return this.activity.signaled ? true : false;
+  }
+
   toggleVote() {
-    this.voting = !this.voting;
+    event.preventDefault();
+    event.stopPropagation();
+    this.activityService.setVote(this.activity.id, !this.activity.voting).subscribe({
+      error: e => console.error(e)
+    });
   }
 
   toggleParticipation(event: MouseEvent) {
@@ -51,5 +59,23 @@ export class ActivityComponent implements OnInit {
     if (this.mode === ActivityMode.FULL) {
       this.router.navigateByUrl('/activities/' + this.activity.id);
     }
+    
+  edit(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  delete() {
+    const delete$ = this.activity.planned
+      ? this.activityService.deleteActivity(this.activity.id)
+      : this.activityService.deleteIdea(this.activity.id);
+
+    delete$.subscribe({ error: e => console.error(e) });
+  }
+
+  report() {
+    this.activityService.signal(this.activity.id, this.activity.planned, !this.activity.signaled)
+      .subscribe({
+        error: e => console.error(e)
+      });
   }
 }

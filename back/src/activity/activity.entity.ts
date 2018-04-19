@@ -40,6 +40,6 @@ export class Activity {
   @OneToMany(type => Participation, participation => participation.activity, { eager: true })
   participations: Participation[];
 
-  @OneToMany(type => Vote, vote => vote.activity)
+  @OneToMany(type => Vote, vote => vote.activity, { eager: true })
   votes: Vote[];
 }
