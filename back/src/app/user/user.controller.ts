@@ -17,12 +17,14 @@ import {
 import { UserService } from '../../user/user.service';
 import { IUser } from '../../../../common/interface';
 import { CreateUserDto, EditUserDto } from './user.dto';
+import { Groups } from '../groups.decorator';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Get()
+  @Groups('staff')
   async getAll(): Promise<IUser[]> {
     return await this.userService.getAll();
   }

@@ -9,7 +9,7 @@ export class GroupsGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly userService: UserService,
-  ) {}
+  ) { }
 
   async canActivate(req, context: ExecutionContext): Promise<boolean> {
     const { parent, handler } = context;

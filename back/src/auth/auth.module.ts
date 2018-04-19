@@ -30,6 +30,8 @@ export class AuthModule implements NestModule {
         { path: '/pictures', method: RequestMethod.ALL },
         { path: '/pictures/*', method: RequestMethod.ALL },
         { path: '/carts', method: RequestMethod.ALL },
+        { path: '/users', method: RequestMethod.ALL },
+        { path: '/users/*', method: RequestMethod.ALL },
     );
   }
 }
