@@ -37,6 +37,7 @@ import { UserComponent } from './user/user.component';
 import { MyCartComponent } from './my-cart/my-cart.component';
 import { CartButtonComponent } from './cart-button/cart-button.component';
 import { CartService } from './cart.service';
+import { UserService } from './user.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -97,6 +98,7 @@ const appRoutes: Routes = [
     ShopService,
     UploadFileService,
     CartService,
+    UserService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

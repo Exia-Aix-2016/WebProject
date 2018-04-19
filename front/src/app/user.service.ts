@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
-import { IUser } from "../../../common/interface";
+import { IUser, IGroup } from "../../../common/interface";
 import { baseUrl } from "./constants";
 import { EditUserDto } from "../../../common/dto";
 
@@ -14,7 +14,7 @@ export class UserService{
     constructor(private http: HttpClient) { }
 
     public getUsers(){
-        return this.http.get<IUser[]>(baseUrl + "users");
+        return this.$update.switchMapTo(this.http.get<IUser[]>(baseUrl + "users"));
     }
 
     public setGroup(group: string, userId: number){
@@ -23,6 +23,10 @@ export class UserService{
     }
 
     public deleteUser(userId: number){
-        return this.http.delete<void>(baseUrl + 'users/' + userId).do(v => this.$update.next(true));;
+        return this.http.delete(baseUrl + 'users/' + userId).do(() => this.$update.next(true));
+    }
+
+    public getGroups(){
+        return this.$update.switchMapTo(this.http.get<IGroup[]>(baseUrl + 'groups'));
     }
 }
