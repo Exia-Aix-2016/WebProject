@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
    }
 
   edit(groupName: string, userId: number){
-    this.userService.setGroup(groupName, userId);
+    this.userService.setGroup({groupName}, userId);
   }
 
   delete(userId){

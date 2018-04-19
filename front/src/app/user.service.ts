@@ -17,9 +17,10 @@ export class UserService{
         return this.$update.switchMapTo(this.http.get<IUser[]>(baseUrl + "users"));
     }
 
-    public setGroup(group: string, userId: number){
+    public setGroup(editUserDto: EditUserDto, userId: number){
         const url = baseUrl + 'users/' + userId;
-        return this.http.put<void>(url, { group }).do(() => this.$update.next(true));
+        console.log(editUserDto);
+        return this.http.put(url, editUserDto).do(() => this.$update.next(true));
     }
 
     public deleteUser(userId: number){
