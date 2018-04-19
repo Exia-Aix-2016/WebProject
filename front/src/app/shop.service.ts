@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { IArticle, ICategory } from '../../../common/interface';
 import { baseUrl } from './constants';
@@ -23,6 +24,11 @@ export class ShopService {
         ? this.http.get<IArticle[]>(baseUrl + 'articles', { params: { category } })
         : this.http.get<IArticle[]>(baseUrl + 'articles', { params: { withCartArticles: withCartArticles.toString() } });
     });
+  }
+
+  public getArticle(articleId: number): Observable<IArticle> {
+    const url = `${baseUrl}articles/${articleId}`;
+    return this.http.get<IArticle>(url);
   }
 
   public getCategories() {

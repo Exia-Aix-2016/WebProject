@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { Cart } from './cart.entity';
 import { User } from '../user/user.entity';
 import { CartRepositoryToken, CartArticleRepositoryToken, ArticleRepositoryToken } from '../constants';
-import { CreateCartDto, CartStateDto, CreateCartArticleDto, setQuantityInCartDto } from '../../../common/dto';
+import { CreateCartDto, CartStateDto, CreateCartArticleDto, SetQuantityInCartDto } from '../../../common/dto';
 import { Article } from './article.entity';
 import { CartArticle } from './cart-article.entity';
 import { ICart, IArticle, ICartArticle } from '../../../common/interface';
@@ -75,7 +75,7 @@ export class CartService {
     return await this.cartArticleRepository.save(cartArticle);
   }
 
-  async setQuantityInCart(idCart: number, idArticle: number, setQuantityInCart: setQuantityInCartDto): Promise<void> {
+  async setQuantityInCart(idCart: number, idArticle: number, setQuantityInCart: SetQuantityInCartDto): Promise<void> {
     const cartIn: CartArticle = await this.cartArticleRepository.findOne({ cartId: idCart, articleId: idArticle });
     return await this.cartArticleRepository.update(cartIn, setQuantityInCart);
   }

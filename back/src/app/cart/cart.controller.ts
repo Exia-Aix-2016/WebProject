@@ -13,7 +13,7 @@ import {
 import { CartService } from '../../shop/cart.service';
 import { Cart } from 'shop/cart.entity';
 import {
-  setQuantityInCartDto,
+  SetQuantityInCartDto,
   CreateCartArticleDto,
   CreateCartDto,
   CartStateDto,
@@ -27,7 +27,7 @@ export class CartController {
 
   @Put(':cartId/articles/:articleId')
   @UsePipes(new ValidationPipe())
-  putArticleInCart(@Param() param, @Body() body: setQuantityInCartDto): any {
+  putArticleInCart(@Param() param, @Body() body: SetQuantityInCartDto): any {
     return this.cartService.setQuantityInCart(
       param.cartId,
       param.articleId,

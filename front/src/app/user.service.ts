@@ -6,7 +6,7 @@ import { baseUrl } from "./constants";
 import { EditUserDto } from "../../../common/dto";
 
 @Injectable()
-export class UserService{
+export class UserService {
 
     private $update: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
@@ -17,7 +17,7 @@ export class UserService{
         return this.$update.switchMapTo(this.http.get<IUser[]>(baseUrl + "users"));
     }
 
-    public setGroup(group: string, userId: number){
+    public setGroup(group: string, userId: number) {
         const url = baseUrl + 'users/' + userId;
         return this.http.put<void>(url, { group }).do(() => this.$update.next(true));
     }

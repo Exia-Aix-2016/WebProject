@@ -1,0 +1,15 @@
+
+$margin: 15px;
+
+@media (min-width: 992px) { 
+    ul {
+        margin: 100px;
+    }
+}
+
+svg-icon {
+    width: 10px;
+    margin-left: $margin;
+    margin-right: $margin;
+    cursor: pointer;
+}
