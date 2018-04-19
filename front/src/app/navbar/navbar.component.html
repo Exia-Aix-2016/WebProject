@@ -43,10 +43,7 @@
   </div>
 
   <app-is-connected>
-    <button type="button" class="btn btn-primary" id="cart-button">
-      <svg-icon src="assets/svg/cart.svg" id="cart-icon" style="width: 25px" href="/cart"></svg-icon>
-      <span class="badge badge-light" id="cart-number">4</span>
-    </button>
+    <app-cart-button></app-cart-button>
     <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkupLog" (click)="disconnect()">Logout</button>
     <a class="btn btn-sm btn-outline-primary" id="navbarNavAltMarkupLog" href="/signup" not-connected>SignUp</a>
     <a class="btn btn-sm btn-outline-primary" id="navbarNavAltMarkupLog" href="/login" not-connected>Login</a>

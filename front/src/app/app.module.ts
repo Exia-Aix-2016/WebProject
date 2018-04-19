@@ -31,6 +31,9 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ActivityManagerComponent } from './activity-manager/activity-manager.component';
 import { UploadFileService } from './upload-file.service';
 import { ArticleManagerComponent } from './article-manager/article-manager.component';
+import { MyCartComponent } from './my-cart/my-cart.component';
+import { CartButtonComponent } from './cart-button/cart-button.component';
+import { CartService } from './cart.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -39,6 +42,7 @@ const appRoutes: Routes = [
   { path: 'ideas', component: ActivitiesPageComponent },
   { path: 'activities/:id', component: SocialPageComponent },
   { path: 'shop', component: ShopPageComponent },
+  { path: 'my-cart', component: MyCartComponent },
   { path: '**', redirectTo: '/activities' },
 ];
 
@@ -62,6 +66,8 @@ const appRoutes: Routes = [
     ArticleComponent,
     ArticlesComponent,
     ArticleManagerComponent,
+    MyCartComponent,
+    CartButtonComponent,
   ],
   imports: [
     HttpClientModule,
@@ -83,6 +89,7 @@ const appRoutes: Routes = [
     SocialService,
     ShopService,
     UploadFileService,
+    CartService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

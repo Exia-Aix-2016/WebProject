@@ -23,6 +23,7 @@ export class AuthModule implements NestModule {
         { path: '/auth/authorized', method: RequestMethod.ALL },
         { path: '/ideas/*', method: RequestMethod.ALL },
         { path: '/activities/*', method: RequestMethod.ALL },
-      );
+        { path: '/carts', method: RequestMethod.ALL },
+    );
   }
 }
