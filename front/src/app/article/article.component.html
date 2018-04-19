@@ -7,18 +7,22 @@
   <p class="card-text card-description">{{article.description}}</p>
   <div>
     <button class="btn btn-primary" (click)="buy()">Buy</button>
-    <button class="btn btn-primary" (click)="openModal(edit)">Edit</button>
+    <app-is-connected group="staff">
+      <button class="btn btn-primary" (click)="openModal(edit)">Edit</button>
+    </app-is-connected>
   </div>
 </div>
 
-<ng-template #edit>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Edit</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-article-manager [model]="article" [editMode]="true"></app-article-manager>
-  </div>
-</ng-template>
+<app-is-connected group="staff">
+  <ng-template #edit>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Edit</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-article-manager [model]="article" [editMode]="true"></app-article-manager>
+    </div>
+  </ng-template>
+</app-is-connected>
