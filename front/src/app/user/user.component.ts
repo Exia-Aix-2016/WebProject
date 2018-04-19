@@ -19,13 +19,13 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.$groups = this.userService.getGroups();
-   }
-
-  edit(groupName: string, userId: number){
-    this.userService.setGroup({groupName}, userId);
   }
 
-  delete(userId){
+  edit(groupName: string, userId: number) {
+    this.userService.setGroup({ groupName }, userId).subscribe();
+  }
+
+  delete(userId) {
     this.userService.deleteUser(userId).subscribe();
   }
 }

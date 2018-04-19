@@ -13,7 +13,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
     @Inject(GroupRepositoryToken)
     private readonly groupRepository: Repository<Group>,
-  ) {}
+  ) { }
 
   async getAll(userId?: number[]): Promise<IUser[]> {
     let users: User[];
@@ -42,7 +42,13 @@ export class UserService {
   }
 
   async edit(userId: number, editUserDto: EditUserDto): Promise<void> {
-    await this.userRepository.updateById(userId, editUserDto);
+    const keys = Object.keys(editUserDto);
+    if (keys.length === 0) {
+      return;
+    }
+    if (keys.length > 1 || keys[0] !== 'groupName') {
+      await this.userRepository.updateById(userId, editUserDto);
+    }
     if (editUserDto.groupName) {
       const user: User = await this.userRepository.findOneById(userId);
       user.group = await this.groupRepository.findOneById(

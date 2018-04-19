@@ -12,6 +12,7 @@ import {
   HttpException,
   ValidationPipe,
   Request,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { UserService } from '../../user/user.service';
 import { IUser } from '../../../../common/interface';
@@ -19,7 +20,7 @@ import { CreateUserDto, EditUserDto } from './user.dto';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Get()
   async getAll(): Promise<IUser[]> {
@@ -36,14 +37,13 @@ export class UserController {
   }
 
   @Post('me')
-  async me(@Request() request): Promise<IUser>{
-    console.log(request.body.user);
+  async me(@Request() request): Promise<IUser> {
     return await this.userService.verifyCredentials(request.body.user);
   }
 
   @Get(':id')
-  async getById(@Param() params): Promise<IUser> {
-    const user: IUser = await this.userService.get(params.id);
+  async getById(@Param('id', new ParseIntPipe()) userId: number): Promise<IUser> {
+    const user: IUser = await this.userService.get(userId);
     if (user === undefined) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
@@ -52,12 +52,12 @@ export class UserController {
 
   @Put(':id')
   @UsePipes(new ValidationPipe())
-  async edit(@Param() params, @Body() editUserDto: EditUserDto): Promise<void> {
-    return await this.userService.edit(params.id, editUserDto);
+  async edit(@Param('id', new ParseIntPipe()) userId: number, @Body() editUserDto: EditUserDto): Promise<void> {
+    return await this.userService.edit(userId, editUserDto);
   }
 
   @Delete(':id')
-  async delete(@Param() params) {
-    return await this.userService.delete(params.id);
+  async delete(@Param('id', new ParseIntPipe()) userId: number) {
+    return await this.userService.delete(userId);
   }
 }

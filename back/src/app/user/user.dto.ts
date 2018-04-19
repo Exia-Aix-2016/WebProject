@@ -54,6 +54,6 @@ export class EditUserDto implements IEditUserDto {
   @Matches(/[#^~&/!?;%*$€]/)
   readonly password?: string;
   @IsOptional()
-  @IsIn(['staff', 'cesi'])
+  @IsIn(['staff', 'cesi', 'student'])
   readonly groupName?: string;
 }
