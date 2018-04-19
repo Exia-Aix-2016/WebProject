@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, HostBinding, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, TemplateRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { ActivityMode } from '../activity-mode.enum';
 import { ActivityService } from '../activity.service';
 import { Activity } from '../activity';
@@ -19,7 +20,7 @@ export class ActivityComponent implements OnInit {
   modalRef: BsModalRef;
   voting = false;
 
-  constructor(private activityService: ActivityService, private modalService: BsModalService) { }
+  constructor(private activityService: ActivityService, private modalService: BsModalService, private router: Router) { }
 
   ngOnInit() { }
 
@@ -39,7 +40,7 @@ export class ActivityComponent implements OnInit {
     return this.activity.signaled ? true : false;
   }
 
-  toggleVote() {
+  toggleVote(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
     this.activityService.setVote(this.activity.id, !this.activity.voting).subscribe({
@@ -55,11 +56,13 @@ export class ActivityComponent implements OnInit {
     });
   }
 
+  @HostListener('click')
   public openSocial() {
     if (this.mode === ActivityMode.FULL) {
       this.router.navigateByUrl('/activities/' + this.activity.id);
     }
-    
+  }
+
   edit(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
