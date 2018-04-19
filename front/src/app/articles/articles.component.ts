@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { ShopService } from '../shop.service';
 import { IArticle } from '../../../../common/interface';
 import { ArticleMode } from '../article-mode.enum';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-articles',
@@ -18,9 +19,15 @@ export class ArticlesComponent implements OnInit, OnChanges {
 
   public $articles: Observable<IArticle[]>;
 
-  constructor(private shopService: ShopService) { }
+  constructor(private shopService: ShopService, private authService: AuthService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.authService.connection.subscribe(payload => {
+      if (payload) {
+        this.articleMode = payload.groupName === 'staff' ? ArticleMode.LARGE : ArticleMode.SMALL;
+      }
+    });
+  }
 
   ngOnChanges() {
     let $c: Observable<IArticle[]>;

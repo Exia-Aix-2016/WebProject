@@ -30,6 +30,7 @@ import { ArticleComponent } from './article/article.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ActivityManagerComponent } from './activity-manager/activity-manager.component';
 import { UploadFileService } from './upload-file.service';
+import { ArticleManagerComponent } from './article-manager/article-manager.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
     ShopPageComponent,
     ArticleComponent,
     ArticlesComponent,
+    ArticleManagerComponent,
   ],
   imports: [
     HttpClientModule,

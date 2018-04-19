@@ -32,10 +32,7 @@ export class ArticleService {
 
   async create(createArticleDto: CreateArticleDto): Promise<IArticle> {
     const category: Category = await this.categoryRepository.findOneById(createArticleDto.categoryName);
-    const article: Article = this.articleRepository.create(createArticleDto);
-    if (category) {
-      article.category = category;
-    }
+    const article: Article = this.articleRepository.create({ ...createArticleDto, category });
     return await this.articleRepository.save(article);
   }
 

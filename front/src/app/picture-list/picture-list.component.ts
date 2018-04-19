@@ -46,8 +46,5 @@ export class PictureListComponent implements OnInit {
     } else {
       this.currentPictureId = this.pictures.length - 1;
     }
-
-
-    console.log(this.currentPictureId);
   }
 }

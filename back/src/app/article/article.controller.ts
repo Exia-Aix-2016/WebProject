@@ -10,6 +10,7 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ArticleService } from '../../shop/article.service';
 import { Article } from '../../shop/article.entity';
@@ -71,7 +72,7 @@ export class ArticleController {
 
   @Put(':id')
   @UsePipes(new ValidationPipe())
-  put(@Param() param, @Body() body: EditArticleDto): any {
-    return this.articleService.edit(param.id, body);
+  put(@Param('id', new ParseIntPipe()) articleId: number, @Body() body: EditArticleDto): any {
+    return this.articleService.edit(articleId, body);
   }
 }

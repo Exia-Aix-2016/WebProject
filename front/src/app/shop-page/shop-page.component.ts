@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { ShopService } from '../shop.service';
 import { ICategory } from '../../../../common/interface';
 
@@ -14,8 +15,9 @@ export class ShopPageComponent implements OnInit {
   selectedCategory = 'all';
   sortBy = 'name';
   sort: 'ASC' | 'DSC' = 'ASC';
+  modalRef: BsModalRef;
 
-  constructor(private shopService: ShopService) { }
+  constructor(private shopService: ShopService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.$categories = this.shopService.getCategories();
@@ -31,5 +33,9 @@ export class ShopPageComponent implements OnInit {
 
   setSort(sort: 'ASC' | 'DSC') {
     this.sort = sort;
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 }

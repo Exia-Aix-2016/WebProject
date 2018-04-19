@@ -36,13 +36,11 @@ export class ActivityManagerComponent implements OnInit {
   constructor(private uploadFileService: UploadFileService, private activityService: ActivityService) { }
 
   ngOnInit() {
-    console.log(this.model);
     this.activityForm = new FormGroup({
       'name': new FormControl(this.model.name, [Validators.required, Validators.minLength(4)]),
       'description': new FormControl(this.model.description, [Validators.required, Validators.minLength(10)]),
       'posterUrl': new FormControl(this.model.posterUrl, [Validators.required]),
     });
-    console.log(this.activityForm.value, this.activityForm.status);
     if (this.model.posterUrl) {
       this.imgName = this.model.posterUrl.split('/').pop();
     }
