@@ -17,6 +17,7 @@ import { of } from 'rxjs/observable/of';
 export class MyCartComponent implements OnInit {
 
   cartArticles$: Observable<CartArticle[]>;
+  total$: Observable<number>;
 
   constructor(private cartService: CartService, private shopService: ShopService) { }
 
@@ -26,31 +27,45 @@ export class MyCartComponent implements OnInit {
         mergeMap(carts => Observable.from(carts)),
         filter(cart => cart.validated === false),
         pluck<Cart, CartArticle[]>('articles'),
-        flatMap(cartArticles =>
-          forkJoin(cartArticles.map(cartArticle =>
-            this.shopService.getArticle(cartArticle.articleId).pipe(
-              map(article => {
-                return { ...cartArticle, article };
-              }),
-            )
-          ))
-        ),
+        tap(console.log),
+        flatMap(cartArticles => {
+          return cartArticles.length === 0
+            ? of(cartArticles)
+            : forkJoin(cartArticles.map(cartArticle =>
+              this.shopService.getArticle(cartArticle.articleId).pipe(
+                map(article => {
+                  return { ...cartArticle, article };
+                }),
+              )
+            ));
+        })
+      );
+
+    this.total$ = this.cartArticles$.pipe(
+      map(cartArticles => cartArticles.reduce((sum, cartArticle) => sum + (cartArticle.quantity * cartArticle.article.price), 0))
     );
+
   }
 
   delete(cartArticle: CartArticle) {
-    console.log('deleting !');
-    this.cartService.deleteArticle(cartArticle.articleId).subscribe({
-      complete: () => console.log('deleted !'),
+    this.cartService.deleteArticle(cartArticle.articleId, cartArticle.cartId).subscribe({
       error: e => console.error(e)
     });
   }
 
   more(cartArticle: CartArticle) {
-    console.log('more', cartArticle);
+    this.cartService.setQuantity(cartArticle.articleId, { quantity: cartArticle.quantity + 1 }, cartArticle.cartId)
+      .subscribe({
+        error: e => console.error(e)
+      });
   }
 
   less(cartArticle: CartArticle) {
-
+    if (cartArticle.quantity > 1) {
+      this.cartService.setQuantity(cartArticle.articleId, { quantity: cartArticle.quantity - 1 }, cartArticle.cartId)
+        .subscribe({
+          error: e => console.error(e)
+        });
+    }
   }
 }

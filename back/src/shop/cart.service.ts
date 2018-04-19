@@ -1,5 +1,5 @@
 import { Component, Inject } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, getConnection } from 'typeorm';
 import { Cart } from './cart.entity';
 import { User } from '../user/user.entity';
 import { CartRepositoryToken, CartArticleRepositoryToken, ArticleRepositoryToken } from '../constants';
@@ -75,12 +75,21 @@ export class CartService {
     return await this.cartArticleRepository.save(cartArticle);
   }
 
-  async setQuantityInCart(idCart: number, idArticle: number, setQuantityInCart: SetQuantityInCartDto): Promise<void> {
-    const cartIn: CartArticle = await this.cartArticleRepository.findOne({ cartId: idCart, articleId: idArticle });
-    return await this.cartArticleRepository.update(cartIn, setQuantityInCart);
+  async setQuantityInCart(cartId: number, articleId: number, setQuantityInCart: SetQuantityInCartDto): Promise<void> {
+    return await getConnection()
+      .createQueryBuilder()
+      .update(CartArticle)
+      .set(setQuantityInCart)
+      .where('cartId=:cartId AND articleId=:articleId', { cartId, articleId })
+      .execute();
   }
 
-  async deleteArticleInCart(idCart: number, idArticle: number): Promise<void> {
-    return await this.cartArticleRepository.delete({ cartId: idCart, articleId: idArticle });
+  async deleteArticleInCart(cartId: number, articleId: number): Promise<any> {
+    return await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(CartArticle)
+      .where('cartId=:cartId AND articleId=:articleId', { cartId, articleId })
+      .execute();
   }
 }

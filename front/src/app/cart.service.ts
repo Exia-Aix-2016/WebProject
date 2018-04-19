@@ -5,8 +5,9 @@ import { ICartArticle, ICart } from '../../../common/interface';
 import { baseUrl } from './constants';
 import { HttpClient } from '@angular/common/http';
 import { Cart } from './article';
-import { switchMapTo, flatMap, map, tap, mergeMap, filter, switchMap } from 'rxjs/operators';
+import { switchMapTo, flatMap, map, tap, mergeMap, filter, switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { SetQuantityInCartDto } from '../../../common/dto';
 
 @Injectable()
 export class CartService {
@@ -54,6 +55,7 @@ export class CartService {
       : this.getMyDefaultCart().pipe(map(cart => `${baseUrl}carts/${cart.id}/articles/${articleId}`));
 
     return url$.pipe(
+      take(1),
       switchMap(url => this.http.delete<void>(url)),
       tap(() => this.$update.next(true)),
     );
@@ -65,7 +67,20 @@ export class CartService {
       : this.getMyDefaultCart().pipe(map(cart => `${baseUrl}carts/${cart.id}/articles`));
 
     return url$.pipe(
+      take(1),
       switchMap(url => this.http.post<void>(url, { articleId, quantity: 1 })),
+      tap(() => this.$update.next(true)),
+    );
+  }
+
+  public setQuantity(articleId: number, setQuantityInCartDto: SetQuantityInCartDto, cartId?: number) {
+    const url$ = cartId != null
+      ? of(`${baseUrl}carts/${cartId}/articles/${articleId}`)
+      : this.getMyDefaultCart().pipe(map(cart => `${baseUrl}carts/${cart.id}/articles/${articleId}`));
+
+    return url$.pipe(
+      take(1),
+      switchMap(url => this.http.put<void>(url, setQuantityInCartDto)),
       tap(() => this.$update.next(true)),
     );
   }

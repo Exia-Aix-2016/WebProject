@@ -11,4 +11,8 @@
       <svg-icon src="assets/svg/plus.svg" (click)="more(cartArticle)"></svg-icon>
     </div>
   </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Total
+    <span>{{total$ | async}}€</span>
+  </li>
 </ul>

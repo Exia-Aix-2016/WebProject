@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, IsBoolean, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsBoolean, IsOptional, Min } from 'class-validator';
 import {
   SetQuantityInCartDto as ISetQuantityInCartDto,
   CreateCartArticleDto as ICreateCartArticleDto,
@@ -8,8 +8,8 @@ import {
 import { isNumber } from 'util';
 
 export class SetQuantityInCartDto implements ISetQuantityInCartDto {
-  @IsString()
-  @IsNotEmpty()
+  @IsNumber()
+  @Min(1)
   readonly quantity: number;
 }
 
