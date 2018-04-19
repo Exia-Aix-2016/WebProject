@@ -27,7 +27,7 @@ export class FileController {
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   upload(@UploadedFile() img): object {
-    const fileName: string = crypto.createHash('md5').update(img.originalname).digest('hex') + Math.random();
+    const fileName: string = crypto.createHash('sha1').update(img.originalname).digest('hex') + Math.random();
     fs.createWriteStream(`../imgs/${fileName}.png`);
     fs.writeFile(`../imgs/${fileName}.png`, img.buffer, err => {
       if (err) throw err;

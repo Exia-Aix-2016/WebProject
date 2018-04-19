@@ -22,7 +22,14 @@ export class AuthModule implements NestModule {
       .forRoutes(
         { path: '/auth/authorized', method: RequestMethod.ALL },
         { path: '/ideas/*', method: RequestMethod.ALL },
+        { path: '/ideas', method: RequestMethod.ALL },
         { path: '/activities/*', method: RequestMethod.ALL },
-      );
+        { path: '/files', method: RequestMethod.ALL },
+        { path: '/articles/categories', method: RequestMethod.ALL },
+        { path: '/articles/categories/*', method: RequestMethod.ALL },
+        { path: '/pictures', method: RequestMethod.ALL },
+        { path: '/pictures/*', method: RequestMethod.ALL },
+        { path: '/carts', method: RequestMethod.ALL },
+    );
   }
 }

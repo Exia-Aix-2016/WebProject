@@ -18,10 +18,12 @@ import {
   CreateCartDto,
   CartStateDto,
 } from './cart.dto';
+import { IPayload, ICart } from '../../../../common/interface';
+import { User } from '../user.decorator';
 
 @Controller('carts')
 export class CartController {
-  constructor(private readonly cartService: CartService) {}
+  constructor(private readonly cartService: CartService) { }
 
   @Put(':cartId/articles/:articleId')
   @UsePipes(new ValidationPipe())
@@ -57,9 +59,14 @@ export class CartController {
     }
   }
 
+  @Get('all')
+  async getAll(): Promise<ICart[]> {
+    return await this.cartService.getAll();
+  }
+
   @Get()
-  get(): any {
-    return this.cartService.getAll();
+  async getByUser(@User() user: IPayload): Promise<ICart[]> {
+    return await this.cartService.getByUser(user.id);
   }
 
   @Get(':id')
