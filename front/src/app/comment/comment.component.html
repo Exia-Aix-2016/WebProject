@@ -1,5 +1,5 @@
 
-<div class="card" style="width: 100%;">
+<div [ngClass]="comment.signaled == true ? 'card signaled': 'card'" style="width: 100%;">
     <div class="card-body">
       <blockquote class="blockquote mb-0">
           <p class="content"> {{ comment.content}}</p>

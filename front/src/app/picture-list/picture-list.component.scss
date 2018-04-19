@@ -19,6 +19,15 @@ img {
     margin-left: 10%;
 }
 
+.signaled{
+    border: solid;
+    border-color: red; 
+    border-radius: 5px;
+    border-width: 3px;
+    padding: 0px;
+    margin-bottom: 10px;
+}
+
 :host {
 	display: block;
     margin-top:20px;

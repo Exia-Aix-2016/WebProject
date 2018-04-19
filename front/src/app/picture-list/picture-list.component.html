@@ -5,7 +5,8 @@
     <div class="container">
             <div class="row">
                 <div class="col-sm">
-                        <img src="{{ currentPicture.url }}">
+
+                        <img [ngClass]="currentPicture.signaled == true ? 'signaled': ''" src="{{ currentPicture.url }}">
 
                         <!-- BUTTON previous upload next-->
                         <div class="row buttonCarousel">
@@ -21,7 +22,7 @@
                                             <input class="form-control-file" name="file" type="file" id="file" (change)="onFileChange($event)" accept=".png" #fileInput>
                                         </div>
                                     </span>
-                                    <button class="btn btn-warning" (click)="onPrevious()">signal</button>
+                                    <button class="btn btn-warning" (click)="onSignal()">signal</button>
                                 </div>
                             </div>
                             <div class="col">

@@ -53,6 +53,13 @@ export class PictureListComponent implements OnInit {
     }
   }
 
+  onSignal(){
+    let signal = (this.pictures[this.currentPictureId].signaled) ? false : true;
+
+    this.socialService
+      .signalPicture(this.pictures[this.currentPictureId], signal)
+      .subscribe();
+  }
   onFileChange(event) {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
