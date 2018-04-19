@@ -1,0 +1,11 @@
+<div class="card-body">
+        <h5 class="user-name">{{user.name}}</h5>
+        <h5 class="user-firstname">{{user.firstname}}</h5>
+        <ul id="dropdown-action-menu" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdown-action-btn">
+            <li role="menuitem" *ngFor="let group of ($groups | async)">
+                    <a class="dropdown-item" (click)="edit(group.name, user.groupName)">{{group.name | titlecase}}</a>
+            </li>
+        </ul>
+        <button class="btn btn-danger" (click)="delete(user.id)">Delete</button>
+</div>
+<p>test</p>

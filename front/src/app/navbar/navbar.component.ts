@@ -13,10 +13,11 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 export class NavbarComponent {
 
   modalRef: BsModalRef;
-  public routes: Array<{ path: string, title: string, active: boolean }> = [
-    { path: '/activities', title: 'Activities', active: false },
-    { path: '/ideas', title: 'Suggestion Box', active: false },
-    { path: '/shop', title: 'Shop', active: false },
+  public routes: Array<{ path: string, title: string, active: boolean, admin: boolean }> = [
+    { path: '/activities', title: 'Activities', active: false, admin: false},
+    { path: '/ideas', title: 'Suggestion Box', active: false, admin: false},
+    { path: '/shop', title: 'Shop', active: false, admin: false },
+    { path: '/users', title: 'Users', active: false, admin: true},
   ];
 
   public logins: Array<{ title: string, path: string }> = [

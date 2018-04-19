@@ -31,6 +31,9 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ActivityManagerComponent } from './activity-manager/activity-manager.component';
 import { UploadFileService } from './upload-file.service';
 import { ArticleManagerComponent } from './article-manager/article-manager.component';
+import { UsersPageComponent } from './users-page/users-page.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { UserComponent } from './user/user.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -39,6 +42,7 @@ const appRoutes: Routes = [
   { path: 'ideas', component: ActivitiesPageComponent },
   { path: 'activities/:id', component: SocialPageComponent },
   { path: 'shop', component: ShopPageComponent },
+  { path:'users', component: UsersPageComponent},
   { path: '**', redirectTo: '/activities' },
 ];
 
@@ -62,6 +66,9 @@ const appRoutes: Routes = [
     ArticleComponent,
     ArticlesComponent,
     ArticleManagerComponent,
+    UsersPageComponent,
+    UsersListComponent,
+    UserComponent,
   ],
   imports: [
     HttpClientModule,
