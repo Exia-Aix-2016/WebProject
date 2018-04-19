@@ -11,7 +11,7 @@
   </h5>
   <p class="card-text">{{activity.description}}</p>
   <app-is-connected [groups]="['staff', 'cesi']">
-    <div id="dropdown-action" class="btn-group" dropdown>
+    <div id="dropdown-action" class="btn-group" dropdown (click)="action($event)">
       <button id="dropdown-action-btn" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-action-menu">
         Actions
         <span class="caret"></span>

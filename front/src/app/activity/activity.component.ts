@@ -63,6 +63,11 @@ export class ActivityComponent implements OnInit {
     }
   }
 
+  action(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
   edit(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
