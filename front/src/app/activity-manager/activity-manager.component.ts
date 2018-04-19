@@ -110,7 +110,7 @@ export class ActivityManagerComponent implements OnInit {
       this.imgName = file.name;
       this.formdata.append('file', file, file.name);
       this.uploadFileService.uploadFile(this.formdata).subscribe(d => {
-        this.activityForm.setValue(Object.assign({}, this.activityForm.value, { 'posterUrl': this.img.url }));
+        this.activityForm.setValue(Object.assign({}, this.activityForm.value, { 'posterUrl': d.imgUrl }));
       });
     }
   }
