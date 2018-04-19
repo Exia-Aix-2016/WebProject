@@ -9,7 +9,7 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/do';
 import { IPicture, IPictureExtended, IComment, IUser } from '../../../common/interface';
 import { baseUrl } from './constants';
-import { CommentDto } from '../../../common/dto';
+import { CommentDto, PictureDto } from '../../../common/dto';
 
 @Injectable()
 export class SocialService {
@@ -39,6 +39,16 @@ export class SocialService {
       )));
   }
 
+
+
+  public postPicture(picture: PictureDto){
+
+    const url = baseUrl + 'pictures/';
+
+    return this.http.post(url, picture).do(() => this.$update.next(true));
+
+  }
+
   public getCommentUser(comment: IComment) {
     return this.http.get<IUser>(baseUrl + 'users/' + comment.userId);
   }
@@ -50,6 +60,7 @@ export class SocialService {
   public getComments(picture: IPicture): Observable<IComment[]> {
     return this.http.get<IComment[]>(baseUrl + "pictures/" + picture.id + "/comments");
   }
+
 
 
   public postComment(comment: CommentDto){
@@ -74,6 +85,11 @@ export class SocialService {
   }
 
   
+  public forceUpdate(){
+
+    this.$update.next(true);
+
+  }
 
   public signalPicture(picture: IPicture, value: boolean){
 

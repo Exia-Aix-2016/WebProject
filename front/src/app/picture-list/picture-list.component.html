@@ -6,8 +6,26 @@
             <div class="row">
                 <div class="col-sm">
                         <img src="{{ currentPicture.url }}">
-                        <button class="btn btn-primary" (click)="onPrevious()">previous</button>
-                        <button class="btn btn-primary" (click)="onNext()">next</button>
+
+                        <!-- BUTTON previous upload next-->
+                        <div class="row buttonCarousel">
+                            <div class="col-sm">
+                                <button class="btn btn-primary" (click)="onPrevious()">previous</button>
+                            </div>
+                            <div class="col-sm">
+                                <span class="input-group-btn">
+                                    <div class=" image-preview-input">
+                                        <span class="glyphicon glyphicon-folder-open"></span>
+                                        <button class="btn btn-primary">Browse</button>
+                                        <input class="form-control-file" name="file" type="file" id="file" (change)="onFileChange($event)" accept=".png" #fileInput>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-sm">
+                                <button class="btn btn-primary" (click)="onNext()">next</button>
+                            </div>   
+                        </div>
+
                         <div class="col-sm"><app-comment-form [pictureId]="currentPicture.id"></app-comment-form></div>
 
                     </div>        
