@@ -6,7 +6,7 @@ import { baseUrl } from "./constants";
 import { EditUserDto } from "../../../common/dto";
 
 @Injectable()
-export class UserService{
+export class UserService {
 
     private $update: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 

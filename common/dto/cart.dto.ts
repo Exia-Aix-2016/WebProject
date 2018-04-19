@@ -1,12 +1,12 @@
-export interface setQuantityInCartDto{
+export interface SetQuantityInCartDto {
     quantity: number;
 }
 
-export interface CartStateDto{
+export interface CartStateDto {
     validated?: boolean;
     delivered?: boolean;
 }
 
-export interface CreateCartDto{
+export interface CreateCartDto {
     userId: number;
 }

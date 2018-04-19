@@ -3,6 +3,7 @@ import { IArticle } from '../../../../common/interface';
 import { ArticleMode } from '../article-mode.enum';
 import { ShopService } from '../shop.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-article',
@@ -19,7 +20,7 @@ export class ArticleComponent implements OnInit {
   @Input() mode: ArticleMode;
   modalRef: BsModalRef;
 
-  constructor(private shopService: ShopService, private modalService: BsModalService) { }
+  constructor(private shopService: ShopService, private modalService: BsModalService, private cartService: CartService) { }
 
   ngOnInit() {
     this.isSmallMode = this.mode === ArticleMode.SMALL;
@@ -39,6 +40,8 @@ export class ArticleComponent implements OnInit {
   }
 
   buy() {
-    console.log('buy');
+    this.cartService.addArticle(this.article.id).subscribe({
+      error: e => console.error(e)
+    });
   }
 }

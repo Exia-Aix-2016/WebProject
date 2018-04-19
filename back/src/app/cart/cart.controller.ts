@@ -9,11 +9,12 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CartService } from '../../shop/cart.service';
 import { Cart } from 'shop/cart.entity';
 import {
-  setQuantityInCartDto,
+  SetQuantityInCartDto,
   CreateCartArticleDto,
   CreateCartDto,
   CartStateDto,
@@ -27,28 +28,34 @@ export class CartController {
 
   @Put(':cartId/articles/:articleId')
   @UsePipes(new ValidationPipe())
-  putArticleInCart(@Param() param, @Body() body: setQuantityInCartDto): any {
+  putArticleInCart(
+    @Param('cartId', new ParseIntPipe()) cartId: number,
+    @Param('articleId', new ParseIntPipe()) articleId: number,
+    @Body() body: SetQuantityInCartDto): any {
     return this.cartService.setQuantityInCart(
-      param.cartId,
-      param.articleId,
+      cartId,
+      articleId,
       body,
     );
   }
 
   @Delete(':cartId/articles/:articleId')
-  deleteArticleInCart(@Param() param): any {
-    return this.cartService.deleteArticleInCart(param.cartId, param.articleId);
+  deleteArticleInCart(
+    @Param('cartId', new ParseIntPipe()) cartId: number,
+    @Param('articleId', new ParseIntPipe()) articleId: number,
+  ): any {
+    return this.cartService.deleteArticleInCart(cartId, articleId);
   }
 
   @Get(':id/articles')
-  getArticles(@Param() param): any {
-    return this.cartService.getArticlesById(param.id);
+  getArticles(@Param('id', new ParseIntPipe()) cartId: number): any {
+    return this.cartService.getArticlesById(cartId);
   }
 
   @Post(':id/articles')
   @UsePipes(new ValidationPipe())
-  postArticles(@Param() param, @Body() body: CreateCartArticleDto): any {
-    return this.cartService.addArticle(param.id, body);
+  postArticles(@Param('id', new ParseIntPipe()) cartId: number, @Body() body: CreateCartArticleDto): any {
+    return this.cartService.addArticle(cartId, body);
   }
 
   @Post()
@@ -70,18 +77,18 @@ export class CartController {
   }
 
   @Get(':id')
-  getId(@Param() param): any {
-    return this.cartService.getById(param.id);
+  getId(@Param('id', new ParseIntPipe()) cartId: number): any {
+    return this.cartService.getById(cartId);
   }
 
   @Put(':id')
   @UsePipes(new ValidationPipe())
-  put(@Param() param, @Body() body: CartStateDto): any {
-    return this.cartService.setState(param.id, body);
+  put(@Param('id', new ParseIntPipe()) cartId: number, @Body() body: CartStateDto): any {
+    return this.cartService.setState(cartId, body);
   }
 
   @Delete(':id')
-  delete(@Param() param): any {
-    return this.cartService.delete(param.id);
+  delete(@Param('id', new ParseIntPipe()) cartId: number): any {
+    return this.cartService.delete(cartId);
   }
 }
