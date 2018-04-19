@@ -11,7 +11,7 @@ import { SocialService } from '../social.service';
 export class CommentListComponent implements OnInit {
 
   @Input() canDisplay: boolean;
-  private maxSize = 5;
+  private maxSize = 4;
   private totalItems = 0;
   private currentPage = 1;
   //private comments: Observable <Comment[]>;

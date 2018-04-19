@@ -9,27 +9,33 @@
 
                         <!-- BUTTON previous upload next-->
                         <div class="row buttonCarousel">
-                            <div class="col-sm">
+                            <div class="col">
                                 <button class="btn btn-primary" (click)="onPrevious()">previous</button>
                             </div>
-                            <div class="col-sm">
-                                <span class="input-group-btn">
-                                    <div class=" image-preview-input">
-                                        <span class="glyphicon glyphicon-folder-open"></span>
-                                        <button class="btn btn-primary">Browse</button>
-                                        <input class="form-control-file" name="file" type="file" id="file" (change)="onFileChange($event)" accept=".png" #fileInput>
-                                    </div>
-                                </span>
+                            <div class="col">
+                                <div class="row buttonUploadSignal">
+                                    <span class="input-group-btn">
+                                        <div class=" image-preview-input">
+                                            <span class="glyphicon glyphicon-folder-open"></span>
+                                            <button class="btn btn-primary">Upload</button>
+                                            <input class="form-control-file" name="file" type="file" id="file" (change)="onFileChange($event)" accept=".png" #fileInput>
+                                        </div>
+                                    </span>
+                                    <button class="btn btn-warning" (click)="onPrevious()">signal</button>
+                                </div>
                             </div>
-                            <div class="col-sm">
+                            <div class="col">
                                 <button class="btn btn-primary" (click)="onNext()">next</button>
                             </div>   
                         </div>
 
                         <div class="col-sm"><app-comment-form [pictureId]="currentPicture.id"></app-comment-form></div>
 
-                    </div>        
-                   <app-comment-list class="col-sm" [canDisplay]="canDisplay" [comments]="currentPicture.comments"></app-comment-list>                 
+                    </div>   
+                    <div class="col-sm comment">
+                        <app-comment-list [canDisplay]="canDisplay" [comments]="currentPicture.comments"></app-comment-list>
+                    </div>     
+                                    
             </div>         
         </div>
 </div>
