@@ -84,7 +84,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 +++ 
 # Strategy
 
-```typescript
+```javascript
 @Component()
 export class JwtStrategy extends Strategy {
   constructor(private readonly authService: AuthService) {
