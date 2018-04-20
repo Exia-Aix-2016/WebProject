@@ -14,12 +14,12 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 ---
 # Presentation of the project
 
-⋅⋅* A website for the CESI-EXIA's BDE
-⋅⋅* Activities gestion
-⋅⋅* Creation of ideas
-⋅⋅* Users rights
-⋅⋅* Gestion of a cart
-⋅⋅* Social page
+* A website for the CESI-EXIA's BDE
+* Activities gestion
+* Creation of ideas
+* Users rights
+* Gestion of a cart
+* Social page
 
 ---
 
