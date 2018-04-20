@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class UserComponent implements OnInit {
 
-  @Input() private user: IUser;
+  @Input() user: IUser;
   $groups: Observable<IGroup[]>;
 
   constructor(private userService: UserService) { }

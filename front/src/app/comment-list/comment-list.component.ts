@@ -11,10 +11,9 @@ import { SocialService } from '../social.service';
 export class CommentListComponent implements OnInit {
 
   @Input() canDisplay: boolean;
-  private maxSize = 4;
-  private totalItems = 0;
-  private currentPage = 1;
-  //private comments: Observable <Comment[]>;
+  maxSize = 4;
+  totalItems = 0;
+  currentPage = 1;
   @Input() comments: ICommentExtended[];
 
   constructor(private socialService: SocialService) { }
@@ -24,19 +23,19 @@ export class CommentListComponent implements OnInit {
   }
 
 
-  get getPageComments(): ICommentExtended[]{
+  get getPageComments(): ICommentExtended[] {
     this.totalItems = (this.comments.length / this.maxSize) * 10;
-    return this.comments.slice((this.currentPage*this.maxSize)-this.maxSize);
+    return this.comments.slice((this.currentPage * this.maxSize) - this.maxSize);
   }
 
-  private pageChanged(event: any): void {
+  pageChanged(event: any): void {
 
-    if((event.page-1) > this.comments.length){
+    if ((event.page - 1) > this.comments.length) {
       this.currentPage--;
-    }else{
-      this.currentPage = (event.page-1);
+    } else {
+      this.currentPage = (event.page - 1);
     }
-    if((event.page-1) < 0){
+    if ((event.page - 1) < 0) {
       this.currentPage = 0;
     }
 

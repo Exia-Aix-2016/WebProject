@@ -14,9 +14,9 @@ export class ArticleManagerComponent implements OnInit {
 
   @Input() model: IArticle | any = {};
   @Input() editMode = false;
-  private form: FormGroup;
-  private imgName = '';
-  private categories$: Observable<string[]>;
+  form: FormGroup;
+  imgName = '';
+  categories$: Observable<string[]>;
 
   constructor(private uploadFileService: UploadFileService, private shopService: ShopService) { }
 

@@ -6,25 +6,25 @@ import { SocialService } from '../social.service';
 import { UploadFileService } from '../upload-file.service';
 
 @Component({
-  selector: "app-picture-list",
-  templateUrl: "./picture-list.component.html",
-  styleUrls: ["./picture-list.component.scss"]
+  selector: 'app-picture-list',
+  templateUrl: './picture-list.component.html',
+  styleUrls: ['./picture-list.component.scss']
 })
 export class PictureListComponent implements OnInit {
-  private formdata: FormData;
-  private pictures: IPictureExtended[];
-  private activityId: number;
-  private currentPictureId = 0;
-  private canDisplay = false;
+  formdata: FormData;
+  pictures: IPictureExtended[];
+  activityId: number;
+  currentPictureId = 0;
+  canDisplay = false;
 
   constructor(
     private socialService: SocialService,
     private route: ActivatedRoute,
     private uploadFileService: UploadFileService,
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.activityId = parseInt(this.route.snapshot.paramMap.get("id"), 10);
+    this.activityId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.socialService
       .getExtendedPictures(this.activityId)
       .subscribe(pictures => {
@@ -53,8 +53,8 @@ export class PictureListComponent implements OnInit {
     }
   }
 
-  onSignal(){
-    let signal = (this.pictures[this.currentPictureId].signaled) ? false : true;
+  onSignal() {
+    const signal = (this.pictures[this.currentPictureId].signaled) ? false : true;
 
     this.socialService
       .signalPicture(this.pictures[this.currentPictureId], signal)
@@ -66,7 +66,7 @@ export class PictureListComponent implements OnInit {
       this.formdata = new FormData();
 
       const file: File = fileList[0];
-      this.formdata.append("file", file, file.name);
+      this.formdata.append('file', file, file.name);
       this.uploadFileService.uploadFile(this.formdata).subscribe(res => {
 
         console.log(res.imgUrl);

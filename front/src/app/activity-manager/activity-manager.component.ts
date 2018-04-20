@@ -27,10 +27,10 @@ export class ActivityManagerComponent implements OnInit {
     occurrenceName?: string,
     planned?: boolean
   } = {};
-  private activityForm: FormGroup;
+  activityForm: FormGroup;
   private formdata: FormData;
   private minDate = new Date(Date.now());
-  private imgName: string;
+  imgName: string;
   private occurrences$: Observable<string[]>;
 
   constructor(private uploadFileService: UploadFileService, private activityService: ActivityService) { }
@@ -82,7 +82,7 @@ export class ActivityManagerComponent implements OnInit {
     return { 'is-valid': valid, 'is-invalid': invalid };
   }
 
-  private submit() {
+  submit() {
     let req: Observable<any>;
     if (this.editMode) {
       req = this.activityService.edit(Object.assign({ id: this.model.id, planned: true }, this.activityForm.value));

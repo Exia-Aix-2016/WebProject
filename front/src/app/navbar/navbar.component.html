@@ -44,7 +44,7 @@
 
   <app-is-connected>
     <app-cart-button></app-cart-button>
-    <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkupLog" (click)="disconnect()">Logout</button>
+    <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin" id="navbarNavAltMarkupLog" (click)="disconnect()">Logout</button>
     <a class="btn btn-sm btn-outline-primary" id="navbarNavAltMarkupLog" href="/signup" not-connected>SignUp</a>
     <a class="btn btn-sm btn-outline-primary" id="navbarNavAltMarkupLog" href="/login" not-connected>Login</a>
   </app-is-connected>

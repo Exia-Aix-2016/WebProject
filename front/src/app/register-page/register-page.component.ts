@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 })
 export class RegisterPageComponent implements OnInit {
 
-  private name: string;
-  private firstname: string;
-  private email: string;
-  private password: string;
+  name: string;
+  firstname: string;
+  email: string;
+  password: string;
 
   constructor(private readonly authService: AuthService, private router: Router) { }
 

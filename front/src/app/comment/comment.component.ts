@@ -10,7 +10,7 @@ import { SocialService } from '../social.service';
 })
 export class CommentComponent implements OnInit {
 
-  @Input() private comment: ICommentExtended;
+  @Input() comment: ICommentExtended;
 
   constructor(private socialService: SocialService) { }
 
@@ -20,14 +20,14 @@ export class CommentComponent implements OnInit {
     return this.comment.content;
   }
 
-  toggleSignal(event: MouseEvent){
+  toggleSignal(event: MouseEvent) {
     this.socialService.signalComment(this.comment, !this.comment.signaled).subscribe({
       error: e => console.error(e)
     });
   }
 
-  isSignaled(){
+  isSignaled() {
     return this.comment.signaled;
   }
-  
+
 }
