@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Cart } from './article';
 import { switchMapTo, flatMap, map, tap, mergeMap, filter, switchMap, take } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { SetQuantityInCartDto } from '../../../common/dto';
+import { SetQuantityInCartDto, CartStateDto } from '../../../common/dto';
 
 @Injectable()
 export class CartService {
@@ -31,7 +31,7 @@ export class CartService {
 
   }
 
-  public getAll() {
+  public getAll(): Observable<ICart[]> {
     const url = baseUrl + 'carts/all';
     return this.$update.switchMapTo(this.http.get<ICart[]>(url));
   }
@@ -83,5 +83,10 @@ export class CartService {
       switchMap(url => this.http.put<void>(url, setQuantityInCartDto)),
       tap(() => this.$update.next(true)),
     );
+  }
+
+  public edit(cartId: number, cartStateDto: CartStateDto) {
+    const url = `${baseUrl}carts/${cartId}`;
+    return this.http.put(url, cartStateDto).do(() => this.$update.next(true));
   }
 }

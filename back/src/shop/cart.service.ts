@@ -65,7 +65,10 @@ export class CartService {
   }
 
   async getArticlesById(cartId: number): Promise<ICartArticle[]> {
-    return await this.cartArticleRepository.find({ cartId });
+    return await this.cartArticleRepository
+      .createQueryBuilder('cartArticle')
+      .where('cartArticle.cartId=:cartId', { cartId })
+      .getMany();
   }
 
   async addArticle(idCart: number, createCartArticleDto: CreateCartArticleDto): Promise<ICartArticle> {

@@ -34,11 +34,11 @@ export class CreateCartDto implements ICreateCartDto {
 }
 
 export class CartStateDto implements ICartStateDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
   readonly validated?: boolean;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
   readonly delivered?: boolean;
 

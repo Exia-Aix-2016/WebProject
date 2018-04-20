@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ButtonsModule } from 'ngx-bootstrap';
+import { ButtonsModule, CollapseModule } from 'ngx-bootstrap';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { BsDropdownModule, ModalModule, BsDatepickerModule, CarouselModule, PaginationModule } from 'ngx-bootstrap';
 
@@ -38,6 +38,7 @@ import { MyCartComponent } from './my-cart/my-cart.component';
 import { CartButtonComponent } from './cart-button/cart-button.component';
 import { CartService } from './cart.service';
 import { UserService } from './user.service';
+import { OrdersPageComponent } from './orders-page/orders-page.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -47,7 +48,8 @@ const appRoutes: Routes = [
   { path: 'activities/:id', component: SocialPageComponent },
   { path: 'shop', component: ShopPageComponent },
   { path: 'my-cart', component: MyCartComponent },
-  { path:'users', component: UsersPageComponent},
+  { path: 'users', component: UsersPageComponent },
+  { path: 'orders', component: OrdersPageComponent },
   { path: '**', redirectTo: '/activities' },
 ];
 
@@ -76,6 +78,7 @@ const appRoutes: Routes = [
     UserComponent,
     MyCartComponent,
     CartButtonComponent,
+    OrdersPageComponent,
   ],
   imports: [
     HttpClientModule,
@@ -90,6 +93,7 @@ const appRoutes: Routes = [
     AngularSvgIconModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    CollapseModule.forRoot(),
   ],
   providers: [
     AuthService,

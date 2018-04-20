@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { IUser, IGroup } from '../../../common/interface';
 import { baseUrl } from './constants';
@@ -12,6 +13,10 @@ export class UserService {
 
 
     constructor(private http: HttpClient) { }
+
+    public getUser(userId: number): Observable<IUser> {
+        return this.$update.switchMapTo(this.http.get<IUser>(baseUrl + 'users/' + userId));
+    }
 
     public getUsers() {
         return this.$update.switchMapTo(this.http.get<IUser[]>(baseUrl + 'users'));
