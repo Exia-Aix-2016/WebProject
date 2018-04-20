@@ -57,9 +57,6 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 ## Route system
 
-+++
-
-## 
 
 ---
 # AngularJS
@@ -68,8 +65,12 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 * Achieve the maximum speed possible on the Web Platform 
 * Extend the template language with our own components 
 
+---
 # TypeORM
 
++++
+
+## Model
 
 ---
 # PassportJs
