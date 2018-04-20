@@ -53,9 +53,24 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 * For building efficient, scalable Node.js server-side applications
 * Built in TypScript
 
+---
+# TypeORM
 
+* ORM based on TypeScript
 
 ---
+
+# PassportJS
+
+* Passport is authentication middleware for Node.js 
+
+---
+# JsonWebToken
+
+![WebToken](http://www.ekino.com/wp-content/uploads/2015/08/parts.jpg)
+
+---
+
 # Angular
 
 * Full toolset
@@ -65,21 +80,6 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 +++
 # Component
 
-
----
-# TypeORM
-
-* ORM based on TypeScript
-
----
-# JsonWebToken
-
-![WebToken](http://www.ekino.com/wp-content/uploads/2015/08/parts.jpg)
-
----
-# PassportJS
-
-* Passport is authentication middleware for Node.js
 
 ---
 ### Demonstration
