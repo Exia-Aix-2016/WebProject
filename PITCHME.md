@@ -22,21 +22,15 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 * Social page
 
 ---
+# Presentation of the solution
+
+---
 # The Database
 
 ![bdd](https://user-images.githubusercontent.com/7594435/38731510-cbda2802-3f1a-11e8-8559-7d7b55edae17.png)
 
 ---
 
-
-# TypeScript
-
-
----
-
-# Rest API
-
----
 
 # Technologies
 
@@ -51,11 +45,36 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 * Modular architecture
 * All kinds of server-side applications
-* Build in TS
+* Build in TypeScript
 
 +++
 
 ## Route system
+
+@[fragment-range]
+@Controller('activities')
+export class ActivityController {
+  constructor(
+    private readonly activityService: ActivityService,
+    private readonly socialService: SocialService,
+  ) { }
+
+  @Get()
+  async getAll(): Promise<IActivity[]> {
+    return await this.activityService.getAllActivites();
+  }
+  @Post()
+  @UsePipes(new ValidationPipe())
+  async create(@Body() createActivityDto: CreateActivityDto,): Promise<IActivity> {
+    
+    return await this.activityService.createActivity(createActivityDto);
+  }
+
+  @Get('occurrences')
+  async getOccurrences(): Promise<string[]> {
+    const occurrences: Occurrence[] = await this.activityService.getOccurrences();
+    return occurrences.map(occurrence => occurrence.name);
+  }
 
 
 ---
@@ -76,7 +95,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 # PassportJs
 
 ---
-#JsonWebToken
+# JsonWebToken
 
 ---
 # Conclusion 
