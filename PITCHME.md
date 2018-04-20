@@ -24,78 +24,15 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 ---
 # Presentation of the solution
 
+* restAPI - NestJs
+* website  - AngularJs
 ---
+
+# Global architecture
+
+![restAPI]("./gitpitch/globalmodel")
 # The Database
 
 ![bdd](https://user-images.githubusercontent.com/7594435/38731510-cbda2802-3f1a-11e8-8559-7d7b55edae17.png)
 
----
-
-
-# Technologies
-
-* NestJs
-* AngularJs
-* TypeORM
-* PassportJs
-* JsonWebToken
-
----
-# NestJS
-
-* Modular architecture
-* All kinds of server-side applications
-* Build in TypeScript
-
-+++
-
-## Route system
-
-@[fragment-range]
-@Controller('activities')
-export class ActivityController {
-  constructor(
-    private readonly activityService: ActivityService,
-    private readonly socialService: SocialService,
-  ) { }
-
-  @Get()
-  async getAll(): Promise<IActivity[]> {
-    return await this.activityService.getAllActivites();
-  }
-  @Post()
-  @UsePipes(new ValidationPipe())
-  async create(@Body() createActivityDto: CreateActivityDto,): Promise<IActivity> {
-    
-    return await this.activityService.createActivity(createActivityDto);
-  }
-
-  @Get('occurrences')
-  async getOccurrences(): Promise<string[]> {
-    const occurrences: Occurrence[] = await this.activityService.getOccurrences();
-    return occurrences.map(occurrence => occurrence.name);
-  }
-
-
----
-# AngularJS
-
-* Build apps for any deployment target
-* Achieve the maximum speed possible on the Web Platform 
-* Extend the template language with our own components 
-
----
-# TypeORM
-
-+++
-
-## Model
-
----
-# PassportJs
-
----
-# JsonWebToken
-
----
-# Conclusion 
+# 
