@@ -57,6 +57,9 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 ## Angular
 
+* Use TypeScript
+* Community
+
 ---
 
 ## JsonWebToken
