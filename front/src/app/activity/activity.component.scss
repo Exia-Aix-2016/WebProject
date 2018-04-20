@@ -1,0 +1,13 @@
+:host.card {
+  flex-basis: 500px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-bottom: 15px;
+}
+
+#dropdown-action {
+  width: 100%;
+  #dropdown-action-btn {
+    margin-left: auto; 
+  }
+}

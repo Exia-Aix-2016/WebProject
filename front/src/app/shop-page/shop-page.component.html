@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+<app-is-connected>
+  <div class="container">
+    <div class="navbar navbar-expand-md navbar-light bg-light">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link">Category :</a>
+        </li>
+        <li class="nav-item btn-group" dropdown>
+          <a id="category-button" dropdownToggle role="button" class="nav-link dropdown-toggle" aria-controls="category-dropdown">
+            {{selectedCategory | titlecase}}
+            <span class="caret"></span>
+          </a>
+          <ul id="category-dropdown" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="category-button">
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="setCategory('all')">All</a>
+            </li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem" *ngFor="let category of ($categories | async)">
+              <a class="dropdown-item" (click)="setCategory(category.name)">{{category.name | titlecase}}</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link">SortBy :</a>
+        </li>
+        <li class="nav-item btn-group" dropdown>
+          <a id="category-button" dropdownToggle role="button" class="nav-link dropdown-toggle" aria-controls="category-dropdown">
+            {{sortBy | titlecase}}
+            <span class="caret"></span>
+          </a>
+          <ul id="category-dropdown" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="category-button">
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="setSortBy('name')">Name</a>
+              <a class="dropdown-item" (click)="setSortBy('price')">Price</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link">Sort</a>
+        </li>
+        <li class="nav-item btn-group" dropdown>
+          <a id="category-button" dropdownToggle role="button" class="nav-link dropdown-toggle" aria-controls="category-dropdown">
+            {{sort}}
+            <span class="caret"></span>
+          </a>
+          <ul id="category-dropdown" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="category-button">
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="setSort('ASC')">ASC</a>
+              <a class="dropdown-item" (click)="setSort('DSC')">DSC</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <app-is-connected group="staff">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="openModal(create)">Create</button>
+      </app-is-connected>
+    </div>
+  </div>
+  <div>
+    <app-articles category="bestsellers" [sortBy]="sortBy" [sort]="sort"></app-articles>
+    <app-articles [category]="selectedCategory" [sortBy]="sortBy" [sort]="sort"></app-articles>
+  </div>
+</app-is-connected>
+
+<app-is-connected group="staff">
+  <ng-template #create>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Create Article</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-article-manager></app-article-manager>
+    </div>
+  </ng-template>
+</app-is-connected>

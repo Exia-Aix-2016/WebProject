@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<ul class="list-group">
+  <ng-container *ngFor="let order of (orders$ | async)">
+    <li class="list-group-item d-flex justify-content-between align-items-center" (click)="toggleCollapse(order)">
+      {{order.user.firstname}} {{order.user.name}}
+      <button type="button" class="btn btn-outline-primary" (click)="deliver($event, order)">
+        Delivred
+      </button>
+    </li>
+    <div [collapse]="order.isCollapsed">
+      <li class="list-group-item d-flex justify-content-between align-items-center subitem" *ngFor="let cartArticle of order.cartArticles">
+        {{cartArticle.article.name}}
+        <span class="badge badge-primary badge-pill">{{cartArticle.quantity}}</span>
+      </li>
+    </div>
+  </ng-container>
+</ul>
+<ul class="list-group">
+  <ng-container *ngFor="let order of (finished$ | async)">
+    <li class="list-group-item d-flex justify-content-between align-items-center" (click)="toggleCollapse(order)">
+      {{order.user.firstname}} {{order.user.name}}
+    </li>
+    <div [collapse]="order.isCollapsed">
+      <li class="list-group-item d-flex justify-content-between align-items-center subitem" *ngFor="let cartArticle of order.cartArticles">
+        {{cartArticle.article.name}}
+        <span class="badge badge-primary badge-pill">{{cartArticle.quantity}}</span>
+      </li>
+    </div>
+  </ng-container>
+</ul>

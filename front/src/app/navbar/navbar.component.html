@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/activities">BDE CESI-EXIA</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+    <div class="navbar-nav">
+      <div *ngFor="let route of routes">
+        <a class="nav-item nav-link" *ngIf="route.path != '/ideas' else Ideas" [href]="route.path" [ngClass]="{'active': route.active}">
+          {{route.title}}</a>
+        <ng-template #Ideas>
+          <div class="btn-group" dropdown>
+            <a class="nav-item nav-link" href="/ideas" [ngClass]="{'active': route.active}">{{route.title}}</a>
+            <app-is-connected>
+              <a id="button-split" dropdownToggle class="nav-item nav-link dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
+                <span class="caret"></span>
+                <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
+                  <li role="menuitem">
+                    <a class="dropdown-item" (click)="openModal(ModalAddIdea)">Add</a>
+                  </li>
+                </ul>
+              </a>
+            </app-is-connected>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <ng-template #ModalAddIdea>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Idea</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-activity-manager></app-activity-manager>
+      </div>
+    </ng-template>
+
+  </div>
+
+  <app-is-connected>
+    <app-cart-button></app-cart-button>
+    <button class="btn btn-sm btn-outline-primary" *ngIf="!displayLogin; else Login" id="navbarNavAltMarkupLog" (click)="disconnect()">Logout</button>
+    <a class="btn btn-sm btn-outline-primary" id="navbarNavAltMarkupLog" href="/signup" not-connected>SignUp</a>
+    <a class="btn btn-sm btn-outline-primary" id="navbarNavAltMarkupLog" href="/login" not-connected>Login</a>
+  </app-is-connected>
+
+</nav>

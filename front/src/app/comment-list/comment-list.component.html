@@ -1,0 +1,16 @@
+<div *ngFor="let comment of getPageComments; let i=index;">
+  <div *ngIf="i<maxSize">
+      <app-comment  [comment]="comment"></app-comment>
+  </div>
+</div>
+
+<div class="commentlist">
+<div class="row">
+    <div class="col-xs-12 col-12">
+        <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+  </div>
+</div>
+
+   
+

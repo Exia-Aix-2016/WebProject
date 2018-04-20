@@ -1,0 +1,5 @@
+<button type="button" class="btn btn-primary btn-sm" id="cart-button" (click)="goToCart()">
+  <svg-icon src="assets/svg/cart.svg" id="cart-icon" href="/cart"></svg-icon>
+  My Cart
+  <span class="badge badge-light" id="cart-number">{{numberOfArticles$ | async}}</span>
+</button>

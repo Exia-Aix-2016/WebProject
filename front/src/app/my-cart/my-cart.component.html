@@ -1,0 +1,18 @@
+<app-navbar></app-navbar>
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let cartArticle of (cartArticles$ | async)">
+    <div>
+      {{cartArticle.article.name}}
+      <svg-icon src="assets/svg/trash.svg" (click)="delete(cartArticle)"></svg-icon>
+    </div>
+    <div>
+      <svg-icon src="assets/svg/minus.svg" (click)="less(cartArticle)"></svg-icon>
+      <span class="badge badge-primary badge-pill">{{cartArticle.quantity}}</span>
+      <svg-icon src="assets/svg/plus.svg" (click)="more(cartArticle)"></svg-icon>
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Total
+    <span>{{total$ | async}}€</span>
+  </li>
+</ul>
