@@ -42,7 +42,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 * NestJs
 * TypeORM
-* AngularJS
+* Angular
 * JsonWebToken
 * PassportJs
 
