@@ -53,20 +53,30 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 * For building efficient, scalable Node.js server-side applications.
 * Built in TypScript
 
----
 
+
+---
 ## Angular
 
+* full toolset
 * Use TypeScript
 * Community
 
----
++++
+# Component
 
+
+---
+## TypeORM
+
+* ORM based on TypeScript
+
+---
 ## JsonWebToken
 
 ---
 ## PassportJS
 
-+++
 
+---
 ## Conclusion
