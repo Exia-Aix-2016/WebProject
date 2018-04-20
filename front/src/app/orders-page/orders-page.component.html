@@ -3,7 +3,7 @@
   <ng-container *ngFor="let order of (orders$ | async)">
     <li class="list-group-item d-flex justify-content-between align-items-center" (click)="toggleCollapse(order)">
       {{order.user.firstname}} {{order.user.name}}
-      <button type="button" class="btn btn-outline-success" (click)="deliver($event, order)">
+      <button type="button" class="btn btn-outline-primary" (click)="deliver($event, order)">
         Delivred
       </button>
     </li>

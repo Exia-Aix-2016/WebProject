@@ -1,16 +1,17 @@
+<h5 class="user-name">
 
-
-<h5 class="user-name">{{user.name}} {{user.firstname}}</h5>
+    {{user.name}} {{user.firstname}}</h5>
 <div>
     <div class="btn-group" dropdown>
         <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
-            {{user.groupName}}<span class="caret"></span>
-        </button> 
+            {{user.groupName}}
+            <span class="caret"></span>
+        </button>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="dropdown-basic">
             <li role="menuitem" *ngFor="let group of ($groups | async)">
                 <a class="dropdown-item" (click)="edit(group.name, user.id)">{{group.name}}</a>
             </li>
         </ul>
     </div>
-    <button class="btn btn-danger" (click)="delete(user.id)">Delete</button>
+    <button class="btn btn-warning" (click)="delete(user.id)">Delete</button>
 </div>

@@ -1,4 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+$theme-colors: (
+  primary: #dc3545
+);
+
+@import '../node_modules/bootstrap/scss/bootstrap';
+
 
 html,
 body {
