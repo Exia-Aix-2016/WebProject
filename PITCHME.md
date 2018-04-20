@@ -74,6 +74,12 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 ---
 # JsonWebToken
 
+![WebToken](http://www.ekino.com/wp-content/uploads/2015/08/parts.jpg)
+
++++
+
+![JWT](https://www.ekino.com/wp-content/uploads/2015/08/flow-967x1024.jpg)
+
 ---
 # PassportJS
 
