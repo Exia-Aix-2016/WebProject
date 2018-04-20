@@ -24,8 +24,8 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 ---
 # Presentation of the solution
 
-* restAPI - NestJs
-* website  - AngularJs
+* RestAPI - NestJs
+* Website  - Angular
 ---
 
 # Architecture solution
@@ -42,15 +42,15 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 * NestJs
 * TypeORM
-* Angular
-* JsonWebToken
 * PassportJs
+* JsonWebToken
+* Angular
 
 ---
 
 # NestJs
 
-* For building efficient, scalable Node.js server-side applications.
+* For building efficient, scalable Node.js server-side applications
 * Built in TypScript
 
 
@@ -58,7 +58,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 ---
 # Angular
 
-* full toolset
+* Full toolset
 * Use TypeScript
 * Community
 
@@ -79,7 +79,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 ---
 # PassportJS
 
-* Passport is authentication middleware for Node.js.
+* Passport is authentication middleware for Node.js
 
 ---
 ### Demonstration
