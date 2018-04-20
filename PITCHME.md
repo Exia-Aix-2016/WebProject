@@ -30,7 +30,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 # Global architecture
 
-![restAPI]("./gitpitch/globalmodel")
+![restAPI](./gitpitch/globalmodel.png)
 # The Database
 
 ![bdd](https://user-images.githubusercontent.com/7594435/38731510-cbda2802-3f1a-11e8-8559-7d7b55edae17.png)
