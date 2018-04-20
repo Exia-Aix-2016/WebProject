@@ -107,7 +107,5 @@ export class JwtStrategy extends Strategy {
   }
 }
 ```
-+++
-@[1]
 ---
-# Demonstration
+### Demonstration
