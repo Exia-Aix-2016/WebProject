@@ -48,7 +48,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 ---
 
-## NestJs
+# NestJs
 
 * For building efficient, scalable Node.js server-side applications.
 * Built in TypScript
@@ -56,7 +56,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 
 ---
-## Angular
+# Angular
 
 * full toolset
 * Use TypeScript
@@ -67,16 +67,16 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 
 ---
-## TypeORM
+# TypeORM
 
 * ORM based on TypeScript
 
 ---
-## JsonWebToken
+# JsonWebToken
 
 ---
-## PassportJS
+# PassportJS
 
 
 ---
-## Conclusion
+# Demonstration
