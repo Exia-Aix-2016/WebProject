@@ -28,9 +28,9 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 # Our solution
 
-⋅⋅* Creation of the database
-⋅⋅* Back-End: NestJS
-⋅⋅* Front-End: AngularJS
+* Creation of the database
+* Back-End: NestJS
+* Front-End: AngularJS
 
 +++
 # The Database
