@@ -41,22 +41,25 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 # Technologies
 
 * NestJs
+* TypeORM
 * AngularJS
 * JsonWebToken
 * PassportJs
 
-+++
+---
 
 ## NestJs
 
+* For building efficient, scalable Node.js server-side applications.
+* Built in TypScript
 
-+++
+---
 
 ## AngularJs
 
-+++
+---
 
 ## JsonWebToken
 
-+++
+---
 ## PassportJS
