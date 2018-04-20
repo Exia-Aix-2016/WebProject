@@ -55,7 +55,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 ---
 
-## AngularJs
+## Angular
 
 ---
 
@@ -63,3 +63,7 @@ By Mandel VAUBOURG, Hugo RENARD, Baptiste FISCHINI.
 
 ---
 ## PassportJS
+
++++
+
+## Conclusion
